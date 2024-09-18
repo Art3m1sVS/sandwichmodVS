@@ -1,0 +1,269 @@
+{
+  "code": "cheesesandwich",
+  "class": "sandwich.cheesesandwich",
+  "maxstacksizeByType": {
+    "*": 1
+  },
+  "attributes": {
+    "shelvable": true,
+    "cuttingboardable": true,
+    "displaycaseable": true,
+    "bakingProperties": {
+      "temp": 160,
+      "levelFrom": 0,
+      "levelTo": 0.5,
+      "startScaleY": 0.95,
+      "endScaleY": 0.92,
+      "resultCode": "sandwich:grilledcheesesandwich-{type}"
+    },
+    "cuttingboardTransform": {
+      "translation": {
+        "x": 0,
+        "y": 0.16,
+        "z": 0.12
+      },
+      "scale": 1.32
+    },
+    "groundStorageTransform": {
+      "translation": {
+        "x": 0,
+        "y": 0.156,
+        "z": 0
+      },
+      "scale": 1.33
+    },
+    "onDisplayTransform": {
+      "translation": {
+        "x": -0.15,
+        "y": 0,
+        "z": 0.05
+      }
+    },
+    "onshelfTransform": {
+      "translation": {
+        "x": 0,
+        "y": 0.2,
+        "z": 0.25
+      },
+      "scale": 1.41
+    }
+  },
+  "creativeinventory": {
+    "general": [ "*" ],
+    "items": [ "*" ],
+    "sandwich": [ "*" ]
+  },
+  "variantgroups": [
+    {
+      "code": "type",
+      "states": [
+        "cassava",
+        "sunflower",
+        "spelt",
+        "amaranth",
+        "rice",
+        "rye",
+        "flax"
+      ]
+    }
+  ],
+  "shapeByType": {
+    "*-cassava": {
+      "base": "sandwich:item/food/sandwich/cheesesandwichcassava"
+    },
+    "*-amaranth": {
+      "base": "sandwich:item/food/sandwich/cheesesandwichamaranth"
+    },
+    "*-flax": {
+      "base": "sandwich:item/food/sandwich/cheesesandwichflax"
+    },
+    "*-rice": {
+      "base": "sandwich:item/food/sandwich/cheesesandwichrice"
+    },
+    "*-rye": {
+      "base": "sandwich:item/food/sandwich/cheesesandwichrye"
+    },
+    "*-spelt": {
+      "base": "sandwich:item/food/sandwich/cheesesandwichspelt"
+    },
+    "*-sunflower": {
+      "base": "sandwich:item/food/sandwich/cheesesandwichsunflower"
+    },
+    "*": {
+      "base": "sandwich:item/food/sandwich/cheesesandwichcassava"
+    }
+  },
+  "texturesByType": {
+    "*-cassava": {
+      "cheddarjack": { "base": "game:block/food/dairy/cheddarjack" },
+      "peanutbutterbread": { "base": "sandwich:item/food/sandwich/peanutbutterbread/cassavapeanutbutterbread" },
+      "cassavabread": { "base": "game:item/food/grain/cassavabread" }
+    },
+    "*-amaranth": {
+      "cheddarjack": { "base": "game:block/food/dairy/cheddarjack" },
+      "peanutbutterbread": { "base": "sandwich:item/food/sandwich/peanutbutterbread/amaranthpeanutbutterbread" },
+      "amaranthbread": { "base": "game:item/food/grain/amaranthbread" }
+    },
+    "*-flax": {
+      "cheddarjack": { "base": "game:block/food/dairy/cheddarjack" },
+      "peanutbutterbread": { "base": "sandwich:item/food/sandwich/peanutbutterbread/flaxpeanutbutterbread" },
+      "flaxbread": { "base": "game:item/food/grain/flaxbread" }
+    },
+    "*-spelt": {
+      "cheddarjack": { "base": "game:block/food/dairy/cheddarjack" },
+      "peanutbutterbread": { "base": "sandwich:item/food/sandwich/peanutbutterbread/speltpeanutbutterbread" },
+      "speltbread": { "base": "game:item/food/grain/speltbread" }
+    },
+    "*-sunflower": {
+      "cheddarjack": { "base": "game:block/food/dairy/cheddarjack" },
+      "peanutbutterbread": { "base": "sandwich:item/food/sandwich/peanutbutterbread/sunflowerpeanutbutterbread" },
+      "sunflowerbread": { "base": "game:item/food/grain/sunflowerbread" }
+    },
+    "*-rye": {
+      "cheddarjack": { "base": "game:block/food/dairy/cheddarjack" },
+      "peanutbutterbread": { "base": "sandwich:item/food/sandwich/peanutbutterbread/ryepeanutbutterbread" },
+      "ryebread": { "base": "game:item/food/grain/ryebread" }
+    },
+    "*-rice": {
+      "cheddarjack": { "base": "game:block/food/dairy/cheddarjack" },
+      "peanutbutterbread": { "base": "sandwich:item/food/sandwich/peanutbutterbread/ricepeanutbutterbread" },
+      "ricebread": { "base": "game:item/food/grain/ricebread" }
+    },
+    "*": {
+      "cheddarjack": { "base": "game:block/food/dairy/cheddarjack" },
+      "peanutbutterbread": { "base": "sandwich:item/food/sandwich/peanutbutterbread/cassavapeanutbutterbread" },
+      "cassavabread": { "base": "game:item/food/grain/cassavabread" }
+    }
+  },
+  "behaviors": [
+    {
+      "name": "GroundStorable",
+      "properties": {
+        "layout": "Quadrants",
+        "wallOffY": 1,
+        "sprintKey": true,
+        "selectionBox": {
+          "x1": 0,
+          "y1": 0,
+          "z1": 0,
+          "x2": 1,
+          "y2": 0.1,
+          "z2": 1
+        },
+        "collisionBox": {
+          "x1": 0,
+          "y1": 0,
+          "z1": 0,
+          "x2": 0,
+          "y2": 0,
+          "z2": 0
+        }
+      }
+    }
+  ],
+  "blockmaterial": "Wood",
+  "lightAbsorption": 0,
+  "faceCullMode": "NeverCull",
+  "emitSideAo": { "all": false },
+  "sidesolid": { "all": false },
+  "sideopaque": { "all": false },
+  "replaceable": 999,
+  "resistance": 1.5,
+
+  "materialDensity": 200,
+  "guiTransform": {
+    "translation": {
+      "x": 5,
+      "y": 0,
+      "z": 0
+    },
+    "rotation": {
+      "x": -15,
+      "y": 18,
+      "z": 0
+    },
+    "origin": {
+      "x": 0.5,
+      "y": 0,
+      "z": 0.5
+    },
+    "scale": 5.35
+  },
+  "fpHandTransform": {
+    "translation": {
+      "x": 0, //0
+      "y": 0.24, //0.24
+      "z": 0.3 //0.3
+    },
+    "rotation": {
+      "x": 104, //104
+      "y": 0,
+      "z": 71
+    },
+    "origin": {
+      "x": 0.5,
+      "y": 0.1,
+      "z": 0.5
+    },
+    "scale": 2.5
+  },
+  "tpHandTransform": {
+    "translation": {
+      "x": -0.68,
+      "y": -0,
+      "z": -0.42
+    },
+    "rotation": {
+      "x": -2,
+      "y": -173,
+      "z": 18
+    },
+    "scale": 1.16
+  },
+  "groundTransform": {
+    "translation": {
+      "x": 0,
+      "y": 0,
+      "z": 0
+    },
+    "rotation": {
+      "x": 90,
+      "y": 0,
+      "z": 0
+    },
+    "origin": {
+      "x": 0.5,
+      "y": 0.5,
+      "z": 0.5299
+    },
+    "scale": 4.56
+  },
+  "combustibleProps": {
+    "burnTemperature": 600,
+    "burnDuration": 10
+  },
+  "nutritionPropsByType": {
+    "*-cheddarjack": {
+      "saturation": 80,
+      "foodcategory": "Dairy"
+    },
+    "*": {
+      "saturation": 320,
+      "foodcategory": "Grain"
+    }
+  },
+  "transitionablePropsByType": {
+    "*": [
+      {
+        "type": "Perish",
+        "freshHours": { "avg": 280 },
+        "transitionHours": { "avg": 24 },
+        "transitionedStack": {
+          "type": "item",
+          "code": "game:rot"
+        },
+        "transitionRatio": 1
+      }
+    ]
+  }
+}

@@ -1,0 +1,15 @@
+{
+    "type": "code",
+    "modid": "sandwich",
+    "name": "Sammiches",
+    "authors": [
+        "Art3m1s"
+    ],
+    "description": "Sammiches adds sandwiches and several other bread products into the game.",
+    "version": "1.0.0",
+  "dependencies": {
+    "game": "",
+    "expandedfoods": "",
+    "aculinaryartillery":  ""
+  }
+}

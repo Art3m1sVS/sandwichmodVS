@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.11.35222.181
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "sandwich", "sandwich\sandwich.csproj", "{7AF461D7-5953-40DF-B466-16770079B750}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CakeBuild", "ZZCakeBuild\CakeBuild.csproj", "{4F8216C6-C80F-4216-9037-6C2292E92D42}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{7AF461D7-5953-40DF-B466-16770079B750}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7AF461D7-5953-40DF-B466-16770079B750}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7AF461D7-5953-40DF-B466-16770079B750}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7AF461D7-5953-40DF-B466-16770079B750}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4F8216C6-C80F-4216-9037-6C2292E92D42}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4F8216C6-C80F-4216-9037-6C2292E92D42}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4F8216C6-C80F-4216-9037-6C2292E92D42}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4F8216C6-C80F-4216-9037-6C2292E92D42}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {746B5CC4-C524-4924-A1A4-66524F8508BA}
+	EndGlobalSection
+EndGlobal

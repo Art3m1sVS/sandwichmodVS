@@ -1,0 +1,232 @@
+{
+  "code": "peanutbutterbread",
+  "class": "sandwich.peanutbutterbread",
+  "maxstacksizeByType": {
+    "*": 64
+  },
+  "creativeinventory": {
+    "general": [ "*" ],
+    "items": [ "*" ],
+    "sandwich": [ "*" ]
+  },
+  "variantgroups": [
+    {
+      "code": "type",
+      "states": [ "cassava", "amaranth", "sunflower", "flax", "rye", "spelt", "rice" ]
+    }
+  ],
+  "shapeByType": {
+    "*-cassava": {
+      "base": "sandwich:item/food/bread/peanutbutterbread/peanutbutterbreadcassava"
+    },
+    "*-amaranth": {
+      "base": "sandwich:item/food/bread/peanutbutterbread/peanutbutterbreadamaranth"
+    },
+    "*-flax": {
+      "base": "sandwich:item/food/bread/peanutbutterbread/peanutbutterbreadflax"
+    },
+    "*-rice": {
+      "base": "sandwich:item/food/bread/peanutbutterbread/peanutbutterbreadrice"
+    },
+    "*-rye": {
+      "base": "sandwich:item/food/bread/peanutbutterbread/peanutbutterbreadrye"
+    },
+    "*-spelt": {
+      "base": "sandwich:item/food/bread/peanutbutterbread/peanutbutterbreadspelt"
+    },
+    "*-sunflower": {
+      "base": "sandwich:item/food/bread/peanutbutterbread/peanutbutterbreadsunflower"
+    }
+  },
+  "texturesByType": {
+    "*-cassava": {
+      "all": { "base": "sandwich:item/food/sandwich/peanutbutterbread/cassavapeanutbutterbread" }
+    },
+    "*-amaranth": {
+      "all": { "base": "sandwich:item/food/sandwich/peanutbutterbread/amaranthpeanutbutterbread" }
+    },
+    "*-flax": {
+      "all": { "base": "sandwich:item/food/sandwich/peanutbutterbread/flaxpeanutbutterbread" }
+    },
+    "*-rice": {
+      "all": { "base": "sandwich:item/food/sandwich/peanutbutterbread/ricepeanutbutterbread" }
+    },
+    "*-rye": {
+      "all": { "base": "sandwich:item/food/sandwich/peanutbutterbread/ryepeanutbutterbread" }
+    },
+    "*-spelt": {
+      "all": { "base": "sandwich:item/food/sandwich/peanutbutterbread/speltpeanutbutterbread" }
+    },
+    "*-sunflower": {
+      "all": { "base": "sandwich:item/food/sandwich/peanutbutterbread/sunflowerpeanutbutterbread" }
+    }
+  },
+  "attributes": {
+    "shelvable": true,
+    "cuttingboardable": true,
+    "displaycaseable": true,
+    "cuttingboardTransform": {
+      "translation": {
+        "x": 0,
+        "y": 0.16,
+        "z": 0.12
+      },
+      "scale": 1.32
+    },
+    "groundStorageTransform": {
+      "translation": {
+        "x": 0,
+        "y": 0.17,
+        "z": 0.05
+      },
+      "scale": 1.33
+    }
+  },
+  "onDisplayTransform": {
+    "translation": {
+      "x": -0.15,
+      "y": 0,
+      "z": 0.05
+    },
+    "onshelfTransform": {
+      "translation": {
+        "x": 0,
+        "y": 0.05,
+        "z": 0.1
+      },
+      "scale": 1.09
+    }
+  },
+  "behaviors": [
+    {
+      "name": "GroundStorable",
+      "properties": {
+        "layout": "Quadrants",
+        "wallOffY": 1,
+        "sprintKey": true,
+        "selectionBox": {
+          "x1": 0,
+          "y1": 0,
+          "z1": 0,
+          "x2": 1,
+          "y2": 0.1,
+          "z2": 1
+        },
+        "collisionBox": {
+          "x1": 0,
+          "y1": 0,
+          "z1": 0,
+          "x2": 0,
+          "y2": 0,
+          "z2": 0
+        }
+      }
+    }
+  ],
+  "blockmaterial": "Wood",
+  "lightAbsorption": 0,
+  "faceCullMode": "NeverCull",
+  "emitSideAo": { "all": false },
+  "sidesolid": { "all": false },
+  "sideopaque": { "all": false },
+  "replaceable": 999,
+  "resistance": 1.5,
+  "combustibleProps": {
+    "burnTemperature": 600,
+    "burnDuration": 10
+  },
+
+  "nutritionPropsByType": {
+    "*": {
+      "saturation": 370,
+      "foodcategory": "Grain"
+    }
+  },
+  "transitionablePropsByType": {
+    "*": [
+      {
+        "type": "Perish",
+        "freshHours": { "avg": 150 },
+        "transitionHours": { "avg": 24 },
+        "transitionedStack": {
+          "type": "item",
+          "code": "game:rot"
+        },
+        "transitionRatio": 1
+      }
+    ]
+  },
+  "materialDensity": 200,
+  "groundTransform": {
+    "translation": {
+      "x": 0,
+      "y": 0.45,
+      "z": 0
+    },
+    "rotation": {
+      "x": 0,
+      "y": 0,
+      "z": 0
+    },
+    "origin": {
+      "x": 0.5,
+      "y": 0.5,
+      "z": 0.5299
+    },
+    "scale": 4.26
+  },
+  "guiTransform": {
+    "translation": {
+      "x": 4,
+      "y": 5,
+      "z": 0
+    },
+    "rotation": {
+      "x": -37,
+      "y": 26,
+      "z": 180
+    },
+    "origin": {
+      "x": 0.52,
+      "y": 0.07,
+      "z": 0.5
+    },
+    "scale": 5.16
+  },
+  "tpHandTransform": {
+    "translation": {
+      "x": -0.65,
+      "y": -0.25,
+      "z": -0.44
+    },
+    "rotation": {
+      "x": 180,
+      "y": 0,
+      "z": 0
+    },
+    "origin": {
+      "x": 0.5,
+      "y": 0.13,
+      "z": 0.5
+    },
+    "scale": 0.99
+  },
+  "fpHandTransform": {
+    "translation": {
+      "x": 0, //0
+      "y": 0.24, //0.24
+      "z": 0.3 //0.3
+    },
+    "rotation": {
+      "x": 104, //104
+      "y": 0,
+      "z": 71
+    },
+    "origin": {
+      "x": 0.5,
+      "y": 0.1,
+      "z": 0.5
+    },
+    "scale": 2.5
+  }
+}

@@ -1,0 +1,36 @@
+{
+	"ingredientPattern": "P",
+	"ingredients": {
+		"P": {
+			"type": "item",
+			"code": "game:plank-*",
+			"name": "wood"
+		}
+	},
+	"width": 1,
+	"height": 1,
+	"output": {
+		"type": "block",
+		"code": "sandwich:cuttingboard",
+		"quantity": 1
+	}
+}
+
+
+//{
+//	"ingredientPattern": "L",
+//	"ingredients": {
+//		"L": {
+//			"type": "block",
+//			"code": "game:log-*-ud",
+//			"name": "wood"
+//		}
+//	},
+//	"width": 1,
+//	"height": 1,
+//	"output": {
+//		"type": "block",
+//		"code": "planks-{wood}-hor",
+//		"quantity": 4
+//	}
+//}
