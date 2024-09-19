@@ -1,6 +1,6 @@
 {
   "code": "breadslice",
-  "class": "ExpandedFood",
+  "class": "sandwich.ItemSandwich",
   "maxstacksizeByType": {
     "*": 64
   },
@@ -16,26 +16,8 @@
     }
   ],
   "shapeByType": {
-    "*-cassava": {
-      "base": "sandwich:item/food/bread/cassavasandwichbread"
-    },
-    "*-amaranth": {
-      "base": "sandwich:item/food/bread/amaranthsandwichbread"
-    },
-    "*-flax": {
-      "base": "sandwich:item/food/bread/flaxsandwichbread"
-    },
-    "*-rice": {
-      "base": "sandwich:item/food/bread/ricesandwichbread"
-    },
-    "*-rye": {
-      "base": "sandwich:item/food/bread/ryesandwichbread"
-    },
-    "*-spelt": {
-      "base": "sandwich:item/food/bread/speltsandwichbread"
-    },
-    "*-sunflower": {
-      "base": "sandwich:item/food/bread/sunflowersandwichbread"
+    "*": {
+      "base": "sandwich:item/food/bread/{type}sandwichbread"
     }
   },
   "texturesByType": {
@@ -63,8 +45,19 @@
   },
   "attributes": {
     "shelvable": true,
-    "cuttingboardable": true,
+    //"cuttingboardable": true,
     "displaycaseable": true,
+    "sandwich:canPutOnCuttingBoard": true,
+    "sandwich:whenOnSandwich": {
+      "shape": { "base": "sandwich:item/food/bread/{type}sandwichbread" },
+      "shapeLast": { "base": "sandwich:item/sandwich_ingredients_vanilla/slicedbread" },
+      "size": 0.0625, // 1/16
+      "rotate": true,
+      "rotation": {
+        "avg": 1,
+        "var": 0.1
+      }
+    },
     "madeWith": {
 
     },
@@ -173,6 +166,14 @@
   },
 
   "nutritionPropsByType": {
+    "*-flax-*": {
+      "saturation": 80,
+      "foodcategory": "Grain"
+    },
+    "*-rice-*": {
+      "saturation": 165,
+      "foodcategory": "Grain"
+    },
     "*": {
       "saturation": 20,
       "foodcategory": "Grain"

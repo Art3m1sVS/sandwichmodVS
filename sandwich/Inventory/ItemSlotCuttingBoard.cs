@@ -20,4 +20,9 @@ public class ItemSlotCuttingBoard : ItemSlot
     {
         return fromSlot.IsCuttingBoardable() && base.CanHold(fromSlot);
     }
+
+    public static bool IsStorable(CollectibleObject obj)
+    {
+        return obj?.Attributes?.KeyExists(attributeCodeCuttingBoard) == true && obj.Attributes[attributeCodeCuttingBoard].AsBool();
+    }
 }

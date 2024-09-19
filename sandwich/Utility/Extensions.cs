@@ -127,4 +127,14 @@ public static class Extensions
 
         return sb.ToString();
     }
+
+    public static Dictionary<string, CompositeTexture> GetTextures(this ItemStack stack)
+    {
+        return stack.Class switch
+        {
+            EnumItemClass.Item => stack.Item.Textures,
+            EnumItemClass.Block => stack.Block.Textures.ToDictionary(x => x.Key, y => y.Value.Clone()),
+            _ => new()
+        };
+    }
 }
