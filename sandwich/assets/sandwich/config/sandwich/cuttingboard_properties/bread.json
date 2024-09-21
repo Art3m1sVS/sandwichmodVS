@@ -2,8 +2,8 @@
   "bread-*-perfect": {
     "convertTo": {
       "type": "item",
-      "code": "sandwich:breadslice-{type}",
-      "quantity": 2
+      "code": "sandwich:slicedbread-{type}-{state}",
+      "quantity": 4
     },
     "tool": ["Knife", "Sword"]
   }

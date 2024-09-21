@@ -8,7 +8,7 @@ using ACulinaryArtillery;
 
 namespace sandwich.Items
 {
-    public class ItemBreadSlice : ItemExpandedFood
+    public class ItemBreadSlice : ItemSandwich
     {
 
 

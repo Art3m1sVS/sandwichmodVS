@@ -1,210 +1,138 @@
-﻿global using static sandwich.Constants;
-global using Newtonsoft.Json.Linq;
-global using System;
-global using System.Collections.Generic;
-global using System.Linq;
-global using System.Text;
-global using Vintagestory.API.Client;
-global using Vintagestory.API.Common;
-global using Vintagestory.API.Config;
-global using Vintagestory.API.Datastructures;
-global using Vintagestory.API.MathTools;
-global using Vintagestory.API.Util;
-global using Vintagestory.Client.NoObf;
-global using Vintagestory.GameContent;
-using sandwich.Items;
-using ACulinaryArtillery;
+﻿using Newtonsoft.Json.Linq;
+using sandwich;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using Vintagestory.API.Common;
 using Vintagestory.API.Server;
+using Vintagestory.API.Util;
 
 [assembly: ModInfo(name: "Sammiches", modID: "sandwich")]
 
 
-namespace sandwich
+namespace sandwich;
+
+public class sandwichModSystem : ModSystem
 {
+    public Dictionary<string, WhenOnSandwichProperties> SandwichPatches { get; set; } = new();
+    public Dictionary<string, CuttingBoardProperties> CuttingBoardPatches { get; set; } = new();
+    public Dictionary<string, bool> CuttingBoardStorablePatches { get; set; } = new();
 
-    public class sandwichModSystem : ModSystem
+    public override void Start(ICoreAPI api)
     {
-        public Dictionary<string, WhenOnSandwichProperties> SandwichPatches { get; set; } = new();
-        public Dictionary<string, CuttingBoardProperties> CuttingBoardPatches { get; set; } = new();
-        public Dictionary<string, bool> CuttingBoardStorablePatches { get; set; } = new();
-        public Transformations Transformations { get; } = new();
+        api.RegisterItemClass("sandwich.ItemSandwich", typeof(ItemSandwich));
+        api.RegisterBlockClass("sandwich.BlockCuttingBoard", typeof(BlockCuttingBoard));
+        api.RegisterBlockEntityClass("sandwich.CuttingBoard", typeof(BlockEntityCuttingBoard));
+    }
 
-        // Called on server and client
-        // Useful for registering block/entity classes on both sides
-        public override void Start(ICoreAPI api)
+    public override void StartServerSide(ICoreServerAPI api)
+    {
+        if (!api.World.Config.HasAttribute(worldConfigSandwichLayersLimit))
         {
-            base.Start(api);
-            api.RegisterItemClass(Mod.Info.ModID + ".breadslice", typeof(ItemExpandedFood));
-            api.RegisterItemClass(Mod.Info.ModID + ".peanutbuttersandwich", typeof(ItemPeanutButterHoneySandwich));
-            api.RegisterItemClass(Mod.Info.ModID + ".honeybread", typeof(ItemHoneyBread));
-            api.RegisterItemClass(Mod.Info.ModID + ".peanutbutterbread", typeof(ItemHoneyBread));
-            api.RegisterItemClass(Mod.Info.ModID + ".cheesesandwich", typeof(ItemCheeseSandwich));
-            api.RegisterItemClass(Mod.Info.ModID + ".grilledcheesesandwich", typeof(ItemGrilledCheeseSandwich));
-            api.RegisterItemClass(Mod.Info.ModID + ".cheeseslice", typeof(ItemExpandedFood));
-            api.RegisterItemClass(Mod.Info.ModID + ".cheesebreadslice", typeof(ItemCheeseBreadSlice));
-            api.RegisterItemClass(Mod.Info.ModID + ".redmeatsandwich", typeof(ItemRedMeatSandwich));
-            api.RegisterItemClass(Mod.Info.ModID + ".redmeatcheesesandwich", typeof(ItemRedMeatCheeseSandwich));
-            api.RegisterItemClass(Mod.Info.ModID + ".redmeatbread", typeof(ItemRedMeatBread));
-            api.RegisterItemClass(Mod.Info.ModID + ".redmeatslice", typeof(ItemRedMeatSlice));
-            api.RegisterItemClass(Mod.Info.ModID + ".ItemSandwich", typeof(ItemSandwich));
-
-            api.RegisterBlockBehaviorClass("sandwich.BbName", typeof(BlockBehaviorName));
-            api.RegisterBlockClass(Mod.Info.ModID + ".cuttingboard", typeof(BlockCuttingBoard));
-            api.RegisterBlockEntityClass("sandwich.blockentitycuttingboard", typeof(BlockEntityCuttingBoard));
-
+            api.World.Config.SetInt(worldConfigSandwichLayersLimit, defaultSandwichLayersLimit);
         }
+    }
 
-        public override void StartClientSide(ICoreClientAPI api)
+    public override void AssetsLoaded(ICoreAPI api)
+    {
+        foreach (IAsset asset in api.Assets.GetMany("config/sandwich/sandwich_ingredients/"))
         {
-            base.StartClientSide(api);
-
-            foreach (TransformConfig config in TransformConfigs)
+            try
             {
-                if (!GuiDialogTransformEditor.extraTransforms.Contains(config))
-                {
-                    GuiDialogTransformEditor.extraTransforms.Add(config);
-                }
+                SandwichPatches.AddRange(asset.ToObject<Dictionary<string, WhenOnSandwichProperties>>());
+            }
+            catch (Exception e)
+            {
+                api.Logger.Error($"[Sandwich] Failed loading sandwich ingredients from file {asset.Location}:");
+                api.Logger.Error(e);
             }
         }
 
-        public override void StartServerSide(ICoreServerAPI api)
+        foreach (IAsset asset in api.Assets.GetMany("config/sandwich/cuttingboard_properties/"))
         {
-            if (!api.World.Config.HasAttribute(worldConfigSandwichLayersLimit))
+            try
             {
-                api.World.Config.SetInt(worldConfigSandwichLayersLimit, defaultSandwichLayersLimit);
+                CuttingBoardPatches.AddRange(asset.ToObject<Dictionary<string, CuttingBoardProperties>>());
+            }
+            catch (Exception e)
+            {
+                api.Logger.Error($"[Sandwich] Failed loading cutting board patches from file {asset.Location}:");
+                api.Logger.Error(e);
             }
         }
 
-        public override void AssetsLoaded(ICoreAPI api)
+        foreach (IAsset asset in api.Assets.GetMany("config/sandwich/cuttingboard_storable/"))
         {
-            foreach (IAsset asset in api.Assets.GetMany("config/sandwich/sandwich_ingredients/"))
+            try
             {
-                try
-                {
-                    SandwichPatches.AddRange(asset.ToObject<Dictionary<string, WhenOnSandwichProperties>>());
-                }
-                catch (Exception e)
-                {
-                    api.Logger.Error($"[Sandwich] Failed loading sandwich ingredients from file {asset.Location}:");
-                    api.Logger.Error(e);
-                }
+                CuttingBoardStorablePatches.AddRange(asset.ToObject<Dictionary<string, bool>>());
             }
-            foreach (IAsset asset in api.Assets.GetMany("config/sandwich/cuttingboard_properties/"))
+            catch (Exception e)
             {
-                try
-                {
-                    CuttingBoardPatches.AddRange(asset.ToObject<Dictionary<string, CuttingBoardProperties>>());
-                }
-                catch (Exception e)
-                {
-                    api.Logger.Error($"[Sandwich] Failed loading cutting board patches from file {asset.Location}:");
-                    api.Logger.Error(e);
-                }
+                api.Logger.Error($"[Sandwich] Failed loading 'storable on cutting board' patches from file {asset.Location}:");
+                api.Logger.Error(e);
             }
-
-            foreach (IAsset asset in api.Assets.GetMany("config/sandwich/cuttingboard_storable/"))
-            {
-                try
-                {
-                    CuttingBoardStorablePatches.AddRange(asset.ToObject<Dictionary<string, bool>>());
-                }
-                catch (Exception e)
-                {
-                    api.Logger.Error($"[Sandwich] Failed loading 'storable on cutting board' patches from file {asset.Location}:");
-                    api.Logger.Error(e);
-                }
-            }
-            Transformations.CuttingBoardTransform = api.LoadAsset<Dictionary<string, ModelTransform>>("sandwich:config/transformations/cuttingboard.json");
         }
+    }
 
-        public override void AssetsFinalize(ICoreAPI api)
+    public override void AssetsFinalize(ICoreAPI api)
+    {
+        foreach (CollectibleObject obj in api.World.Collectibles)
         {
-            foreach (CollectibleObject obj in api.World.Collectibles)
+            if (obj == null || obj.Code == null)
             {
-                PatchCuttingBoardable(obj);
+                continue;
             }
 
-            foreach (CollectibleObject obj in api.World.Collectibles)
+            foreach ((string code, WhenOnSandwichProperties props) in SandwichPatches)
             {
-                if (obj == null || obj.Code == null)
+                if (obj.WildCardMatch(code) && !WhenOnSandwichProperties.HasAtribute(obj) && obj.HasNutrition())
                 {
-                    continue;
+                    obj.EnsureAttributesNotNull();
+                    WhenOnSandwichProperties.SetAtribute(obj, props);
+                    break;
                 }
+            }
 
-                foreach ((string code, WhenOnSandwichProperties props) in SandwichPatches)
+            foreach ((string code, CuttingBoardProperties props) in CuttingBoardPatches)
+            {
+                if (obj.WildCardMatch(code) && !CuttingBoardProperties.HasAtribute(obj))
                 {
-                    if (obj.WildCardMatch(code) && !WhenOnSandwichProperties.HasAtribute(obj) && obj.HasNutrition())
+                    foreach ((string key, string value) in obj.Variant)
                     {
-                        obj.EnsureAttributesNotNull();
-                        WhenOnSandwichProperties.SetAtribute(obj, props);
-                        break;
+                        props.ConvertTo.FillPlaceHolder(key, value);
                     }
-                }
 
-                foreach ((string code, CuttingBoardProperties props) in CuttingBoardPatches)
-                {
-                    if (obj.WildCardMatch(code) && !CuttingBoardProperties.HasAtribute(obj))
-                    {
-                        foreach ((string key, string value) in obj.Variant)
-                        {
-                            props.ConvertTo.FillPlaceHolder(key, value);
-                        }
-
-                        obj.EnsureAttributesNotNull();
-                        CuttingBoardProperties.SetAtribute(obj, props);
-                        break;
-                    }
-                }
-
-                foreach ((string code, bool storable) in CuttingBoardStorablePatches)
-                {
-                    if (obj.WildCardMatch(code) && (obj.Attributes == null || !obj.Attributes.KeyExists(attributeCodeCuttingBoard)))
-                    {
-                        obj.EnsureAttributesNotNull();
-                        obj.Attributes.Token[attributeCodeCuttingBoard] = JToken.FromObject(storable);
-                        break;
-                    }
-                }
-
-                if (WhenOnSandwichProperties.HasAtribute(obj) || obj?.Attributes?[attributeCodeCuttingBoard]?.AsBool() == true)
-                {
-                    if (obj.CreativeInventoryTabs != null && obj.CreativeInventoryTabs.Any() && !obj.CreativeInventoryTabs.Contains(Constants.ModId))
-                    {
-                        obj.CreativeInventoryTabs = obj.CreativeInventoryTabs.Append(Constants.ModId);
-                    }
+                    obj.EnsureAttributesNotNull();
+                    CuttingBoardProperties.SetAtribute(obj, props);
+                    break;
                 }
             }
 
-            api.World.Logger.Event("started '{0}' mod", Mod.Info.Name);
-        }
-
-        private void PatchCuttingBoardable(CollectibleObject obj)
-        {
-            ModelTransform transform = obj.GetTransform(Transformations.CuttingBoardTransform);
-
-            if (WildcardUtil.Match(CuttingBoardableCodes, obj.Code.ToString()) || CuttingBoardableTypes.Contains(obj.GetType()))
+            foreach ((string code, bool storable) in CuttingBoardStorablePatches)
             {
-                // obj.AddToCreativeInv(tab: ShelvableOne); // for testing
-
-                obj.EnsureAttributesNotNull();
-                obj.SetAttribute(CuttingBoardable, true);
-
-                if (transform != null)
+                if (obj.WildCardMatch(code) && (obj.Attributes == null || !obj.Attributes.KeyExists(attributeCodeCuttingBoard)))
                 {
-                    obj.SetAttribute(CuttingBoardTransform, transform);
+                    obj.EnsureAttributesNotNull();
+                    obj.Attributes.Token[attributeCodeCuttingBoard] = JToken.FromObject(storable);
+                    break;
+                }
+            }
+
+            if (WhenOnSandwichProperties.HasAtribute(obj) || obj?.Attributes?[attributeCodeCuttingBoard]?.AsBool() == true)
+            {
+                if (obj.CreativeInventoryTabs != null && obj.CreativeInventoryTabs.Any() && !obj.CreativeInventoryTabs.Contains(ModId))
+                {
+                    obj.CreativeInventoryTabs = obj.CreativeInventoryTabs.Append(ModId);
                 }
             }
         }
+    }
 
-        public override bool ShouldLoad(EnumAppSide forSide)
-        {
-            return true;
-        }
-        public override void Dispose()
-        {
-            SandwichPatches?.Clear();
-            CuttingBoardPatches?.Clear();
-            CuttingBoardStorablePatches?.Clear();
-        }
+    public override void Dispose()
+    {
+        SandwichPatches?.Clear();
+        CuttingBoardPatches?.Clear();
+        CuttingBoardStorablePatches?.Clear();
     }
 }
