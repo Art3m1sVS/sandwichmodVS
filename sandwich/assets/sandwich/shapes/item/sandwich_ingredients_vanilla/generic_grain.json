@@ -8,11 +8,10 @@
 	"textureSizes": {
 	},
 	"textures": {
-		"base": "game:speltbread"
 	},
 	"elements": [
 		{
-			"name": "flaxbread 19",
+			"name": "generic1",
 			"from": [ 6.0, 0.0, 8.0 ],
 			"to": [ 9.5, 2.5, 8.5 ],
 			"uv": [ 0.5, 0.0 ],
@@ -20,38 +19,38 @@
 			"rotationX": -90.0,
 			"faces": {
 				"north": {
-					"texture": "#speltbread",
+					"texture": "#all",
 					"uv": [ 5.0, 1.0, 6.5, 4.5 ],
 					"rotation": 90,
 					"autoUv": false
 				},
 				"east": {
-					"texture": "#speltbread",
+					"texture": "#all",
 					"uv": [ 5.0, 7.0, 8.0, 8.0 ],
 					"rotation": 90,
 					"autoUv": false,
 					"windMode": [ -1, -1, -1, -1 ]
 				},
 				"south": {
-					"texture": "#speltbread",
+					"texture": "#all",
 					"uv": [ 9.0, 3.0, 14.0, 6.0 ],
 					"autoUv": false,
 					"windMode": [ -1, -1, -1, -1 ]
 				},
 				"west": {
-					"texture": "#speltbread",
+					"texture": "#all",
 					"uv": [ 8.0, 7.0, 5.0, 8.0 ],
 					"rotation": 90,
 					"autoUv": false
 				},
 				"up": {
-					"texture": "#speltbread",
+					"texture": "#all",
 					"uv": [ 0.5, 1.5, 6.5, 2.5 ],
 					"autoUv": false,
 					"windMode": [ -1, -1, -1, -1 ]
 				},
 				"down": {
-					"texture": "#speltbread",
+					"texture": "#all",
 					"uv": [ 3.0, 1.0, 2.0, 7.0 ],
 					"rotation": 90,
 					"autoUv": false
@@ -59,7 +58,7 @@
 			},
 			"children": [
 				{
-					"name": "flaxbread 1 top20",
+					"name": "generic2",
 					"from": [ 0.5, 2.5, 0.0 ],
 					"to": [ 3.0, 3.0, 0.5 ],
 					"uv": [ 0.5, 0.0 ],
@@ -67,29 +66,29 @@
 					"rotationX": 0.0,
 					"faces": {
 						"north": {
-							"texture": "#speltbread",
+							"texture": "#all",
 							"uv": [ 1.5, 7.0, 7.0, 8.0 ],
 							"autoUv": false
 						},
 						"east": {
-							"texture": "#speltbread",
+							"texture": "#all",
 							"uv": [ 4.5, 3.5, 5.5, 4.5 ],
 							"rotation": 90,
 							"autoUv": false
 						},
 						"south": {
-							"texture": "#speltbread",
+							"texture": "#all",
 							"uv": [ 9.0, 3.5, 13.5, 4.5 ],
 							"autoUv": false
 						},
 						"west": {
-							"texture": "#speltbread",
+							"texture": "#all",
 							"uv": [ 5.0, 3.0, 6.0, 4.0 ],
 							"rotation": 90,
 							"autoUv": false
 						},
 						"up": {
-							"texture": "#speltbread",
+							"texture": "#all",
 							"uv": [ 0.5, 3.0, 6.0, 4.0 ],
 							"autoUv": false
 						}

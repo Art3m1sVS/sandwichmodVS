@@ -79,99 +79,22 @@
 		  <HintPath>$(VINTAGE_STORY)/Lib/OpenTK.Mathematics.dll</HintPath>
 		  <Private>false</Private>
 	  </Reference>
+	  <Reference Include="Lib2d">
+		  <HintPath>**/Lib/Lib2d.dll</HintPath>
+		  <Private>false</Private>
+	  </Reference>
   </ItemGroup>
 
 <ItemGroup>
-  <Content Include="assets\**">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-  </Content>
-  <Compile Remove="assets\sandwich\shapes\item\sandwich_ingredients_vanilla\**" />
-  <Compile Remove="src\**" />
-  <Compile Remove="Utilities\**" />
-  <Content Remove="assets\sandwich\shapes\item\sandwich_ingredients_vanilla\**" />
-  <EmbeddedResource Remove="assets\sandwich\shapes\item\sandwich_ingredients_vanilla\**" />
-  <EmbeddedResource Remove="src\**" />
-  <EmbeddedResource Remove="Utilities\**" />
-  <None Remove="assets\sandwich\shapes\item\sandwich_ingredients_vanilla\**" />
-  <None Remove="src\**" />
-  <None Remove="Utilities\**" />
-  <None Remove="assets\sandwich\blocktypes\cuttingboard.json" />
-  <None Remove="assets\sandwich\config\cuttingboard_storable\bread.json" />
-  <None Remove="assets\sandwich\config\handbook\30-sammichesguide1.json" />
-  <None Remove="assets\sandwich\config\sandwich_ingredients\liquid.json" />
-  <None Remove="assets\sandwich\config\sandwich_ingredients\vanilla\dairy.json" />
-  <None Remove="assets\sandwich\config\sandwich_ingredients\vanilla\fruit.json" />
-  <None Remove="assets\sandwich\config\sandwich_ingredients\vanilla\grain.json" />
-  <None Remove="assets\sandwich\config\sandwich_ingredients\vanilla\insect.json" />
-  <None Remove="assets\sandwich\config\sandwich_ingredients\vanilla\legume.json" />
-  <None Remove="assets\sandwich\config\sandwich_ingredients\vanilla\meat.json" />
-  <None Remove="assets\sandwich\config\sandwich_ingredients\vanilla\mushroom.json" />
-  <None Remove="assets\sandwich\config\sandwich_ingredients\vanilla\vegetable.json" />
-  <None Remove="assets\sandwich\config\sandwich_ingredients\vanilla\y-other.json" />
-  <None Remove="assets\sandwich\config\transformations\cuttingboard.json" />
-  <None Remove="assets\sandwich\itemtypes\food\cheesebreadslice.json" />
-  <None Remove="assets\sandwich\itemtypes\food\cheesesandwich.json" />
-  <None Remove="assets\sandwich\itemtypes\food\cheeseslice.json" />
-  <None Remove="assets\sandwich\itemtypes\food\grilledcheesesandwich.json" />
-  <None Remove="assets\sandwich\itemtypes\food\honeybread.json" />
-  <None Remove="assets\sandwich\itemtypes\food\peanutbutterbread.json" />
-  <None Remove="assets\sandwich\itemtypes\food\redmeatbread.json" />
-  <None Remove="assets\sandwich\itemtypes\food\redmeatcheesesandwich.json" />
-  <None Remove="assets\sandwich\itemtypes\food\redmeatsandwich.json" />
-  <None Remove="assets\sandwich\itemtypes\food\redmeatslice.json" />
-  <None Remove="assets\sandwich\itemtypes\food\sandwich.json" />
-  <None Remove="assets\sandwich\recipes\grid\cuttingboardrecipe.json" />
-  <None Remove="assets\sandwich\shapes\item\food\bread\honeybread.json" />
-  <None Remove="assets\sandwich\shapes\item\food\bread\peanutbutterbread.json" />
-  <None Remove="assets\sandwich\shapes\item\food\bread\peanutbutterbread\peanutbutterbreadamaranth.json" />
-  <None Remove="assets\sandwich\shapes\item\food\bread\peanutbutterbread\peanutbutterbreadflax.json" />
-  <None Remove="assets\sandwich\shapes\item\food\bread\peanutbutterbread\peanutbutterbreadrice.json" />
-  <None Remove="assets\sandwich\shapes\item\food\bread\peanutbutterbread\peanutbutterbreadrye.json" />
-  <None Remove="assets\sandwich\shapes\item\food\bread\peanutbutterbread\peanutbutterbreadspelt.json" />
-  <None Remove="assets\sandwich\shapes\item\food\bread\peanutbutterbread\peanutbutterbreadsunflower.json" />
-  <None Remove="assets\sandwich\shapes\item\food\bread\peanutbutterhoneysandwich.json" />
-  <None Remove="assets\sandwich\shapes\item\food\bread\redmeatbread\redmeatbreadcassava.json" />
-  <None Remove="assets\sandwich\shapes\item\food\bread\redmeatbread\redmeatbreadflax.json" />
-  <None Remove="assets\sandwich\shapes\item\food\bread\redmeatbread\redmeatbreadrice.json" />
-  <None Remove="assets\sandwich\shapes\item\food\bread\redmeatbread\redmeatbreadrye.json" />
-  <None Remove="assets\sandwich\shapes\item\food\bread\redmeatbread\redmeatbreadspelt.json" />
-  <None Remove="assets\sandwich\shapes\item\food\bread\redmeatbread\redmeatbreadsunflower.json" />
-  <None Remove="assets\sandwich\shapes\item\food\sandwich\cheesesandwichamaranth.json" />
-  <None Remove="assets\sandwich\shapes\item\food\sandwich\cheesesandwichcassava.json" />
-  <None Remove="assets\sandwich\shapes\item\food\sandwich\cheesesandwichflax.json" />
-  <None Remove="assets\sandwich\shapes\item\food\sandwich\cheesesandwichrice.json" />
-  <None Remove="assets\sandwich\shapes\item\food\sandwich\cheesesandwichrye.json" />
-  <None Remove="assets\sandwich\shapes\item\food\sandwich\cheesesandwichsunflower.json" />
-  <None Remove="assets\sandwich\shapes\item\food\sandwich\grilledcheesesandwichamaranth.json" />
-  <None Remove="assets\sandwich\shapes\item\food\sandwich\grilledcheesesandwichflax.json" />
-  <None Remove="assets\sandwich\shapes\item\food\sandwich\grilledcheesesandwichrice.json" />
-  <None Remove="assets\sandwich\shapes\item\food\sandwich\grilledcheesesandwichrye.json" />
-  <None Remove="assets\sandwich\shapes\item\food\sandwich\grilledcheesesandwichspelt.json" />
-  <None Remove="assets\sandwich\shapes\item\food\sandwich\grilledcheesesandwichsunflower.json" />
-  <None Remove="assets\sandwich\shapes\item\food\sandwich\peanutbutterhoneysandwichamaranth.json" />
-  <None Remove="assets\sandwich\shapes\item\food\sandwich\peanutbutterhoneysandwichcassava.json" />
-  <None Remove="assets\sandwich\shapes\item\food\sandwich\peanutbutterhoneysandwichflax.json" />
-  <None Remove="assets\sandwich\shapes\item\food\sandwich\peanutbutterhoneysandwichrice.json" />
-  <None Remove="assets\sandwich\shapes\item\food\sandwich\peanutbutterhoneysandwichrye.json" />
-  <None Remove="assets\sandwich\shapes\item\food\sandwich\peanutbutterhoneysandwichspelt.json" />
-  <None Remove="assets\sandwich\shapes\item\food\sandwich\peanutbutterhoneysandwichsunflower.json" />
-  <None Remove="assets\sandwich\shapes\item\food\sandwich\redmeatcheesesandwich\redmeatcheesesandwichcassava.json" />
-  <None Remove="assets\sandwich\shapes\item\food\sandwich\redmeatcheesesandwich\redmeatcheesesandwichflax.json" />
-  <None Remove="assets\sandwich\shapes\item\food\sandwich\redmeatcheesesandwich\redmeatcheesesandwichrice.json" />
-  <None Remove="assets\sandwich\shapes\item\food\sandwich\redmeatcheesesandwich\redmeatcheesesandwichrye.json" />
-  <None Remove="assets\sandwich\shapes\item\food\sandwich\redmeatcheesesandwich\redmeatcheesesandwichspelt.json" />
-  <None Remove="assets\sandwich\shapes\item\food\sandwich\redmeatcheesesandwich\redmeatcheesesandwichsunflower.json" />
-  <None Remove="assets\sandwich\shapes\item\food\sandwich\redmeatsandwich\redmeatsandwichcassava.json" />
-  <None Remove="assets\sandwich\shapes\item\food\sandwich\redmeatsandwich\redmeatsandwichflax.json" />
-  <None Remove="assets\sandwich\shapes\item\food\sandwich\redmeatsandwich\redmeatsandwichrice.json" />
-  <None Remove="assets\sandwich\shapes\item\food\sandwich\redmeatsandwich\redmeatsandwichrye.json" />
-  <None Remove="assets\sandwich\shapes\item\food\sandwich\redmeatsandwich\redmeatsandwichspelt.json" />
-  <None Remove="assets\sandwich\shapes\item\food\sandwich\redmeatsandwich\redmeatsandwichsunflower.json" />
-  <None Remove="assets\sandwich\textures\block\food\sandwich\breadtexture.png" />
-  <None Remove="assets\sandwich\textures\item\food\sandwich\breadslice.png" />
-  <Content Include="modinfo.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-  </Content>
+	<Content Include="assets\**">
+		<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	</Content>
+	<Content Include="modinfo.json">
+		<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	</Content>
+	<Content Include="modicon.png">
+		<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	</Content>
 </ItemGroup>
 
 </Project>

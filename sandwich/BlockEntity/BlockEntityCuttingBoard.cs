@@ -174,28 +174,45 @@ public class BlockEntityCuttingBoard : BlockEntityDisplay
     {
         CuttingBoardProperties props = CuttingBoardProperties.GetProps(invSlot?.Itemstack?.Collectible);
 
-        if (props == null || props.ConvertTo == null)
-        {
-            return false;
-        }
+        EnumTool? tool = activeslot?.Itemstack?.Collectible?.Tool;
 
-        if (props.ConvertTo.Resolve(Api.World, "cuttingBoard")
-            && activeslot?.Itemstack?.Collectible?.Tool != null
-            && props.Tool != null
-            && props.Tool.Contains((EnumTool)activeslot.Itemstack.Collectible.Tool)
-            && activeslot.Itemstack.Collectible.GetRemainingDurability(activeslot.Itemstack) > 0)
+        if (tool == EnumTool.Knife || tool == EnumTool.Sword)
         {
-            invSlot.TakeOut(1);
-            activeslot.Itemstack.Collectible.DamageItem(Api.World, byPlayer.Entity, activeslot);
-            ItemStack stack = props.ConvertTo.ResolvedItemstack;
-            if (!byPlayer.InventoryManager.TryGiveItemstack(stack, true))
+            if (!inventory[0].Empty)
             {
-                Api.World.SpawnItemEntity(stack, Pos.ToVec3d().Add(0.5, 0.5, 0.5));
+                ItemStack breadStack = inventory[0].Itemstack;
+                string breadPath = breadStack?.Collectible?.Code?.Path;
+
+                if (breadPath != null && breadPath.StartsWith("bread-") && breadPath.EndsWith("-perfect"))
+                {
+                    Api.World.Logger.Event("The item path is: {breadPath}");
+
+                    string breadType = breadPath.Split('-')[1];
+                    AssetLocation breadSliceAsset = new AssetLocation($"sandwich:slicedbread-{breadType}-perfect");
+
+                    if (Api.Side == EnumAppSide.Server)
+                    {
+                        // Spawn 4 bread slices
+                        ItemStack breadSlices = new ItemStack(Api.World.GetItem(breadSliceAsset), 4);
+                        ItemSandwich sandwichItem = new ItemSandwich();
+
+                        Api.World.SpawnItemEntity(breadSlices, Pos.ToVec3d().Add(0.5, 0.5, 0.5));
+                        sandwichItem.OnCreatedBySlicing(inventory[0], breadSlices, breadStack, 4);
+                        inventory[0].TakeOutWhole();
+                        MarkDirty(true);
+                        updateMeshes();
+
+                        Api.World.Logger.Event($"Sliced {breadType} bread into slices.");
+                    }
+                    return true;
+                }
+                return false; // Bread item did not match the expected format
             }
-            return true;
+            return false; // Inventory slot is empty
         }
-        return false;
+        return false; // Tool is not a Knife or Sword
     }
+
 
 
 

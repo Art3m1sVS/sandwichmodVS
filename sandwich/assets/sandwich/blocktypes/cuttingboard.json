@@ -1,98 +1,99 @@
 {
   "code": "cuttingboard",
-  "class": "sandwich.cuttingboard",
-  "entityclass": "sandwich.blockentitycuttingboard",
-  "creativeinventory": {
-    "general": [ "*" ],
-    "sandwich": [ "*" ]
-  },
+  "class": "sandwich.BlockCuttingBoard",
+  "entityClass": "sandwich.CuttingBoard",
+  "variantgroups": [
+    {
+      "code": "side",
+      "loadFromProperties": "abstract/horizontalorientation"
+    }
+  ],
   "attributes": {
-    "inventoryClassName": "cuttingboard",
-    "attributeTransformCode": "cuttingboardtransform",
-
-    "groundStorageTransform": {
-      "translation": {
+    "handbook": { "groupBy": [ "cuttingboard-*" ] },
+    "offsets": [
+      {
         "x": 0,
-        "y": -0.45,
+        "y": 0.0625,
         "z": 0
-      },
-      "rotation": {
-        "x": 0,
-        "y": 0,
-        "z": 0
-      },
-      "scale": 3.8
+      }
+    ]
+  },
+  "behaviors": [
+    { "name": "HorizontalOrientable" },
+    { "name": "RightClickPickup" },
+    { "name": "Unstable" }
+  ],
+  "creativeinventory": {
+    "general": [ "*-north" ],
+    "sandwich": [ "*-north" ]
+  },
+  "shape": {
+    "base": "block/wood/cuttingboard",
+    "rotateYByType": {
+      "*-north": 0,
+      "*-east": 270,
+      "*-south": 180,
+      "*-west": 90
     }
   },
-  //"behaviors": [
-  //	{
-  //		"name": "GroundStorable",
-  //		"properties": {
-  //			"layout": "SingleCenter",
-  //			"wallOffY": 1,
-  //			"sprintKey": true,
-  //			"selectionBox": {
-  //				"x1": 0,
-  //				"y1": 0,
-  //				"z1": 0,
-  //				"x2": 1,
-  //				"y2": 0.25,
-  //				"z2": 1
-  //			},
-  //			"collisionBox": {
-  //				"x1": 0,
-  //				"y1": 0,
-  //				"z1": 0,
-  //				"x2": 0,
-  //				"y2": 0,
-  //				"z2": 0
-  //			}
-  //		}
-  //	}
-  //],
-  "shape": {
-    "base": "sandwich:block/wood/cuttingboard"
-  },
   "textures": {
-    "wood": { "base": "sandwich:block/cuttingboard/wood" },
-    "rings": { "base": "sandwich:block/cuttingboard/rings" }
+    "rings": { "base": "sandwich:block/cuttingboard/rings" },
+    "wood": { "base": "sandwich:block/cuttingboard/wood" }
   },
   "blockmaterial": "Wood",
+  "replaceable": 900,
+  "resistance": 3,
   "lightAbsorption": 0,
-  "faceCullMode": "NeverCull",
-  "emitSideAo": { "all": false },
+  "sideAo": { "all": false },
   "sidesolid": { "all": false },
   "sideopaque": { "all": false },
-  "replaceable": 999,
-  "resistance": 1.5,
-  "combustibleProps": {
-    "burnTemperature": 600,
-    "burnDuration": 10
-  },
+  "materialDensity": 600,
   "sounds": {
     "place": "game:block/planks",
     "hit": "game:block/planks",
-    "break": "game:block/planks"
-  },
-  "rainPermeable": true,
-  "materialDensity": 600,
-  "collisionSelectionBox": {
-    "x1": 0,
-    "y1": 0,
-    "z1": 0,
-    "x2": 1,
-    "y2": 0.1,
-    "z2": 1
+    "break": "game:block/planks",
+    "walk": "game:walk/wood"
   },
   "guiTransform": {
+    "rotation": {
+      "x": -35,
+      "y": -100,
+      "z": 23
+    },
+    "origin": {
+      "x": 0.5,
+      "y": 0,
+      "z": 0.5
+    },
+    "scale": 1.75
+  },
+  "tpHandTransform": {
+    "translation": {
+      "x": -0.68,
+      "y": -0.4,
+      "z": -0.64
+    },
+    "rotation": {
+      "x": 90,
+      "y": 180,
+      "z": 180
+    },
+    "origin": {
+      "x": 0.5,
+      "y": -0,
+      "z": 0.5
+    },
+    "scale": 0.75
+  },
+  "groundTransform": {
     "translation": {
       "x": 0,
-      "y": 4,
+      "y": 0,
       "z": 0
     },
     "rotation": {
-      "x": -25,
-      "y": -44,
+      "x": 0,
+      "y": -45,
       "z": 0
     },
     "origin": {
@@ -100,32 +101,20 @@
       "y": 0,
       "z": 0.5
     },
-    "scale": 1.99
+    "scale": 6
   },
-  "fpHandTransform": {
-    "translation": {
-      "x": 0.08,
-      "y": -0.2,
-      "z": 0.6
-    },
-    "rotation": {
-      "x": 33,
-      "y": 134,
-      "z": -102
-    },
-    "scale": 3.5
-  },
-  "tpHandTransform": {
-    "translation": {
-      "x": -1.2,
-      "y": -0.5,
-      "z": -0.9
-    },
-    "rotation": {
-      "x": -180,
-      "y": -180,
-      "z": -180
-    },
-    "scale": 0.59
+  "collisionSelectionBox": {
+    "x1": 0.125,
+    "y1": 0,
+    "z1": 0.06,
+    "x2": 0.875,
+    "y2": 0.0625,
+    "z2": 0.94,
+    "rotateYByType": {
+      "*-north": 0,
+      "*-east": 270,
+      "*-south": 180,
+      "*-west": 90
+    }
   }
 }
