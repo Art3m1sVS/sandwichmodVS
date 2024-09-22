@@ -8,7 +8,6 @@
 	"textureSizes": {
 	},
 	"textures": {
-		"base": "game:ricebread"
 	},
 	"elements": [
 		{
@@ -20,38 +19,38 @@
 			"rotationX": -90.0,
 			"faces": {
 				"north": {
-					"texture": "#ricebread",
+					"texture": "#all",
 					"uv": [ 5.0, 1.0, 6.5, 4.5 ],
 					"rotation": 90,
 					"autoUv": false
 				},
 				"east": {
-					"texture": "#ricebread",
+					"texture": "#all",
 					"uv": [ 5.0, 7.0, 8.0, 8.0 ],
 					"rotation": 90,
 					"autoUv": false,
 					"windMode": [ -1, -1, -1, -1 ]
 				},
 				"south": {
-					"texture": "#ricebread",
+					"texture": "#all",
 					"uv": [ 9.0, 3.0, 14.0, 6.0 ],
 					"autoUv": false,
 					"windMode": [ -1, -1, -1, -1 ]
 				},
 				"west": {
-					"texture": "#ricebread",
+					"texture": "#all",
 					"uv": [ 8.0, 7.0, 5.0, 8.0 ],
 					"rotation": 90,
 					"autoUv": false
 				},
 				"up": {
-					"texture": "#ricebread",
+					"texture": "#all",
 					"uv": [ 0.5, 1.5, 6.5, 2.5 ],
 					"autoUv": false,
 					"windMode": [ -1, -1, -1, -1 ]
 				},
 				"down": {
-					"texture": "#ricebread",
+					"texture": "#all",
 					"uv": [ 3.0, 1.0, 2.0, 7.0 ],
 					"rotation": 90,
 					"autoUv": false
@@ -67,29 +66,29 @@
 					"rotationX": 0.0,
 					"faces": {
 						"north": {
-							"texture": "#ricebread",
+							"texture": "#all",
 							"uv": [ 1.5, 7.0, 7.0, 8.0 ],
 							"autoUv": false
 						},
 						"east": {
-							"texture": "#ricebread",
+							"texture": "#all",
 							"uv": [ 4.5, 3.5, 5.5, 4.5 ],
 							"rotation": 90,
 							"autoUv": false
 						},
 						"south": {
-							"texture": "#ricebread",
+							"texture": "#all",
 							"uv": [ 9.0, 3.5, 13.5, 4.5 ],
 							"autoUv": false
 						},
 						"west": {
-							"texture": "#ricebread",
+							"texture": "#all",
 							"uv": [ 5.0, 3.0, 6.0, 4.0 ],
 							"rotation": 90,
 							"autoUv": false
 						},
 						"up": {
-							"texture": "#ricebread",
+							"texture": "#all",
 							"uv": [ 0.5, 3.0, 6.0, 4.0 ],
 							"autoUv": false
 						}

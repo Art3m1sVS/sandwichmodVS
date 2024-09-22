@@ -185,10 +185,11 @@ public class BlockEntityCuttingBoard : BlockEntityDisplay
 
                 if (breadPath != null && breadPath.StartsWith("bread-") && breadPath.EndsWith("-perfect"))
                 {
-                    Api.World.Logger.Event("The item path is: {breadPath}");
+                    Api.World.Logger.Event($"The item path is: {breadPath}");
 
                     string breadType = breadPath.Split('-')[1];
                     AssetLocation breadSliceAsset = new AssetLocation($"sandwich:slicedbread-{breadType}-perfect");
+                    Api.World.Logger.Event($"The item type is: {breadType}");
 
                     if (Api.Side == EnumAppSide.Server)
                     {

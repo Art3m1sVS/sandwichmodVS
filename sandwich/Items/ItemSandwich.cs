@@ -473,6 +473,7 @@ public class ItemSandwich : ItemExpandedFood, IContainedMeshSource
         ItemSlot slot = inputSlot;
         if (slot.Itemstack.Collectible is ItemExpandedFood)
         {
+            //api.World.Logger.Event("ITEM IS EXPANDEDFOOD");
             string[] addIngs = (slot.Itemstack.Attributes["madeWith"] as StringArrayAttribute)?.value;
             float[] addSat = (slot.Itemstack.Attributes["expandedSats"] as FloatArrayAttribute)?.value;
             if (addSat != null && addSat.Length == 6)
@@ -489,6 +490,7 @@ public class ItemSandwich : ItemExpandedFood, IContainedMeshSource
         }
         else
         {
+            //api.World.Logger.Event("ITEM IS NOT EXPANDEDFOOD");
             GetNutrientsFromIngredient(ref sat, slot.Itemstack.Collectible, 1);
             string aL = slot.Itemstack.Collectible.Code.Domain + ":" + slot.Itemstack.Collectible.Code.Path;
             ingredients.Add(aL);
