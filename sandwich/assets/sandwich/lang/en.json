@@ -3,8 +3,6 @@
 
   "block-cuttingboard": "Cutting board",
 
-  "item-peanutbuttersandwich-*": "Peanut butter and honey sandwich",
-
   "item-breadslice-spelt": "Spelt bread slice",
   "item-breadslice-rye": "Rye bread slice",
   "item-breadslice-flax": "Flax bread slice",
@@ -12,31 +10,6 @@
   "item-breadslice-sunflower": "Sunflower bread slice",
   "item-breadslice-amaranth": "Amaranth bread slice",
   "item-breadslice-cassava": "Cassava bread slice",
-
-  "item-honeybread-spelt": "Spelt bread slice with honey",
-  "item-honeybread-rye": "Rye bread slice with honey",
-  "item-honeybread-flax": "Flax bread slice with honey",
-  "item-honeybread-rice": "Rice bread slice with honey",
-  "item-honeybread-sunflower": "Sunflower bread slice with honey",
-  "item-honeybread-amaranth": "Amaranth bread slice with honey",
-  "item-honeybread-cassava": "Cassava bread slice with honey",
-
-  "item-peanutbutterbread-spelt": "Spelt bread slice with peanut butter",
-  "item-peanutbutterbread-rye": "Rye bread slice with peanut butter",
-  "item-peanutbutterbread-flax": "Flax bread slice with peanut butter",
-  "item-peanutbutterbread-rice": "Rice bread slice with peanut butter",
-  "item-peanutbutterbread-sunflower": "Sunflower bread slice with peanut butter",
-  "item-peanutbutterbread-amaranth": "Amaranth bread slice with peanut butter",
-  "item-peanutbutterbread-cassava": "Cassava bread slice with peanut butter",
-
-  "item-grilledcheesesandwich-*": "Grilled cheese sandwich",
-  "item-cheesesandwich-*": "Cheese sandwich",
-  "item-cheeseslice": "Cheese slice",
-  "item-cheesebreadslice-*": "Bread slice with cheese",
-  "item-redmeatbread-*": "Bread slice with cooked red meat",
-  "item-redmeatsandwich-*": "Cooked red meat sandwich",
-  "item-redmeatcheesesandwich-*": "Cooked red meat and cheese sandwich",
-  "item-redmeatslice": "Cooked red meat slice",
 
 
   "when-eaten": "When eaten: ",

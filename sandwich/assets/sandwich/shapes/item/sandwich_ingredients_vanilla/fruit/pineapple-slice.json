@@ -1,0 +1,29 @@
+{
+	"editor": {
+		"allAngles": false,
+		"entityTextureMode": true
+	},
+	"textureWidth": 16,
+	"textureHeight": 16,
+	"textureSizes": {
+	},
+	"textures": {
+	},
+	"elements": [
+		{
+			"name": "slice2",
+			"from": [ 6.56, 0.0, 6.7 ],
+			"to": [ 9.06, 0.1, 9.7 ],
+			"uv": [ 0.0, 2.0 ],
+			"rotationOrigin": [ 8.0, 0.0, 8.0 ],
+			"rotationY": -90.0,
+			"faces": {
+				"north": { "texture": "#pineapple", "uv": [ 0.0, 5.0, 2.5, 5.5 ] },
+				"east": { "texture": "#pineapple", "uv": [ 2.5, 5.0, 5.5, 5.5 ] },
+				"south": { "texture": "#pineapple", "uv": [ 5.5, 5.0, 8.0, 5.5 ], "rotation": 180 },
+				"west": { "texture": "#pineapple", "uv": [ 8.0, 5.0, 8.5, 8.0 ], "rotation": 90 },
+				"up": { "texture": "#pineapple", "uv": [ 0.0, 2.0, 2.5, 5.0 ], "rotation": 180 },
+				"down": { "texture": "#pineapple", "uv": [ 2.5, 2.0, 5.0, 5.0 ] }
+			}
+		}
+	]}

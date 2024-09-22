@@ -1,0 +1,28 @@
+{
+	"editor": {
+		"allAngles": false,
+		"entityTextureMode": true
+	},
+	"textureWidth": 16,
+	"textureHeight": 16,
+	"textureSizes": {
+	},
+	"textures": {
+	},
+	"elements": [
+		{
+			"name": "Cube4",
+			"from": [ 6.33, 0.1, 6.93 ],
+			"to": [ 9.03, 0.2, 8.83 ],
+			"uv": [ 8.5, 12.5 ],
+			"rotationOrigin": [ 8.0, 0.1, 8.0 ],
+			"faces": {
+				"north": { "texture": "#cheddarjack", "uv": [ 8.5, 15.0, 11.0, 15.5 ] },
+				"east": { "texture": "#cheddarjack", "uv": [ 11.0, 15.0, 12.5, 15.5 ] },
+				"south": { "texture": "#cheddarjack", "uv": [ 12.5, 15.0, 15.0, 15.5 ] },
+				"west": { "texture": "#cheddarjack", "uv": [ 15.0, 15.0, 16.5, 15.5 ] },
+				"up": { "texture": "#cheddarjack", "uv": [ 8.5, 12.5, 10.0, 15.0 ], "rotation": 90 },
+				"down": { "texture": "#cheddarjack", "uv": [ 10.0, 12.5, 11.5, 15.0 ], "rotation": 90 }
+			}
+		}
+	]}

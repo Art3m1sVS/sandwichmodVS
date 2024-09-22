@@ -9,11 +9,17 @@ using Vintagestory.API.MathTools;
 using Vintagestory.API.Server;
 using Vintagestory.API.Util;
 using Vintagestory.GameContent;
+using ACulinaryArtillery;
+using EFRecipes;
 using static Vintagestory.GameContent.BlockLiquidContainerBase;
+<<<<<<< Updated upstream
 using System.Threading.Tasks;
 using ACulinaryArtillery;
 using HarmonyLib;
 using sandwich;
+=======
+using Vintagestory.API.Datastructures;
+>>>>>>> Stashed changes
 
 namespace sandwich;
 
@@ -156,14 +162,14 @@ public class ItemSandwich : ItemExpandedFood, IContainedMeshSource
             {
                 case EnumItemClass.Block:
                     capi.Tesselator.TesselateBlock(stack.Block, out mesh);
-                    prevSize += 0.0625f;
+                    prevSize += 0.0825f;
                     return mesh;
                 case EnumItemClass.Item:
                     capi.Tesselator.TesselateItem(stack.Item, out mesh);
-                    prevSize += 0.0625f;
+                    prevSize += 0.0825f;
                     return mesh;
                 default:
-                    prevSize += 0.0625f;
+                    prevSize += 0.0825f;
                     return mesh;
             }
         }
@@ -452,7 +458,52 @@ public class ItemSandwich : ItemExpandedFood, IContainedMeshSource
         }
     }
 
-    public override ItemStack OnTransitionNow(ItemSlot slot, TransitionableProperties transitionProps)
+    public override bool Satisfies(ItemStack thisStack, ItemStack otherStack)
+    {
+        if (thisStack.Class == otherStack.Class && thisStack.Id == otherStack.Id)
+        {
+            if (!otherStack.Attributes.HasAttribute("madeWith") && thisStack.Attributes.HasAttribute("madeWith"))
+            {
+                return true;
+            }
+        }
+        return base.Satisfies(thisStack, otherStack);
+    }
+    public void OnCreatedBySlicing(ItemSlot inputSlot, ItemStack outputSlot, ItemStack byRecipe, int slices)
+    {
+        //base.OnCreatedBySlicing(allInputslots, outputSlot, byRecipe);
+        ItemStack output = outputSlot;
+        List<string> ingredients = new List<string>();
+        float[] sat = new float[6];
+        ItemSlot slot = inputSlot;
+        if (slot.Itemstack.Collectible is ItemExpandedFood)
+        {
+            string[] addIngs = (slot.Itemstack.Attributes["madeWith"] as StringArrayAttribute)?.value;
+            float[] addSat = (slot.Itemstack.Attributes["expandedSats"] as FloatArrayAttribute)?.value;
+            if (addSat != null && addSat.Length == 6)
+                sat = sat.Zip(addSat, (x, y) => x + (y / slices)).ToArray();
+            if (addIngs != null && addIngs.Length > 0)
+            {
+                foreach (string aL in addIngs)
+                {
+                    if (ingredients.Contains(aL))
+                        continue;
+                    ingredients.Add(aL);
+                }
+            }
+        }
+        else
+        {
+            GetNutrientsFromIngredient(ref sat, slot.Itemstack.Collectible, 1);
+            string aL = slot.Itemstack.Collectible.Code.Domain + ":" + slot.Itemstack.Collectible.Code.Path;
+            ingredients.Add(aL);
+        }
+        ingredients.Sort();
+        output.Attributes["madeWith"] = new StringArrayAttribute(ingredients.ToArray());
+        output.Attributes["expandedSats"] = new FloatArrayAttribute(sat.ToArray());
+    }
+
+public override ItemStack OnTransitionNow(ItemSlot slot, TransitionableProperties transitionProps)
     {
         SandwichProperties props = SandwichProperties.FromStack(slot.Itemstack, api.World);
         if (props == null || !props.Any)
@@ -464,6 +515,7 @@ public class ItemSandwich : ItemExpandedFood, IContainedMeshSource
         stack.StackSize = GameMath.RoundRandom(api.World.Rand, slot.StackSize * props.GetOrdered(api.World).Sum(x => x.StackSize) * transitionProps.TransitionRatio);
         return stack;
     }
+<<<<<<< Updated upstream
 
     public override bool Satisfies(ItemStack thisStack, ItemStack otherStack)
     {
@@ -520,4 +572,6 @@ public class ItemSandwich : ItemExpandedFood, IContainedMeshSource
         output.Attributes["madeWith"] = new StringArrayAttribute(ingredients.ToArray());
         output.Attributes["expandedSats"] = new FloatArrayAttribute(sat.ToArray());
     }
+=======
+>>>>>>> Stashed changes
 }

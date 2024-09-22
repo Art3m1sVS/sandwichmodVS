@@ -15,7 +15,7 @@ public class WhenOnSandwichProperties
 
     public Dictionary<string, CompositeTexture> Textures { get; set; } = new();
 
-    public float Size { get; set; } = 0.0625f;
+    public float Size { get; set; } = 0.0825f;
 
     public bool Rotate { get; set; }
 

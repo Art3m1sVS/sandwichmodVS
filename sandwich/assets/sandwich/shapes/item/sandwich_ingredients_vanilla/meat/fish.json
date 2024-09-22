@@ -1,0 +1,69 @@
+{
+	"editor": {
+		"allAngles": false,
+		"entityTextureMode": true
+	},
+	"textureWidth": 16,
+	"textureHeight": 16,
+	"textureSizes": {
+	},
+	"textures": {
+	},
+	"elements": [
+		{
+			"name": "origin",
+			"from": [ 8.0, 0.0, 8.0 ],
+			"to": [ 8.0, 0.0, 8.0 ],
+			"uv": [ 999.0, 999.0 ],
+			"rotationOrigin": [ 8.0, 0.0, 8.0 ],
+			"rotationY": 90.0,
+			"faces": {
+			},
+			"children": [
+				{
+					"name": "main-mid",
+					"from": [ -1.1, 0.0, -1.0 ],
+					"to": [ 1.6, 0.4, 0.7 ],
+					"uv": [ 8.5, 8.5 ],
+					"faces": {
+						"north": { "texture": "#raw", "uv": [ 8.5, 10.0, 11.0, 10.5 ] },
+						"east": { "texture": "#raw", "uv": [ 11.0, 10.0, 12.5, 10.5 ] },
+						"south": { "texture": "#raw", "uv": [ 12.5, 10.0, 15.0, 10.5 ] },
+						"west": { "texture": "#raw", "uv": [ 15.0, 10.0, 16.5, 10.5 ] },
+						"up": { "texture": "#raw", "uv": [ 8.5, 8.5, 11.0, 10.0 ] },
+						"down": { "texture": "#raw", "uv": [ 11.0, 8.5, 13.5, 10.0 ] }
+					},
+					"children": [
+						{
+							"name": "main-south",
+							"from": [ 0.2, 0.0, 1.7 ],
+							"to": [ 2.6, 0.3, 2.5 ],
+							"uv": [ 9.0, 9.0 ],
+							"rotationOrigin": [ 3.0, 0.0, 2.0 ],
+							"faces": {
+								"east": { "texture": "#raw", "uv": [ 9.0, 9.5, 9.5, 10.0 ] },
+								"south": { "texture": "#raw", "uv": [ 9.5, 9.5, 11.5, 10.0 ] },
+								"west": { "texture": "#raw", "uv": [ 11.5, 9.5, 12.0, 10.0 ] },
+								"up": { "texture": "#raw", "uv": [ 9.0, 9.0, 11.0, 9.5 ] },
+								"down": { "texture": "#raw", "uv": [ 11.0, 9.0, 13.0, 9.5 ] }
+							}
+						},
+						{
+							"name": "main-north",
+							"from": [ 0.23, 0.0, -0.7 ],
+							"to": [ 2.73, 0.3, 0.0 ],
+							"uv": [ 9.0, 8.5 ],
+							"rotationOrigin": [ 3.0, 0.0, 0.0 ],
+							"faces": {
+								"north": { "texture": "#raw", "uv": [ 9.0, 9.0, 11.5, 9.5 ] },
+								"east": { "texture": "#raw", "uv": [ 11.5, 9.0, 12.0, 9.5 ] },
+								"west": { "texture": "#raw", "uv": [ 12.0, 9.0, 12.5, 9.5 ] },
+								"up": { "texture": "#raw", "uv": [ 9.0, 8.5, 11.5, 9.0 ] },
+								"down": { "texture": "#raw", "uv": [ 11.5, 8.5, 14.0, 9.0 ] }
+							}
+						}
+					]
+				}
+			]
+		}
+	]}

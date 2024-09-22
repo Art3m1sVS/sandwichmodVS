@@ -1,3 +1,4 @@
+<<<<<<< Updated upstream
 ﻿global using static sandwich.Constants;
 global using Newtonsoft.Json.Linq;
 global using System;
@@ -14,20 +15,43 @@ global using Vintagestory.Client.NoObf;
 global using Vintagestory.GameContent;
 using sandwich.Items;
 using ACulinaryArtillery;
+=======
+﻿using ACulinaryArtillery;
+using Newtonsoft.Json.Linq;
+using sandwich;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using Vintagestory.API.Common;
+>>>>>>> Stashed changes
 using Vintagestory.API.Server;
 
 [assembly: ModInfo(name: "Sammiches", modID: "sandwich")]
 
 
+<<<<<<< Updated upstream
 namespace sandwich
+=======
+namespace sandwich;
+
+public class SandwichModSystem : ModSystem
+>>>>>>> Stashed changes
 {
 
     public class sandwichModSystem : ModSystem
     {
+<<<<<<< Updated upstream
         public Dictionary<string, WhenOnSandwichProperties> SandwichPatches { get; set; } = new();
         public Dictionary<string, CuttingBoardProperties> CuttingBoardPatches { get; set; } = new();
         public Dictionary<string, bool> CuttingBoardStorablePatches { get; set; } = new();
         public Transformations Transformations { get; } = new();
+=======
+        api.RegisterItemClass("sandwich.ItemSandwich", typeof(ItemSandwich));
+        api.RegisterItemClass("sandwich.ItemSandwich", typeof(ItemExpandedFood));
+        api.RegisterBlockClass("sandwich.BlockCuttingBoard", typeof(BlockCuttingBoard));
+        api.RegisterBlockEntityClass("sandwich.CuttingBoard", typeof(BlockEntityCuttingBoard));
+    }
+>>>>>>> Stashed changes
 
         // Called on server and client
         // Useful for registering block/entity classes on both sides

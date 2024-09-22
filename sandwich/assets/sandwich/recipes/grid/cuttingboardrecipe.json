@@ -11,7 +11,7 @@
 	"height": 1,
 	"output": {
 		"type": "block",
-		"code": "sandwich:cuttingboard",
+		"code": "sandwich:BlockCuttingBoard",
 		"quantity": 1
 	}
 }

@@ -1,12 +1,18 @@
 using System;
+using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
+using Newtonsoft.Json.Linq;
 using sandwich;
 using Vintagestory.API.Client;
 using Vintagestory.API.Common;
 using Vintagestory.API.Config;
+using Vintagestory.API.Datastructures;
 using Vintagestory.API.MathTools;
 using Vintagestory.GameContent;
+using ACulinaryArtillery;
+using EFRecipes;
 
 namespace sandwich;
 
@@ -29,7 +35,18 @@ public class BlockEntityCuttingBoard : BlockEntityDisplay
     {
         ItemSlot invSlot = inventory.First();
         ItemSlot activeslot = byPlayer.InventoryManager.ActiveHotbarSlot;
+        //bool hasItemOnBoard = !invSlot.Empty;
 
+        //if (hasItemOnBoard && activeslot.Empty && (byPlayer.Entity.Controls.ShiftKey))
+        //{
+        //    activeslot.MarkDirty();
+        //    invSlot.MarkDirty();
+        //    updateMeshes();
+        //    MarkDirty(redrawOnClient: true);
+        //    return HandleShiftInteraction(byPlayer, invSlot, activeslot);
+        //}
+
+        // Check if a custom interaction is possible (e.g., slicing an item on the cutting board)
         if (TryCustomInteraction(byPlayer, invSlot, activeslot))
         {
             activeslot.MarkDirty();
@@ -39,6 +56,7 @@ public class BlockEntityCuttingBoard : BlockEntityDisplay
             return true;
         }
 
+        // Check if a sandwich can be made by combining the items in the active slot and the cutting board
         if (ItemSandwich.TryAdd(invSlot, activeslot, byPlayer, byPlayer.Entity.World))
         {
             activeslot.MarkDirty();
@@ -48,8 +66,10 @@ public class BlockEntityCuttingBoard : BlockEntityDisplay
             return true;
         }
 
+        // Check if the active slot item is storable on the cutting board
         bool storable = ItemSlotCuttingBoard.IsStorable(activeslot?.Itemstack?.Collectible);
 
+        // Check if the player is trying to take an item from the cutting board (if the active slot is empty or the item is not storable)
         if ((activeslot.Empty || !storable) && TryTake(byPlayer, 0))
         {
             activeslot.MarkDirty();
@@ -59,6 +79,7 @@ public class BlockEntityCuttingBoard : BlockEntityDisplay
             return true;
         }
 
+        // Check if the player is trying to place an item on the cutting board
         AssetLocation sound = activeslot?.Itemstack?.Block?.Sounds?.Place;
         if (storable && TryPut(activeslot, 0))
         {
@@ -72,6 +93,82 @@ public class BlockEntityCuttingBoard : BlockEntityDisplay
 
         return false;
     }
+
+    //private bool HandleShiftInteraction(IPlayer byPlayer, ItemSlot invSlot, ItemSlot activeslot)
+    //{
+    //    ItemStack cuttingBoardItem = invSlot?.Itemstack;
+
+    //    // Check for item on the cutting board and handle sandwich layers
+    //    if (cuttingBoardItem != null && cuttingBoardItem.Attributes.HasAttribute(attributeSandwichLayers))
+    //    {
+    //        Api.World.Logger.Event("FOUND SANDWICH LAYERS");
+
+    //        // Get the JSON string directly, ensuring it's treated correctly
+    //        string sandwichLayersJson = cuttingBoardItem.Attributes.GetString(attributeSandwichLayers, null);
+
+    //        if (!string.IsNullOrEmpty(sandwichLayersJson))
+    //        {
+    //            // Parse the JSON string into a JObject for easy navigation
+    //            JObject sandwichLayersObject = JObject.Parse(sandwichLayersJson);
+
+    //            // Check if there are any layers
+    //            if (sandwichLayersObject.Count > 0)
+    //            {
+    //                // Get the most recent layer (last added layer)
+    //                var mostRecentLayerKey = sandwichLayersObject.Properties().Last();
+    //                string itemCode = mostRecentLayerKey.Value.ToString(); // Adjusted to get the string directly
+
+    //                if (!string.IsNullOrEmpty(itemCode))
+    //                {
+    //                    Api.World.Logger.Event($"Found item code for layer {mostRecentLayerKey.Name}: {itemCode}");
+
+    //                    // Now, use the item code to spawn or give the item to the player
+    //                    AssetLocation itemCodeLocation = new AssetLocation(itemCode);
+    //                    ItemStack newItem = new ItemStack(Api.World.GetItem(itemCodeLocation), 1);
+
+    //                    // Give item to player or spawn it in the world
+    //                    if (byPlayer.InventoryManager.TryGiveItemstack(newItem))
+    //                    {
+    //                        Api.World.Logger.Event($"Gave item {itemCode} back to the player.");
+    //                    }
+    //                    else
+    //                    {
+    //                        Api.World.SpawnItemEntity(newItem, Pos.ToVec3d().Add(0.5, 0.5, 0.5));
+    //                        Api.World.Logger.Event($"Spawned item {itemCode} at position.");
+    //                    }
+
+    //                    // Now remove the most recent layer from the sandwichLayers
+    //                    sandwichLayersObject.Remove(mostRecentLayerKey.Name);
+
+    //                    // Update the sandwichLayers attribute on the cutting board item
+    //                    string updatedLayersJson = sandwichLayersObject.ToString();
+    //                    cuttingBoardItem.Attributes.SetString(attributeSandwichLayers, updatedLayersJson);
+    //                    Api.World.Logger.Event("Removed the most recent layer and updated sandwich layers.");
+    //                }
+    //                else
+    //                {
+    //                    Api.World.Logger.Event($"No valid 'code' found for the most recent layer {mostRecentLayerKey.Name}.");
+    //                }
+    //            }
+    //            else
+    //            {
+    //                Api.World.Logger.Event("No layers found in sandwichLayers.");
+    //            }
+    //        }
+    //        else
+    //        {
+    //            Api.World.Logger.Event("Failed to parse sandwich layers from JSON.");
+    //        }
+    //    }
+    //    else
+    //    {
+    //        Api.World.Logger.Event("No sandwich layers found on the cutting board.");
+    //        return false;
+    //    }
+
+    //    return true; // Return true to indicate success
+    //}
+
 
     private bool TryCustomInteraction(IPlayer byPlayer, ItemSlot invSlot, ItemSlot activeslot)
     {
@@ -99,6 +196,8 @@ public class BlockEntityCuttingBoard : BlockEntityDisplay
         }
         return false;
     }
+
+
 
     private bool TryPut(ItemSlot slot, int slotId)
     {
@@ -174,4 +273,6 @@ public class BlockEntityCuttingBoard : BlockEntityDisplay
         }
         return tfMatrices;
     }
+
+
 }

@@ -1,4 +1,5 @@
 {
+<<<<<<< Updated upstream
     // can't use generic shape for legume because they have very complex models
     "legume-peanut": {
         "shape": { "base": "danacancook:item/sandwich_ingredients_vanilla/legume/peanut" },
@@ -12,4 +13,15 @@
         "rotate": true,
         "rotation": { "avg": 1, "var": 0.5 }
     }
+=======
+  "legume-soybean": {
+    "shape": { "base": "sandwich:item/sandwich_ingredients_vanilla/legume/soybean" },
+    "size": 0.015625, // 0.25/16
+    "rotate": true,
+    "rotation": {
+      "avg": 1,
+      "var": 0.5
+    }
+  }
+>>>>>>> Stashed changes
 }

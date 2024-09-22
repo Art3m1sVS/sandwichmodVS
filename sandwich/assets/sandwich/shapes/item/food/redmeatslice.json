@@ -8,7 +8,6 @@
 	"textureSizes": {
 	},
 	"texture": {
-		"cooked": "game:cooked"
 	},
 	"elements": [
 		{
@@ -17,12 +16,39 @@
 			"to": [ 9.4, 0.15, 9.2 ],
 			"rotationOrigin": [ 8.0, 0.0, 8.0 ],
 			"faces": {
-				"north": { "texture": "#cooked", "uv": [ 1.5, 11.0, 4.5, 11.5 ], "windMode": [-1,-1,-1,-1] },
-				"east": { "texture": "#cooked", "uv": [ 3.5, 10.0, 6.5, 9.5 ], "autoUv": false, "windMode": [-1,-1,-1,-1] },
-				"south": { "texture": "#cooked", "uv": [ 4.5, 10.0, 6.5, 9.5 ], "autoUv": false, "windMode": [-1,-1,-1,-1] },
-				"west": { "texture": "#cooked", "uv": [ 5.5, 11.0, 7.5, 10.5 ], "autoUv": false, "windMode": [-1,-1,-1,-1] },
-				"up": { "texture": "#cooked", "uv": [ 1.5, 9.0, 4.5, 12.0 ], "windMode": [-1,-1,-1,-1] },
-				"down": { "texture": "#cooked", "uv": [ 4.5, 9.0, 7.5, 12.0 ], "windMode": [-1,-1,-1,-1] }
+				"north": {
+					"texture": "#all",
+					"uv": [ 1.5, 11.0, 4.5, 11.5 ],
+					"windMode": [ -1, -1, -1, -1 ]
+				},
+					"east": {
+						"texture": "#all",
+						"uv": [ 3.5, 10.0, 6.5, 9.5 ],
+						"autoUv": false,
+						"windMode": [ -1, -1, -1, -1 ]
+					},
+					"south": {
+						"texture": "#all",
+						"uv": [ 4.5, 10.0, 6.5, 9.5 ],
+						"autoUv": false,
+						"windMode": [ -1, -1, -1, -1 ]
+					},
+					"west": {
+						"texture": "#all",
+						"uv": [ 5.5, 11.0, 7.5, 10.5 ],
+						"autoUv": false,
+						"windMode": [ -1, -1, -1, -1 ]
+					},
+					"up": {
+						"texture": "#all",
+						"uv": [ 1.5, 9.0, 4.5, 12.0 ],
+						"windMode": [ -1, -1, -1, -1 ]
+					},
+					"down": {
+						"texture": "#all",
+						"uv": [ 4.5, 9.0, 7.5, 12.0 ],
+						"windMode": [ -1, -1, -1, -1 ]
+					}
 			}
 		}
 	]}
