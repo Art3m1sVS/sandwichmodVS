@@ -1,20 +1,27 @@
 {
   "game:tabname-sandwich": "Sammiches",
 
-  "block-cuttingboard": "Cutting board",
+  "block-cuttingboard-*": "Cutting board",
+  "item-sandwich": "Sandwich",
 
-  "item-breadslice-spelt": "Spelt bread slice",
-  "item-breadslice-rye": "Rye bread slice",
-  "item-breadslice-flax": "Flax bread slice",
-  "item-breadslice-rice": "Rice bread slice",
-  "item-breadslice-sunflower": "Sunflower bread slice",
-  "item-breadslice-amaranth": "Amaranth bread slice",
-  "item-breadslice-cassava": "Cassava bread slice",
+  "item-slicedbread-spelt-perfect": "Spelt bread slice",
+  "item-slicedbread-rye-perfect": "Rye bread slice",
+  "item-slicedbread-flax-perfect": "Flax bread slice",
+  "item-slicedbread-rice-perfect": "Rice bread slice",
+  "item-slicedbread-sunflower-perfect": "Sunflower bread slice",
+  "item-slicedbread-amaranth-perfect": "Amaranth bread slice",
+  "item-slicedbread-cassava-perfect": "Cassava bread slice",
 
 
   "when-eaten": "When eaten: ",
+  "contents-sandwich": "Sandwich contents:",
+  "sandwich:Extra Nutrients": "Extra nutrients",
+  "sandwich:- {0} {2} sat, {1} hp": "- {0} {2} sat, {1} hp",
+  "sandwich:- {0} {1} sat": "- {0} {1} sat",
+  "sandwich:made with ": "made with ",
+  "sandwich:and ": "and ",
+  "sandwich:Made with ": "Made with ",
 
-  "sammichesguide1-title": "Sammiches Guide and Recipes",
-  "sammichesguide1-text": "<strong>What is Sammiches?</strong><br><i>Sammiches adds sandwiches and other bread products into the game.</i><br><br><strong>All sandwiches' bread type is decided through the bread type on the cutting board</strong><br><br><strong>Cutting Board</strong><br>The cutting board is an essential tool, and required for nearly all recipes this mod adds.  It can be crafted with 1 board of any wood in the crafting grid.<br><br><strong>Sliced Bread</strong><br><i>1 Knife<br>1 Bread loaf<br>Cutting board</i><br>1. Place the bread loaf on the cutting board.<br>2. Use the knife on the loaf to slice it into 4 bread slices<br><br><strong>Peanut Butter Bread</strong><br><i>1 Bowl of at least 0.1L peanut butter<br>1 Bread slice<br>Cutting board</i><br>1. Place bread slice on cutting board<br>2. Pour the peanut butter onto the bread slice<br><br><strong>Honey Bread</strong><br><i>1 Bread slice<br>1 Bowl with at least 0.1L of Honey<br>Cutting board<br></i>1. Place bread slice on cutting board<br>2. Pour bowl of honey onto the bread slice<br><br><strong>Cheese Slice</strong><br><i>1 Cheddar cheese slice<br>1 Knife<br>Cutting board<br></i>1. Place cheese slice on cutting board<br>2. Cut cheese slice with knife<br><i>Yields 2 slices of sandwich cheese</i><br><br><strong>Cheese Bread</strong><br><i>1 Bread slice<br>1 Cheese slice (Sliced from cutting board)<br></i>1. Place bread slice on cutting board<br>2. Place cheese slice on bread slice<br><br><strong>Cheese Sandwich</strong><br><i>1 Cheese bread<br>1 Bread slice<br>Cutting board<br></i>1. Place cheese bread on cutting board.<br>2. Place bread slice on top of cheese bread<br><br><strong>Grilled Cheese Sandwich</strong><br><i>1 Cheese sandwich<br>1 Oven<br></i>1. Preheat oven to 160C<br>2. Carefully place cheese sandwich into preheated oven<br>3. Wait<br>4. Remove sandwich from oven when dark brown<br><br><strong>Peanut Butter and Honey Sandwich</strong><br><i>1 Peanut butter bread<br>1 Honey bread<br>Cutting board<br></i>1. Place <strong>honey</strong> bread on cutting board<br>2. Place peanut butter bread on top<br><br><strong>Cooked Red MeatSlice</strong><br><i>1 Knife<br>1 Cooked red meat<br>Cutting board<br></i>1. Place cooked red meat on cutting board<br>2. Slice cooked red meat<br><i>Yields 2 cooked red meat slices</i><br><br><strong>Red Meat Bread Slice</strong><br><i>1 Cooked red meat slice<br>1 Bread slice<br>Cutting board<br></i>1. Place bread slice on cutting board<br>2. Place cooked red meat slice on bread<br><br><strong>Cooked Red Meat Sandwich</strong><br><i>1 Cooked red meat bread slice<br>1 Bread slice<br>Cutting board<br></i>1. Place cooked red meat bread slice on cutting board<br>2. Place bread slice on cooked red meat bread slice<br><br><strong>Cooked Red Meat and Cheese Sandwich</strong><br><i>1 Cooked red meat bread slice<br>1 Cheese bread slice<br>Cutting board<br></i>1. Place cooked red meat bread slice on cutting board<br>2. Place cheese bread slice on cooked red meat bread slice<br><br>"
-
+  "sammichesguide1-title": "Sammiches Guide",
+  "sammichesguide1-text": "<strong>What is Sammiches?</strong><br><i>Sammiches adds sandwiches and other bread products into the game.</i><br>Sandwiches can contain up to 6 ingredients, including the slice of bread used to begin the sandwich creation.<br><br><strong>Cutting Board</strong><br>The cutting board is an essential tool required to use this mod.  It is crafted with 1 board of any wood type in the crafting grid.<br><br><strong>Slicing Bread</strong><br>Sliced bread is the basis for all sandwiches, of course.  Slicing bread on a cutting board with a knife or sword yields 4 slices of bread."
 }

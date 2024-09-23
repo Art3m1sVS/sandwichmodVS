@@ -1,6 +1,6 @@
 {
   "cheese-cheddar-1slice": {
-    "shape": { "base": "sandwich:item/sandwich_ingredients_vanilla/dairy/cheese-cheddar-1slice" },
+    "shape": { "base": "sandwich:item/sandwich_ingredients_vanilla/dairy/cheese" },
     "textures": {
       "all": { "base": "game:block/food/dairy/cheddarjack" }
     },
@@ -8,7 +8,7 @@
     "rotate": true,
     "rotation": {
       "avg": 1,
-      "var": 0.1
+      "var": 0.2
     }
   },
   "@butter-(salted|unsalted)": {

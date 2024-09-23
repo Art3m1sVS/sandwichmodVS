@@ -17,28 +17,8 @@
       "base": "sandwich:item/food/sandwich_ingredients_vanilla/slicedbread"
     }
   },
-  "texturesByType": {
-    "*-cassava": {
-      "all": { "base": "game:item/food/grain/cassavabread" }
-    },
-    "*-amaranth": {
-      "all": { "base": "game:item/food/grain/amaranthbread" }
-    },
-    "*-flax": {
-      "all": { "base": "game:item/food/grain/flaxbread" }
-    },
-    "*-rice": {
-      "all": { "base": "game:item/food/grain/ricebread" }
-    },
-    "*-rye": {
-      "all": { "base": "game:item/food/grain/ryebread" }
-    },
-    "*-spelt": {
-      "all": { "base": "game:item/food/grain/speltbread" }
-    },
-    "*-sunflower": {
-      "all": { "base": "game:item/food/grain/sunflowerbread" }
-    }
+  "textures": {
+    "all": { "base": "game:item/food/grain/{type}bread" }
   },
   "creativeinventory": {
     "general": [ "*" ],
@@ -65,11 +45,24 @@
   "attributes": {
     "displaycaseable": true,
     "shelvable": true,
+    "groundStorageTransform": {
+      "rotation": {
+        "x": 0,
+        "y": 24,
+        "z": 0
+      },
+      "origin": {
+        "x": 0.5,
+        "y": 0,
+        "z": 0.25
+      },
+      "scale": 1.2
+    },
     "sandwich:canPutOnCuttingBoard": true,
     "sandwich:whenOnSandwich": {
       "shape": { "base": "sandwich:item/sandwich_ingredients_vanilla/slicedbread" },
       "shapeLast": { "base": "sandwich:item/sandwich_ingredients_vanilla/slicedbread-top" },
-      "size": 0.0825, // 1/16
+      "size": 0.0325, // 1/16
       "rotate": true,
       "rotation": {
         "avg": 1,
@@ -96,76 +89,72 @@
     }
   ],
   "materialDensity": 200,
-  "guiTransform": {
-    "translation": {
-      "x": 0,
-      "y": 0,
-      "z": 0
-    },
-    "rotation": {
-      "x": -30,
-      "y": 26,
-      "z": 180
-    },
-    "origin": {
-      "x": 0.47,
-      "y": 0.078,
-      "z": 0.5
-    },
-    "scale": 4.82
+   "guiTransform": {
+  "translation": {
+    "x": 0,
+    "y": 0,
+    "z": 0
   },
-  "groundTransform": {
-    "translation": {
-      "x": 0,
-      "y": 0,
-      "z": 0
-    },
-    "rotation": {
-      "x": 0,
-      "y": 0,
-      "z": 1
-    },
-    "origin": {
-      "x": 0.5,
-      "y": 0,
-      "z": 0.5
-    },
-    "scale": 4.5
+  "rotation": {
+    "x": -30,
+    "y": 26,
+    "z": 180
   },
-  "tpHandTransform": {
-    "translation": {
-      "x": -0.74,
-      "y": -0.06,
-      "z": -0.5
-    },
-    "rotation": {
-      "x": 87,
-      "y": -180,
-      "z": 90
-    },
-    "origin": {
-      "x": 0.5,
-      "y": 0.13,
-      "z": 0.5
-    },
-    "scale": 1
+  "origin": {
+    "x": 0.47,
+    "y": 0.078,
+    "z": 0.5
   },
-  "fpHandTransform": {
-    "translation": {
-      "x": 0,
-      "y": 0.24,
-      "z": 0.3
-    },
-    "rotation": {
-      "x": 104,
-      "y": 0,
-      "z": 71
-    },
-    "origin": {
-      "x": 0.5,
-      "y": 0.1,
-      "z": 0.5
-    },
-    "scale": 2.5
-  }
-} 
+  "scale": 4.82
+}, "groundTransform": {
+  "translation": {
+    "x": 0,
+    "y": 0,
+    "z": 0
+  },
+  "rotation": {
+    "x": 0,
+    "y": 0,
+    "z": 1
+  },
+  "origin": {
+    "x": 0.5,
+    "y": 0,
+    "z": 0.5
+  },
+  "scale": 4.5
+}, "tpHandTransform": {
+  "translation": {
+    "x": -0.74,
+    "y": -0.06,
+    "z": -0.5
+  },
+  "rotation": {
+    "x": 87,
+    "y": -180,
+    "z": 90
+  },
+  "origin": {
+    "x": 0.5,
+    "y": 0.13,
+    "z": 0.5
+  },
+  "scale": 1
+}, "fpHandTransform": {
+  "translation": {
+    "x": 0,
+    "y": 0.24,
+    "z": 0.3
+  },
+  "rotation": {
+    "x": 104,
+    "y": 0,
+    "z": 71
+  },
+  "origin": {
+    "x": 0.5,
+    "y": 0.1,
+    "z": 0.5
+  },
+  "scale": 2.5
+} }

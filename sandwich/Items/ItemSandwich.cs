@@ -15,6 +15,8 @@ using EFRecipes;
 using static Vintagestory.GameContent.BlockLiquidContainerBase;
 using Vintagestory.API.Datastructures;
 using System.Xml.Linq;
+using System.Collections;
+using Vintagestory.API.Common.Entities;
 
 namespace sandwich;
 
@@ -70,7 +72,17 @@ public class ItemSandwich : ItemExpandedFood, IContainedMeshSource
 
         ItemStack contentStackToMove = liquidSource.GetContent(slotLiquid.Itemstack);
         WhenOnSandwichProperties whenOnSandwichProps = WhenOnSandwichProperties.GetProps(contentStackToMove?.Collectible);
+        WhenOnSandwichProperties whenOnSandwichPropsMadeWith = WhenOnSandwichProperties.GetPropsMadeWith(contentStackToMove?.Collectible);
+        WhenOnSandwichProperties whenOnSandwichPropsES = WhenOnSandwichProperties.GetPropsES(contentStackToMove?.Collectible);
         if (whenOnSandwichProps == null)
+        {
+            return false;
+        }
+        if (whenOnSandwichPropsMadeWith == null)
+        {
+            return false;
+        }
+        if (whenOnSandwichPropsES == null)
         {
             return false;
         }
@@ -157,14 +169,14 @@ public class ItemSandwich : ItemExpandedFood, IContainedMeshSource
             {
                 case EnumItemClass.Block:
                     capi.Tesselator.TesselateBlock(stack.Block, out mesh);
-                    prevSize += 0.0825f;
+                    prevSize += 0.0225f;
                     return mesh;
                 case EnumItemClass.Item:
                     capi.Tesselator.TesselateItem(stack.Item, out mesh);
-                    prevSize += 0.0825f;
+                    prevSize += 0.0225f;
                     return mesh;
                 default:
-                    prevSize += 0.0825f;
+                    prevSize += 0.0225f;
                     return mesh;
             }
         }
@@ -265,16 +277,15 @@ public class ItemSandwich : ItemExpandedFood, IContainedMeshSource
 
         EntityPlayer entityPlayer = (world.Side == EnumAppSide.Client) ? (world as IClientWorldAccessor).Player.Entity : null;
         SandwichNutritionProperties nutritionProps = props.GetNutritionProperties(inSlot, world, entityPlayer);
+        FoodNutritionProperties[] addProps = Attributes?["additionalNutritionProperties"]?.AsObject<FoodNutritionProperties[]>();
 
         float spoilState = AppendPerishableInfoText(inSlot, dsc, world);
+        Dictionary<string, (float TotalSat, float TotalHealth)> categorySummary = new Dictionary<string, (float, float)>();
+        float satLossMul = GlobalConstants.FoodSpoilageSatLossMul(spoilState, inSlot.Itemstack, entityPlayer);
+        float healthLossMul = GlobalConstants.FoodSpoilageHealthLossMul(spoilState, inSlot.Itemstack, entityPlayer);
+
         if (nutritionProps != null)
         {
-            float satLossMul = GlobalConstants.FoodSpoilageSatLossMul(spoilState, inSlot.Itemstack, entityPlayer);
-            float healthLossMul = GlobalConstants.FoodSpoilageHealthLossMul(spoilState, inSlot.Itemstack, entityPlayer);
-
-            dsc.AppendLine(Lang.Get(langWhenEaten));
-
-            Dictionary<string, (float TotalSat, float TotalHealth)> categorySummary = new Dictionary<string, (float, float)>();
 
             foreach (FoodNutritionProperties property in nutritionProps.NutritionPropertiesMany)
             {
@@ -298,12 +309,30 @@ public class ItemSandwich : ItemExpandedFood, IContainedMeshSource
                 }
             }
 
+            if (addProps?.Length > 0)
+            {
+                dsc.AppendLine(Lang.Get("sandwich:Extra Nutrients"));
+                foreach (FoodNutritionProperties adProps in addProps)
+                {
+
+                    if (Math.Abs(adProps.Health * healthLossMul) > 0.001f)
+                    {
+                        dsc.AppendLine(Lang.Get("sandwich:- {0} {2} sat, {1} hp", Math.Round(adProps.Satiety * satLossMul), adProps.Health * healthLossMul, adProps.FoodCategory.ToString()));
+                    }
+                    else
+                    {
+                        dsc.AppendLine(Lang.Get("sandwich:- {0} {1} sat", Math.Round(adProps.Satiety * satLossMul), adProps.FoodCategory.ToString()));
+                    }
+
+                    //dsc.AppendLine(Lang.Get("Food Category: {0}", Lang.Get("foodcategory-" + props.FoodCategory.ToString().ToLowerInvariant())));
+                }
+            }
+            dsc.AppendLine(Lang.Get(langWhenEaten));
             foreach (KeyValuePair<string, (float TotalSat, float TotalHealth)> entry in categorySummary)
             {
                 string category = entry.Key;
                 float totalSat = entry.Value.TotalSat;
                 float totalHealth = entry.Value.TotalHealth;
-
                 string translatedCategory = Lang.Get("foodcategory-" + category.ToLowerInvariant());
 
                 if (Math.Abs(totalHealth) > 0.001f)
@@ -503,14 +532,135 @@ public class ItemSandwich : ItemExpandedFood, IContainedMeshSource
 
     public override ItemStack OnTransitionNow(ItemSlot slot, TransitionableProperties transitionProps)
     {
+        string[] ings = (slot.Itemstack.Attributes["madeWith"] as StringArrayAttribute)?.value;
+        float[] xNutr = (slot.Itemstack.Attributes["expandedSats"] as FloatArrayAttribute)?.value;
+
+        ItemStack org = base.OnTransitionNow(slot, transitionProps);
         SandwichProperties props = SandwichProperties.FromStack(slot.Itemstack, api.World);
-        if (props == null || !props.Any)
-        {
-            return base.OnTransitionNow(slot, transitionProps);
-        }
+        if (props == null || !props.Any || !(org.Collectible is ItemExpandedFood))
+            return org;
+        if (ings != null)
+            org.Attributes["madeWith"] = new StringArrayAttribute(ings);
+        if (xNutr != null && xNutr.Length > 0)
+            org.Attributes["expandedSats"] = new FloatArrayAttribute(xNutr);
 
         ItemStack stack = transitionProps.TransitionedStack.ResolvedItemstack.Clone();
         stack.StackSize = GameMath.RoundRandom(api.World.Rand, slot.StackSize * props.GetOrdered(api.World).Sum(x => x.StackSize) * transitionProps.TransitionRatio);
         return stack;
     }
+
+    public void GetNutrientsFromIngredient(ref float[] satHolder, CollectibleObject ing, int mult)
+    {
+        TreeAttribute check = Attributes?["expandedNutritionProps"].ToAttribute() as TreeAttribute;
+        List<string> chk = new List<string>();
+        if (check != null)
+            foreach (var val in check)
+                chk.Add(val.Key);
+
+        FoodNutritionProperties ingProps = null;
+        if (chk.Count > 0)
+            ingProps = Attributes["expandedNutritionProps"][FindMatch(ing.Code.Domain + ":" + ing.Code.Path, chk.ToArray())].AsObject<FoodNutritionProperties>();
+        if (ingProps == null)
+            ingProps = ing.Attributes?["nutritionPropsWhenInMeal"].AsObject<FoodNutritionProperties>();
+        if (ingProps == null)
+            ingProps = ing.NutritionProps;
+        if (ingProps == null)
+            return;
+
+        if (ingProps.Health != 0)
+            satHolder[(int)EnumNutritionMatch.Hp] += ingProps.Health * mult;
+
+        switch (ingProps.FoodCategory)
+        {
+            case EnumFoodCategory.Fruit:
+                satHolder[(int)EnumNutritionMatch.Fruit] += ingProps.Satiety * mult;
+                break;
+
+            case EnumFoodCategory.Grain:
+                satHolder[(int)EnumNutritionMatch.Grain] += ingProps.Satiety * mult;
+                break;
+
+            case EnumFoodCategory.Vegetable:
+                satHolder[(int)EnumNutritionMatch.Vegetable] += ingProps.Satiety * mult;
+                break;
+
+            case EnumFoodCategory.Protein:
+                satHolder[(int)EnumNutritionMatch.Protein] += ingProps.Satiety * mult;
+                break;
+
+            case EnumFoodCategory.Dairy:
+                satHolder[(int)EnumNutritionMatch.Dairy] += ingProps.Satiety * mult;
+                break;
+        }
+    }
+
+    public void ListIngredients(ItemSlot inSlot, StringBuilder dsc, IWorldAccessor world, bool withDebugInfo)
+
+    {
+        string desc = Lang.Get("sandwich:Made with ");
+        string[] ings = (inSlot.Itemstack.Attributes["madeWith"] as StringArrayAttribute)?.value;
+
+        if (ings == null || ings.Length < 1)
+        {
+            return;
+        }
+
+        List<string> readable = new List<string>();
+        for (int i = 0; i < ings.Length; i++)
+        {
+            AssetLocation obj = new AssetLocation(ings[i]);
+            Block block = world.GetBlock(obj);
+            string ingInfo = Lang.GetIfExists("recipeingredient-" + (block != null ? "block-" : "item-") + obj.Path);
+            if (ingInfo != null && !readable.Contains(ingInfo))
+                readable.Add(ingInfo);
+        }
+
+        ings = readable.ToArray();
+
+        if (ings == null || ings.Length < 1)
+        {
+            return;
+        }
+
+
+        if (ings.Length < 2)
+        {
+            desc += ings[0];
+
+            dsc.AppendLine(desc);
+            return;
+        }
+
+        for (int i = 0; i < ings.Length; i++)
+        {
+            AssetLocation obj = new AssetLocation(ings[i]);
+            Block block = world.GetBlock(obj);
+
+            if (i + 1 == ings.Length)
+            {
+                desc += Lang.Get("sandwich:and ") + ings[i];
+            }
+            else
+            {
+                desc += ings[i] + ", ";
+            }
+        }
+
+        dsc.AppendLine(desc);
+    }
 }
+
+//public override ItemStack OnTransitionNow(ItemSlot slot, TransitionableProperties props)
+//{
+//    string[] ings = (slot.Itemstack.Attributes["madeWith"] as StringArrayAttribute)?.value;
+//    float[] xNutr = (slot.Itemstack.Attributes["expandedSats"] as FloatArrayAttribute)?.value;
+
+//    ItemStack org = base.OnTransitionNow(slot, props);
+//    if (org == null || !(org.Collectible is ItemExpandedRawFood))
+//        return org;
+//    if (ings != null)
+//        org.Attributes["madeWith"] = new StringArrayAttribute(ings);
+//    if (xNutr != null && xNutr.Length > 0)
+//        org.Attributes["expandedSats"] = new FloatArrayAttribute(xNutr);
+//    return org;
+//}

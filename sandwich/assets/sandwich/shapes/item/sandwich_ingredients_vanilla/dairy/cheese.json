@@ -1,0 +1,27 @@
+{
+	"editor": {
+		"allAngles": false,
+		"entityTextureMode": false
+	},
+	"textureWidth": 16,
+	"textureHeight": 16,
+	"textureSizes": {
+	},
+	"textures": {
+	},
+	"elements": [
+		{
+			"name": "CheeseW",
+			"from": [ 6.2, 0.0, 5.6 ],
+			"to": [ 9.4, 0.25, 8.9 ],
+			"rotationOrigin": [ 7.5, 0.0, 7.0 ],
+			"faces": {
+				"north": { "texture": "#cheddarjack", "uv": [ 2.5, 13.0, 5.5, 13.5 ], "windMode": [-1,-1,-1,-1] },
+				"east": { "texture": "#cheddarjack", "uv": [ 2.5, 13.0, 5.5, 12.5 ], "autoUv": false, "windMode": [-1,-1,-1,-1] },
+				"south": { "texture": "#cheddarjack", "uv": [ 4.0, 14.5, 6.0, 14.0 ], "autoUv": false, "windMode": [-1,-1,-1,-1] },
+				"west": { "texture": "#cheddarjack", "uv": [ 2.0, 13.0, 4.0, 12.5 ], "autoUv": false, "windMode": [-1,-1,-1,-1] },
+				"up": { "texture": "#cheddarjack", "uv": [ 1.0, 12.0, 4.0, 15.0 ], "windMode": [-1,-1,-1,-1] },
+				"down": { "texture": "#cheddarjack", "uv": [ 3.5, 13.0, 6.5, 16.0 ], "windMode": [-1,-1,-1,-1] }
+			}
+		}
+	]}

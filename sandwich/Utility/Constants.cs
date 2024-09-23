@@ -13,6 +13,8 @@ public static class Constants
     public const string attributeOnCuttingBoardTransform = $"{ModId}:onCuttingBoardTransform";
     public const string attributeWhenOnSandwich = $"{ModId}:whenOnSandwich";
     public const string attributeSandwichLayers = "sandwichLayers";
+    public const string attributeMW = $"{ModId}:madeWith";
+    public const string attributeES = $"{ModId}:expandedSats";
 
     public const string langEmpty = "Empty";
     public const string langContents0x1 = "Contents: {0}x {1}";
