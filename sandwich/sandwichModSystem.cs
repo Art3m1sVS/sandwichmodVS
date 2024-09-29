@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Vintagestory.API.Common;
+using Vintagestory.API.Config;
 using Vintagestory.API.Server;
 using Vintagestory.API.Util;
 
@@ -30,7 +31,7 @@ public class SandwichModSystem : ModSystem
     {
         if (!api.World.Config.HasAttribute(worldConfigSandwichLayersLimit))
         {
-            api.World.Config.SetInt(worldConfigSandwichLayersLimit, defaultSandwichLayersLimit);
+            api.World.Config.SetInt(worldConfigSandwichLayersLimit, 6);
         }
     }
 
@@ -128,6 +129,7 @@ public class SandwichModSystem : ModSystem
                 }
             }
         }
+        api.World.Logger.StoryEvent("The greatest thing since...");
     }
 
     public override void Dispose()

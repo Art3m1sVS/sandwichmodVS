@@ -206,6 +206,80 @@ public class BlockEntityCuttingBoard : BlockEntityDisplay
                         Api.World.Logger.Event($"Sliced {breadType} bread into slices.");
                     }
                     return true;
+                } else if (breadPath != null && breadPath.StartsWith("bushmeat-") && breadPath.EndsWith("-cooked"))
+                {
+                    Api.World.Logger.Event($"The item path is: {breadPath}");
+
+                    AssetLocation breadSliceAsset = new AssetLocation($"sandwich:slicedmeat");
+
+                    if (Api.Side == EnumAppSide.Server)
+                    {
+                        // Spawn 4 bread slices
+                        ItemStack breadSlices = new ItemStack(Api.World.GetItem(breadSliceAsset), 2);
+                        ItemSandwich sandwichItem = new ItemSandwich();
+
+                        Api.World.SpawnItemEntity(breadSlices, Pos.ToVec3d().Add(0.5, 0.5, 0.5));
+                        inventory[0].TakeOutWhole();
+                        MarkDirty(true);
+                        updateMeshes();
+                    }
+                    return true;
+                }
+                else if (breadPath != null && breadPath.StartsWith("bushmeat-") && breadPath.EndsWith("-cooked"))
+                {
+                    Api.World.Logger.Event($"The item path is: {breadPath}");
+
+                    AssetLocation breadSliceAsset = new AssetLocation($"sandwich:slicedmeat");
+
+                    if (Api.Side == EnumAppSide.Server)
+                    {
+                        // Spawn 4 bread slices
+                        ItemStack breadSlices = new ItemStack(Api.World.GetItem(breadSliceAsset), 2);
+                        ItemSandwich sandwichItem = new ItemSandwich();
+
+                        Api.World.SpawnItemEntity(breadSlices, Pos.ToVec3d().Add(0.5, 0.5, 0.5));
+                        inventory[0].TakeOutWhole();
+                        MarkDirty(true);
+                        updateMeshes();
+                    }
+                    return true;
+                }
+                else if (breadPath != null && breadPath.StartsWith("redmeat-") && breadPath.EndsWith("-cooked"))
+                {
+                    Api.World.Logger.Event($"The item path is: {breadPath}");
+
+                    AssetLocation breadSliceAsset = new AssetLocation($"sandwich:slicedmeat");
+
+                    if (Api.Side == EnumAppSide.Server)
+                    {
+                        // Spawn 4 bread slices
+                        ItemStack breadSlices = new ItemStack(Api.World.GetItem(breadSliceAsset), 2);
+                        ItemSandwich sandwichItem = new ItemSandwich();
+
+                        Api.World.SpawnItemEntity(breadSlices, Pos.ToVec3d().Add(0.5, 0.5, 0.5));
+                        inventory[0].TakeOutWhole();
+                        MarkDirty(true);
+                        updateMeshes();
+                    }
+                    return true;
+                }
+                else if (breadPath != null && breadPath.StartsWith("cheese-") && breadPath.EndsWith("-cheddar-1slice"))
+                {
+
+                    AssetLocation breadSliceAsset = new AssetLocation($"sandwich:slicedcheese");
+
+                    if (Api.Side == EnumAppSide.Server)
+                    {
+                        // Spawn 4 bread slices
+                        ItemStack breadSlices = new ItemStack(Api.World.GetItem(breadSliceAsset), 4);
+                        ItemSandwich sandwichItem = new ItemSandwich();
+
+                        Api.World.SpawnItemEntity(breadSlices, Pos.ToVec3d().Add(0.5, 0.5, 0.5));
+                        inventory[0].TakeOutWhole();
+                        MarkDirty(true);
+                        updateMeshes();
+                    }
+                    return true;
                 }
                 return false; // Bread item did not match the expected format
             }

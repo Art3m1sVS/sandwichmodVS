@@ -13,6 +13,33 @@
   "item-slicedbread-cassava-perfect": "Cassava bread slice",
 
 
+  "item-slicedbread-spelt-toasted": "Toasted spelt bread slice",
+  "item-slicedbread-rye-toasted": "Toasted rye bread slice",
+  "item-slicedbread-flax-toasted": "Toasted flax bread slice",
+  "item-slicedbread-rice-toasted": "Toasted rice bread slice",
+  "item-slicedbread-sunflower-toasted": "Toasted sunflower bread slice",
+  "item-slicedbread-amaranth-toasted": "Toasted amaranth bread slice",
+  "item-slicedbread-cassava-toasted": "Toasted cassava bread slice",
+
+  "item-slicedbread-spelt-charred": "Charred spelt bread slice",
+  "item-slicedbread-rye-charred": "Charred rye bread slice",
+  "item-slicedbread-flax-charred": "Charred flax bread slice",
+  "item-slicedbread-rice-charred": "Charred rice bread slice",
+  "item-slicedbread-sunflower-charred": "Charred sunflower bread slice",
+  "item-slicedbread-amaranth-charred": "Charred amaranth bread slice",
+  "item-slicedbread-cassava-charred": "Charred cassava bread slice",
+
+  "item-slicedmeat": "Meat Slice",
+  "item-slicedcheese": "Cheese Slice",
+
+  "itemdesc-sandwich": "You are marching into the unknown, armed with... nothing. Have a sandwich.",
+  "itemdesc-slicedbread-*-perfect": "Sliced from a loaf of bread",
+  "itemdesc-slicedbread-*-toasted": "Toasted slice of bread",
+  "itemdesc-slicedbread-*-charred": "Slightly overcooked slice of bread...",
+  "itemdesc-slicedmeat": "Sliced from cooked red or bush meat",
+  "itemdesc-slicedcheese": "Sliced from 1/4 wheel of cheddar cheese",
+
+
   "when-eaten": "When eaten: ",
   "contents-sandwich": "Sandwich contents:",
   "sandwich:Extra Nutrients": "Extra nutrients",
@@ -23,5 +50,5 @@
   "sandwich:Made with ": "Made with ",
 
   "sammichesguide1-title": "Sammiches Guide",
-  "sammichesguide1-text": "<strong>What is Sammiches?</strong><br><i>Sammiches adds sandwiches and other bread products into the game.</i><br>Sandwiches can contain up to 6 ingredients, including the slice of bread used to begin the sandwich creation.<br><br><strong>Cutting Board</strong><br>The cutting board is an essential tool required to use this mod.  It is crafted with 1 board of any wood type in the crafting grid.<br><br><strong>Slicing Bread</strong><br>Sliced bread is the basis for all sandwiches, of course.  Slicing bread on a cutting board with a knife or sword yields 4 slices of bread."
+  "sammichesguide1-text": "<strong>What is Sammiches?</strong><br><i>Sammiches adds sandwiches and other bread products into the game.</i><br>Sandwiches can contain up to 6 ingredients, including the slice of bread used to begin the sandwich creation.<br><br><strong>Cutting Board</strong><br>The cutting board is an essential tool required to use this mod.  It is crafted with 1 board of any wood type in the crafting grid.<br><br><strong>Slicing Bread</strong><br>Sliced bread is the basis for all sandwiches, of course.  Slicing bread on a cutting board with a knife or sword yields 4 slices of bread.<br><br><strong>Sliced Foods</strong><br>Some food items can only be placed on sandwiches when sliced.<br><br>To slice an ingredient, place it on the cutting board and use a knife or sword on it."
 }

@@ -25,7 +25,7 @@ public static class Constants
     public const string langWhenEaten = $"{ModId}:when-eaten";
 
     public const string worldConfigSandwichLayersLimit = $"{ModId}:sandwichLayersLimit";
-    public const int defaultSandwichLayersLimit = 6;
+    public const int defaultSandwichLayersLimit = 4;
 
     public const string cuttingBoardInvClassName = $"{ModId}:cuttingBoard";
 

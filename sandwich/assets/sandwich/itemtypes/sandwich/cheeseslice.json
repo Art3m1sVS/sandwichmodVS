@@ -1,0 +1,137 @@
+{
+  "code": "slicedcheese",
+  "class": "sandwich.ItemSandwich",
+  "maxstacksize": 64,
+  "shapeByType": {
+    "*": {
+      "base": "sandwich:item/sandwich_ingredients_vanilla/dairy/cheese"
+    }
+  },
+  "textures": {
+    "all": { "base": "game:block/food/dairy/cheddarjack" }
+  },
+  "creativeinventory": {
+    "general": [ "*" ],
+    "items": [ "*" ],
+    "sandwich": [ "*" ]
+  },
+  "behaviors": [
+  ],
+  "attributes": {
+    "groundStorageTransform": {
+      "rotation": {
+        "x": 0,
+        "y": 24,
+        "z": 0
+      },
+      "origin": {
+        "x": 0.5,
+        "y": 0,
+        "z": 0.25
+      },
+      "scale": 1.2
+    },
+    "sandwich:canPutOnCuttingBoard": true,
+    "sandwich:whenOnSandwich": {
+      "shape": { "base": "sandwich:item/sandwich_ingredients_vanilla/dairy/cheese" },
+      //  "shapeLast": { "base": "sandwich:item/sandwich_ingredients_vanilla/slicedbread-top" },
+      "size": 0.0125, // 1/16
+      "rotate": true,
+      "rotation": {
+        "avg": 1,
+        "var": 0.8
+      }
+    }
+  },
+  "nutritionPropsByType": {
+    "*": {
+      "saturation": 60,
+      "foodcategory": "Dairy"
+    }
+  },
+  "transitionableProps": [
+    {
+      "type": "Perish",
+      "freshHours": { "avg": 216 },
+      "transitionHours": { "avg": 12 },
+      "transitionedStack": {
+        "type": "item",
+        "code": "game:rot"
+      },
+      "transitionRatio": 1
+    }
+  ],
+  "materialDensity": 200,
+  "guiTransform": {
+    "translation": {
+      "x": 0,
+      "y": 0,
+      "z": 0
+    },
+    "rotation": {
+      "x": -30,
+      "y": 26,
+      "z": 180
+    },
+    "origin": {
+      "x": 0.47,
+      "y": 0.078,
+      "z": 0.5
+    },
+    "scale": 4.82
+  },
+  "groundTransform": {
+    "translation": {
+      "x": 0,
+      "y": 0,
+      "z": 0
+    },
+    "rotation": {
+      "x": 0,
+      "y": 0,
+      "z": 1
+    },
+    "origin": {
+      "x": 0.5,
+      "y": 0,
+      "z": 0.5
+    },
+    "scale": 4.5
+  },
+  "tpHandTransform": {
+    "translation": {
+      "x": -0.74,
+      "y": -0.06,
+      "z": -0.5
+    },
+    "rotation": {
+      "x": 87,
+      "y": -180,
+      "z": 90
+    },
+    "origin": {
+      "x": 0.5,
+      "y": 0.13,
+      "z": 0.5
+    },
+    "scale": 1
+  },
+  "fpHandTransform": {
+    "translation": {
+      "x": 0,
+      "y": 0.24,
+      "z": 0.3
+    },
+    "rotation": {
+      "x": 104,
+      "y": 0,
+      "z": 71
+    },
+    "origin": {
+      "x": 0.5,
+      "y": 0.1,
+      "z": 0.5
+    },
+    "scale": 2.5
+  }
+}

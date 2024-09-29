@@ -1,0 +1,10 @@
+{
+  "cheese-cheddar-1slice": {
+    "convertTo": {
+      "type": "item",
+      "code": "sandwich:slicedcheese",
+      "quantity": 4
+    },
+    "tool": [ "Knife", "Sword" ]
+  }
+}

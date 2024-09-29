@@ -89,6 +89,13 @@
 	<Content Include="assets\**">
 		<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 	</Content>
+	<None Remove="assets\sandwich\config\sandwich\cuttingboard_properties\bushmeatslice.json" />
+	<None Remove="assets\sandwich\config\sandwich\cuttingboard_properties\cheeseslice.json" />
+	<None Remove="assets\sandwich\config\sandwich\cuttingboard_properties\redmeatslice.json" />
+	<None Remove="assets\sandwich\config\sandwich\cuttingboard_storable\bushmeat.json" />
+	<None Remove="assets\sandwich\config\sandwich\cuttingboard_storable\cheese.json" />
+	<None Remove="assets\sandwich\config\sandwich\cuttingboard_storable\redmeat.json" />
+	<None Remove="assets\sandwich\itemtypes\sandwich\cheeseslice.json" />
 	<Content Include="modinfo.json">
 		<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 	</Content>

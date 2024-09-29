@@ -132,7 +132,7 @@ public class ItemSandwich : ItemExpandedFood, IContainedMeshSource
         renderinfo.ModelRef = meshref;
     }
 
-    public MeshData GenMesh(ItemStack stack, ITextureAtlasAPI targetAtlas, BlockPos atBlockPos)
+    public override MeshData GenMesh(ItemStack stack, ITextureAtlasAPI targetAtlas, BlockPos atBlockPos)
     {
         MeshData mesh = new MeshData(4, 3);
 
@@ -233,7 +233,7 @@ public class ItemSandwich : ItemExpandedFood, IContainedMeshSource
         return mesh;
     }
 
-    public string GetMeshCacheKey(ItemStack stack)
+    public new string GetMeshCacheKey(ItemStack stack)
     {
         SandwichProperties props = SandwichProperties.FromStack(stack, (api as ICoreClientAPI).World);
         if (props == null || !props.Any)
@@ -423,7 +423,7 @@ public class ItemSandwich : ItemExpandedFood, IContainedMeshSource
             modelTransform.Translation.Y -= Math.Min(0.05f, secondsUsed * 2f);
             modelTransform.Rotation.X += Math.Min(30f, secondsUsed * 350f);
             modelTransform.Rotation.Y += Math.Min(80f, secondsUsed * 350f);
-            byEntity.Controls.UsingHeldItemTransformAfter = modelTransform;
+            //byEntity.Controls.UsingHeldItemTransformAfter = modelTransform;
             return secondsUsed <= 1f;
         }
 
@@ -549,7 +549,7 @@ public class ItemSandwich : ItemExpandedFood, IContainedMeshSource
         return stack;
     }
 
-    public void GetNutrientsFromIngredient(ref float[] satHolder, CollectibleObject ing, int mult)
+    public new void GetNutrientsFromIngredient(ref float[] satHolder, CollectibleObject ing, int mult)
     {
         TreeAttribute check = Attributes?["expandedNutritionProps"].ToAttribute() as TreeAttribute;
         List<string> chk = new List<string>();
@@ -594,7 +594,7 @@ public class ItemSandwich : ItemExpandedFood, IContainedMeshSource
         }
     }
 
-    public void ListIngredients(ItemSlot inSlot, StringBuilder dsc, IWorldAccessor world, bool withDebugInfo)
+    public static new void ListIngredients(ItemSlot inSlot, StringBuilder dsc, IWorldAccessor world, bool withDebugInfo)
 
     {
         string desc = Lang.Get("sandwich:Made with ");

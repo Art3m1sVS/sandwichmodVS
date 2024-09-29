@@ -1,22 +1,4 @@
 {
-  "@redmeat-(cooked|cured)": {
-    "shape": { "base": "sandwich:item/food/bread/redmeatslice" },
-    "size": 0.0625, // 1/16
-    "rotate": true,
-    "rotation": {
-      "avg": 1,
-      "var": 0.1
-    }
-  },
-  "@bushmeat-(cooked|cured)": {
-    "shape": { "base": "sandwich:item/food/bread/bushmeatslice" },
-    "size": 0.0625, // 1/16
-    "rotate": true,
-    "rotation": {
-      "avg": 1,
-      "var": 0.1
-    }
-  },
   "@poultry-(cooked|cured)": {
     "shape": { "base": "sandwich:item/sandwich_ingredients_vanilla/meat/poultry" },
     "size": 0.09375, // 1.5/16

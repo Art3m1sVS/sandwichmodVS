@@ -1,0 +1,10 @@
+{
+  "redmeat-cooked": {
+    "convertTo": {
+      "type": "item",
+      "code": "sandwich:slicedmeat",
+      "quantity": 2
+    },
+    "tool": ["Knife", "Sword"]
+  }
+}
