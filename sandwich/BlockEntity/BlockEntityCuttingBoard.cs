@@ -13,6 +13,8 @@ using Vintagestory.API.MathTools;
 using Vintagestory.GameContent;
 using ACulinaryArtillery;
 using EFRecipes;
+using Newtonsoft.Json;
+using System.IO;
 
 namespace sandwich;
 
@@ -169,7 +171,6 @@ public class BlockEntityCuttingBoard : BlockEntityDisplay
     //    return true; // Return true to indicate success
     //}
 
-
     private bool TryCustomInteraction(IPlayer byPlayer, ItemSlot invSlot, ItemSlot activeslot)
     {
         CuttingBoardProperties props = CuttingBoardProperties.GetProps(invSlot?.Itemstack?.Collectible);
@@ -183,7 +184,7 @@ public class BlockEntityCuttingBoard : BlockEntityDisplay
                 ItemStack breadStack = inventory[0].Itemstack;
                 string breadPath = breadStack?.Collectible?.Code?.Path;
 
-                if (breadPath != null && breadPath.StartsWith("bread-") && breadPath.EndsWith("-perfect"))
+                if (breadPath != null && BreadStorage.BreadTypes.ContainsKey(breadPath))
                 {
                     Api.World.Logger.Event($"The item path is: {breadPath}");
 
