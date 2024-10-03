@@ -1,6 +1,6 @@
 {
   "code": "slicedcheese",
-  "class": "sandwich.ItemSandwich",
+  "class": "sandwich.ExpandedFood",
   "maxstacksize": 64,
   "shapeByType": {
     "*": {

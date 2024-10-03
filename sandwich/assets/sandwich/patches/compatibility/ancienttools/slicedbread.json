@@ -1,0 +1,10 @@
+[
+  {
+    "op": "addeach",
+    "path": "/variantgroups/0/states/-",
+    "value": [ "pine", "birch", "maple" ],
+    "side": "server",
+    "file": "sandwich:itemtypes/sandwich/slicedbread.json",
+    "dependsOn": [ { "modid": "ancienttools" } ]
+  }
+]

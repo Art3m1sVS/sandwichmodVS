@@ -181,113 +181,61 @@ public class BlockEntityCuttingBoard : BlockEntityDisplay
         {
             if (!inventory[0].Empty)
             {
-                ItemStack breadStack = inventory[0].Itemstack;
-                string breadPath = breadStack?.Collectible?.Code?.Path;
+                ItemStack itemStack = inventory[0].Itemstack;
+                string itemPath = itemStack?.Collectible?.Code?.Path;
 
-                if (breadPath != null && BreadStorage.BreadTypes.ContainsKey(breadPath))
+                if (itemPath != null && SlicingStorage.SlicingItems.ContainsKey(itemPath))
                 {
-                    Api.World.Logger.Event($"The item path is: {breadPath}");
-
-                    string breadType = breadPath.Split('-')[1];
-                    AssetLocation breadSliceAsset = new AssetLocation($"sandwich:slicedbread-{breadType}-perfect");
-                    Api.World.Logger.Event($"The item type is: {breadType}");
+                    SlicingData sliceData = SlicingStorage.SlicingItems[itemPath];
+                    Api.World.Logger.Event($"The item path is: {itemPath}");
 
                     if (Api.Side == EnumAppSide.Server)
                     {
-                        // Spawn 4 bread slices
-                        ItemStack breadSlices = new ItemStack(Api.World.GetItem(breadSliceAsset), 4);
+                        // Create the sliced output item based on SlicingStorage data
+                        ItemStack slicedItems = new ItemStack(Api.World.GetItem(sliceData.OutputAsset), sliceData.OutputQuantity);
                         ItemSandwich sandwichItem = new ItemSandwich();
 
-                        Api.World.SpawnItemEntity(breadSlices, Pos.ToVec3d().Add(0.5, 0.5, 0.5));
-                        sandwichItem.OnCreatedBySlicing(inventory[0], breadSlices, breadStack, 4);
+                        // Call OnCreatedBySlicing to transfer nutrients
+                        sandwichItem.OnCreatedBySlicing(inventory[0], slicedItems, itemStack, sliceData.OutputQuantity);
+
+
+                        Api.World.SpawnItemEntity(slicedItems, Pos.ToVec3d().Add(0.5, 0.5, 0.5));
                         inventory[0].TakeOutWhole();
                         MarkDirty(true);
                         updateMeshes();
 
-                        Api.World.Logger.Event($"Sliced {breadType} bread into slices.");
+                        Api.World.Logger.Event($"Sliced {itemPath} into {sliceData.OutputQuantity} pieces.");
                     }
                     return true;
-                } else if (breadPath != null && breadPath.StartsWith("bushmeat-") && breadPath.EndsWith("-cooked"))
+                } else if (itemPath != null && itemPath.StartsWith("bread") && itemPath.EndsWith("-perfect"))
                 {
-                    Api.World.Logger.Event($"The item path is: {breadPath}");
-
-                    AssetLocation breadSliceAsset = new AssetLocation($"sandwich:slicedmeat");
-
                     if (Api.Side == EnumAppSide.Server)
                     {
-                        // Spawn 4 bread slices
-                        ItemStack breadSlices = new ItemStack(Api.World.GetItem(breadSliceAsset), 2);
+                        // Create the sliced output item based on SlicingStorage data
+                        ItemStack slicedItems = new ItemStack(Api.World.GetItem(new AssetLocation("sandwich:slicedbread-generic-perfect")), 4);
                         ItemSandwich sandwichItem = new ItemSandwich();
 
-                        Api.World.SpawnItemEntity(breadSlices, Pos.ToVec3d().Add(0.5, 0.5, 0.5));
+                        // Call OnCreatedBySlicing to transfer nutrients
+                        sandwichItem.OnCreatedBySlicing(inventory[0], slicedItems, itemStack, 4);
+
+
+                        Api.World.SpawnItemEntity(slicedItems, Pos.ToVec3d().Add(0.5, 0.5, 0.5));
                         inventory[0].TakeOutWhole();
                         MarkDirty(true);
                         updateMeshes();
-                    }
-                    return true;
-                }
-                else if (breadPath != null && breadPath.StartsWith("bushmeat-") && breadPath.EndsWith("-cooked"))
-                {
-                    Api.World.Logger.Event($"The item path is: {breadPath}");
 
-                    AssetLocation breadSliceAsset = new AssetLocation($"sandwich:slicedmeat");
-
-                    if (Api.Side == EnumAppSide.Server)
-                    {
-                        // Spawn 4 bread slices
-                        ItemStack breadSlices = new ItemStack(Api.World.GetItem(breadSliceAsset), 2);
-                        ItemSandwich sandwichItem = new ItemSandwich();
-
-                        Api.World.SpawnItemEntity(breadSlices, Pos.ToVec3d().Add(0.5, 0.5, 0.5));
-                        inventory[0].TakeOutWhole();
-                        MarkDirty(true);
-                        updateMeshes();
+                        Api.World.Logger.Event($"Sliced {itemPath} into {4} pieces.");
                     }
                     return true;
                 }
-                else if (breadPath != null && breadPath.StartsWith("redmeat-") && breadPath.EndsWith("-cooked"))
-                {
-                    Api.World.Logger.Event($"The item path is: {breadPath}");
 
-                    AssetLocation breadSliceAsset = new AssetLocation($"sandwich:slicedmeat");
-
-                    if (Api.Side == EnumAppSide.Server)
-                    {
-                        // Spawn 4 bread slices
-                        ItemStack breadSlices = new ItemStack(Api.World.GetItem(breadSliceAsset), 2);
-                        ItemSandwich sandwichItem = new ItemSandwich();
-
-                        Api.World.SpawnItemEntity(breadSlices, Pos.ToVec3d().Add(0.5, 0.5, 0.5));
-                        inventory[0].TakeOutWhole();
-                        MarkDirty(true);
-                        updateMeshes();
-                    }
-                    return true;
-                }
-                else if (breadPath != null && breadPath.StartsWith("cheese-") && breadPath.EndsWith("-cheddar-1slice"))
-                {
-
-                    AssetLocation breadSliceAsset = new AssetLocation($"sandwich:slicedcheese");
-
-                    if (Api.Side == EnumAppSide.Server)
-                    {
-                        // Spawn 4 bread slices
-                        ItemStack breadSlices = new ItemStack(Api.World.GetItem(breadSliceAsset), 4);
-                        ItemSandwich sandwichItem = new ItemSandwich();
-
-                        Api.World.SpawnItemEntity(breadSlices, Pos.ToVec3d().Add(0.5, 0.5, 0.5));
-                        inventory[0].TakeOutWhole();
-                        MarkDirty(true);
-                        updateMeshes();
-                    }
-                    return true;
-                }
-                return false; // Bread item did not match the expected format
+                return false; // No matching slicing data found
             }
             return false; // Inventory slot is empty
         }
         return false; // Tool is not a Knife or Sword
     }
+
 
 
 

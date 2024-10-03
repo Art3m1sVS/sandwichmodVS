@@ -1,14 +1,14 @@
 {
-  "code": "slicedmeat",
+  "code": "slicedsausage",
   "class": "sandwich.ExpandedFood",
   "maxstacksize": 64,
   "shapeByType": {
     "*": {
-      "base": "sandwich:item/food/redmeatslice"
+      "base": "sandwich:item/food/sausage-sliced"
     }
   },
   "textures": {
-    "all": { "base": "game:item/food/meat/cooked" }
+    "all": { "base": "game:item/food/meat/cured-smoked" }
   },
   "creativeinventory": {
     "general": [ "*" ],
@@ -33,7 +33,7 @@
     },
     "sandwich:canPutOnCuttingBoard": true,
     "sandwich:whenOnSandwich": {
-      "shape": { "base": "sandwich:item/food/redmeatslice" },
+      "shape": { "base": "sandwich:item/food/sausage-sliced" },
       //  "shapeLast": { "base": "sandwich:item/sandwich_ingredients_vanilla/slicedbread-top" },
       "size": 0.0325, // 1/16
       "rotate": true,
@@ -45,15 +45,15 @@
   },
   "nutritionPropsByType": {
     "*": {
-      "saturation": 120,
+      "saturation": 25,
       "foodcategory": "Protein"
     }
   },
   "transitionableProps": [
     {
       "type": "Perish",
-      "freshHours": { "avg": 48 },
-      "transitionHours": { "avg": 12 },
+      "freshHours": { "avg": 13440 },
+      "transitionHours": { "avg": 8640 },
       "transitionedStack": {
         "type": "item",
         "code": "game:rot"

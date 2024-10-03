@@ -1,14 +1,39 @@
 {
-  "code": "slicedmeat",
+  "code": "sausagedog",
   "class": "sandwich.ExpandedFood",
-  "maxstacksize": 64,
+  "maxstacksize": 32,
+  "variantgroups": [
+    {
+      "code": "type",
+      "states": [ "bushmeat", "bushmeatcheese", "poultry", "poultrycheese", "redmeat", "redmeatcheese" ]
+    },
+    {
+      "code": "state",
+      "states": ["cooked", "dried","driedcooked","cured" ]
+    }
+  ],
   "shapeByType": {
     "*": {
-      "base": "sandwich:item/food/redmeatslice"
+      "base": "sandwich:item/food/sausagedog"
     }
   },
-  "textures": {
-    "all": { "base": "game:item/food/meat/cooked" }
+  "texturesByType": {
+    "@*-(bushmeat|poultry|redmeat)-(cooked|driedcooked)": {
+      "white1": { "base": "game:block/cloth/wool/white1" },
+      "cured": { "base": "game:item/food/meat/cured-smoked" }
+    },
+    "@*-(bushmeatcheese|poultrycheese|redmeatcheese)-(cooked|driedcooked)": {
+      "white1": { "base": "game:block/cloth/wool/white1" },
+      "cured": { "base": "expandedfoods:item/food/sausage/cured-cheese-cooked" }
+    },
+    "@*-(bushmeatcheese|poultrycheese|redmeatcheese)-(dried|cured)": {
+      "white1": { "base": "game:block/cloth/wool/white1" },
+      "cured": { "base": "expandedfoods:item/food/sausage/cured-cheese" }
+    },
+    "*": {
+      "white1": { "base": "game:block/cloth/wool/white1" },
+      "cured": { "base": "game:item/food/meat/cured" }
+    }
   },
   "creativeinventory": {
     "general": [ "*" ],
@@ -31,29 +56,29 @@
       },
       "scale": 1.2
     },
-    "sandwich:canPutOnCuttingBoard": true,
-    "sandwich:whenOnSandwich": {
-      "shape": { "base": "sandwich:item/food/redmeatslice" },
-      //  "shapeLast": { "base": "sandwich:item/sandwich_ingredients_vanilla/slicedbread-top" },
-      "size": 0.0325, // 1/16
-      "rotate": true,
-      "rotation": {
-        "avg": 1,
-        "var": 0.1
-      }
-    }
+    "sandwich:canPutOnCuttingBoard": true
+    //"sandwich:whenOnSandwich": {
+    //  "shape": { "base": "sandwich:item/food/sausagedog" },
+    //  //  "shapeLast": { "base": "sandwich:item/sandwich_ingredients_vanilla/slicedbread-top" },
+    //  "size": 0.0325, // 1/16
+    //  "rotate": true,
+    //  "rotation": {
+    //    "avg": 1,
+    //    "var": 0.1
+    //  }
+    //}
   },
   "nutritionPropsByType": {
     "*": {
-      "saturation": 120,
+      "saturation": 25,
       "foodcategory": "Protein"
     }
   },
   "transitionableProps": [
     {
       "type": "Perish",
-      "freshHours": { "avg": 48 },
-      "transitionHours": { "avg": 12 },
+      "freshHours": { "avg": 13440 },
+      "transitionHours": { "avg": 8640 },
       "transitionedStack": {
         "type": "item",
         "code": "game:rot"

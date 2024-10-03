@@ -4,6 +4,7 @@
   "block-cuttingboard-*": "Cutting board",
   "item-sandwich": "Sandwich",
 
+  "item-slicedbread-generic-perfect": "Bread slice",
   "item-slicedbread-spelt-perfect": "Spelt bread slice",
   "item-slicedbread-rye-perfect": "Rye bread slice",
   "item-slicedbread-flax-perfect": "Flax bread slice",
@@ -13,6 +14,7 @@
   "item-slicedbread-cassava-perfect": "Cassava bread slice",
 
 
+  "item-slicedbread-generic-toasted": "Toasted bread slice",
   "item-slicedbread-spelt-toasted": "Toasted spelt bread slice",
   "item-slicedbread-rye-toasted": "Toasted rye bread slice",
   "item-slicedbread-flax-toasted": "Toasted flax bread slice",
@@ -21,6 +23,7 @@
   "item-slicedbread-amaranth-toasted": "Toasted amaranth bread slice",
   "item-slicedbread-cassava-toasted": "Toasted cassava bread slice",
 
+  "item-slicedbread-generic-charred": "Charred bread slice",
   "item-slicedbread-spelt-charred": "Charred spelt bread slice",
   "item-slicedbread-rye-charred": "Charred rye bread slice",
   "item-slicedbread-flax-charred": "Charred flax bread slice",
@@ -31,6 +34,7 @@
 
   "item-slicedmeat": "Meat Slice",
   "item-slicedcheese": "Cheese Slice",
+  "item-slicedsausage": "Salami",
 
   "itemdesc-sandwich": "You are marching into the unknown, armed with... nothing. Have a sandwich.",
   "itemdesc-slicedbread-*-perfect": "Sliced from a loaf of bread",
@@ -38,6 +42,32 @@
   "itemdesc-slicedbread-*-charred": "Slightly overcooked slice of bread...",
   "itemdesc-slicedmeat": "Sliced from cooked red or bush meat",
   "itemdesc-slicedcheese": "Sliced from 1/4 wheel of cheddar cheese",
+  "itemdesc-slicedsausage": "Sliced from delicious sausage",
+
+  "item-sausagedog-bushmeat-cooked": "Bushmeat sausage",
+  "item-sausagedog-poultry-cooked": "Poultry sausage",
+  "item-sausagedog-redmeat-cooked": "Redmeat sausage",
+  "item-sausagedog-bushmeatcheese-cooked": "Cheesey bushmeat sausage",
+  "item-sausagedog-poultrycheese-cooked": "Cheesey poultry sausage",
+  "item-sausagedog-redmeatcheese-cooked": "Cheesey redmeat sausage",
+  "item-sausagedog-bushmeat-cured": "Cured bushmeat sausage",
+  "item-sausagedog-poultry-cured": "Cured poultry sausage",
+  "item-sausagedog-redmeat-cured": "Cured redmeat sausage",
+  "item-sausagedog-bushmeatcheese-cured": "Cheesey cured bushmeat sausage",
+  "item-sausagedog-poultrycheese-cured": "Cheesey cured poultry sausage",
+  "item-sausagedog-redmeatcheese-cured": "Cheesey cured redmeat sausage",
+  "item-sausagedog-bushmeat-driedcooked": "Vintage bushmeat sausage",
+  "item-sausagedog-poultry-driedcooked": "Vintage poultry sausage",
+  "item-sausagedog-redmeat-driedcooked": "Vintage redmeat sausage",
+  "item-sausagedog-bushmeatcheese-driedcooked": "Vintage cheesey bushmeat sausage",
+  "item-sausagedog-poultrycheese-driedcooked": "Vintage cheesey poultry sausage",
+  "item-sausagedog-redmeatcheese-driedcooked": "Vintage cheesey redmeat sausage",
+  "item-sausagedog-bushmeat-dried": "Dried bushmeat sausage",
+  "item-sausagedog-poultry-dried": "Dried poultry sausage",
+  "item-sausagedog-redmeat-dried": "Dried redmeat sausage",
+  "item-sausagedog-bushmeatcheese-dried": "Dried cheesey bushmeat sausage",
+  "item-sausagedog-poultrycheese-dried": "Dried cheesey poultry sausage",
+  "item-sausagedog-redmeatcheese-dried": "Dried cheesey redmeat sausage",
 
 
   "when-eaten": "When eaten: ",
