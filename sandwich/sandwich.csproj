@@ -98,10 +98,12 @@
 	<None Remove="assets\sandwich\config\sandwich\cuttingboard_storable\sausage.json" />
 	<None Remove="assets\sandwich\config\sandwich\cuttingboard_storable\sausagedog.json" />
 	<None Remove="assets\sandwich\config\sandwich\cuttingboard_storable\vegetable.json" />
+	<None Remove="assets\sandwich\itemtypes\sandwich\cabbageslice.json" />
 	<None Remove="assets\sandwich\itemtypes\sandwich\cheeseslice.json" />
 	<None Remove="assets\sandwich\itemtypes\sandwich\sausagedog.json" />
 	<None Remove="assets\sandwich\itemtypes\sandwich\sausageslice.json" />
 	<None Remove="assets\sandwich\patches\compatibility\ancienttools\slicedbread.json" />
+	<None Remove="assets\sandwich\patches\compatibility\expandedfoods\vegetables.json" />
 	<None Remove="assets\sandwich\patches\liquids.json" />
 	<Content Include="modinfo.json">
 		<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>

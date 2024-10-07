@@ -1,20 +1,15 @@
 {
-  "code": "slicedvegetable",
+  "code": "slicedcabbage",
   "class": "sandwich.ExpandedFood",
   "maxstacksize": 64,
-  "variantgroups": [
-    {
-      "loadFromProperties": "sandwich:block/vegetable"
-    }
-  ],
   "shapeByType": {
     "*": {
-      "base": "sandwich:item/sandwich_ingredients_vanilla/generic_6"
+      "base": "sandwich:item/sandwich_ingredients_vanilla/vegetable/cabbage"
     }
   },
   "texturesByType": {
     "*": {
-      "all": { "base": "game:block/food/pie/fill-{vegetable}" }
+      "cabbage": { "base": "game:block/plant/crop/cabbage/cabbage" }
     }
   },
   "creativeinventory": {
@@ -40,26 +35,26 @@
     },
     "sandwich:canPutOnCuttingBoard": true,
     "sandwich:whenOnSandwich": {
-      "shape": { "base": "sandwich:/item/sandwich_ingredients_vanilla/generic_6" },
+      "shape": { "base": "sandwich:item/sandwich_ingredients_vanilla/vegetable/cabbage" },
       //  "shapeLast": { "base": "sandwich:item/sandwich_ingredients_vanilla/slicedbread-top" },
-      "size": 0.0325, // 1/16
+      "size": 0.0225, // 1/16
       "rotate": true,
       "rotation": {
-        "avg": 2,
+        "avg": 1,
         "var": 0.8
       }
     }
   },
   "nutritionPropsByType": {
     "*": {
-      "saturation": 30,
+      "saturation": 20,
       "foodcategory": "Vegetable"
     }
   },
   "transitionableProps": [
     {
       "type": "Perish",
-      "freshHours": { "avg": 72 },
+      "freshHours": { "avg": 84 },
       "transitionHours": { "avg": 12 },
       "transitionedStack": {
         "type": "item",

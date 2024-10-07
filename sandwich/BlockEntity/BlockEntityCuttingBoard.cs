@@ -257,8 +257,6 @@ public class BlockEntityCuttingBoard : BlockEntityDisplay
                         inventory[0].TakeOutWhole();
                         MarkDirty(true);
                         updateMeshes();
-
-                        Api.World.Logger.Event($"Sliced {itemPath} into {4} pieces.");
                     }
                     return true;
                 }

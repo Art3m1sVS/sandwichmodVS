@@ -22,6 +22,7 @@ namespace sandwich
             { "cheese-cheddar-4slice", new SlicingData("game:cheese-cheddar-1slice", 4) },
             { "cheese-cheddar-1slice", new SlicingData("sandwich:slicedcheese", 4) },
             { "pumpkin-fruit-4", new SlicingData("game:vegetable-pumpkin", 4) },
+            { "vegetable-cabbage", new SlicingData("sandwich:slicedcabbage", 4) },
 
             // Sausagedog
             { "sausage-bushmeat-cooked", new SlicingData("sandwich:sausagedog-bushmeat-cooked", 4) },
@@ -81,7 +82,7 @@ namespace sandwich
             { "bread-maple-perfect", new SlicingData("sandwich:slicedbread-maple-perfect", 4) },
 
             // Expanded Foods
-            { "vegetable-cabbage", new SlicingData("expandedfoods:choppedvegetable-cabbage", 1) },
+            { "slicedcabbage", new SlicingData("expandedfoods:choppedvegetable-cabbage", 1) },
             { "vegetable-carrot", new SlicingData("expandedfoods:choppedvegetable-carrot", 1) },
             { "vegetable-turnip", new SlicingData("expandedfoods:choppedvegetable-turnip", 1) },
             { "vegetable-parsnip", new SlicingData("expandedfoods:choppedvegetable-parsnip", 1) },

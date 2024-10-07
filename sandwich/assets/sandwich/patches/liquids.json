@@ -8,24 +8,12 @@
       "textures": {
         "all": { "base": "game:block/liquid/honey" }
       },
-      "size": 0.00325,
+      "size": 0.01025,
       "rotate": true,
-      "copyLastRotation": true,
-      "litresPerLayer": 0.1
-    },
-    "side": "Server"
-  },
-  {
-    "op": "addmerge",
-    "file": "game:itemtypes/liquid/dairy/milkportion.json",
-    "path": "/attributes/sandwich:whenOnSandwich",
-    "value": {
-      "shape": { "base": "sandwich:item/sandwich_ingredients_vanilla/liquid" },
-      "textures": {
-        "all": { "base": "game:block/food/dairy/milk" }
+      "rotation": {
+        "avg": 1,
+        "var": 1.2
       },
-      "size": 0.00325,
-      "rotate": true,
       "copyLastRotation": true,
       "litresPerLayer": 0.1
     },

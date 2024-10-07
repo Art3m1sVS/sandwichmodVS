@@ -47,6 +47,8 @@
   "item-slicedmeat": "Meat Slice",
   "item-slicedcheese": "Cheese Slice",
   "item-slicedsausage": "Salami",
+  "item-slicedcabbage": "Cabbage Slice",
+  "item-slicedvegetable": "Vegetable Slice",
 
   "itemdesc-sandwich": "You are marching into the unknown, armed with... nothing. Have a sandwich.",
   "itemdesc-slicedbread-*-perfect": "Sliced from a loaf of bread",
@@ -55,6 +57,8 @@
   "itemdesc-slicedmeat": "Sliced from cooked red or bush meat",
   "itemdesc-slicedcheese": "Sliced from 1/4 wheel of cheddar cheese",
   "itemdesc-slicedsausage": "Sliced from delicious sausage",
+  "itemdesc-slicedcabbage": "Sliced from cabbage.  Can be chopped",
+  "itemdesc-slicedvegetable": "Sliced from a vegetable",
 
   "item-sausagedog-bushmeat-cooked": "Bushmeat sausage",
   "item-sausagedog-poultry-cooked": "Poultry sausage",

@@ -1,8 +1,23 @@
 {
   "@(.*portion|.*portion.*|portion.*)": {
     "shape": { "base": "sandwich:item/sandwich_ingredients_vanilla/liquid" },
-    "size": 0.00625, // 0.1/16
+    "size": 0.01025, // 0.1/16
     "rotate": true,
+    "rotation": {
+      "avg": 1,
+      "var": 1.2
+    },
+    "copyLastRotation": true,
+    "litresPerLayer": 0.1
+  },
+  "*liquid-*": {
+    "shape": { "base": "sandwich:item/sandwich_ingredients_vanilla/liquid" },
+    "size": 0.01025, // 0.1/16
+    "rotate": true,
+    "rotation": {
+      "avg": 1,
+      "var": 1.2
+    },
     "copyLastRotation": true,
     "litresPerLayer": 0.1
   }

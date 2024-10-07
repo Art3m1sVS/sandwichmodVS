@@ -1,0 +1,27 @@
+[
+  {
+    "op": "add",
+    "path": "/attributes",
+    "value": true,
+    "side": "server",
+    "file": "expandedfoods:itemtypes/food/choppedvegetable.json"
+  },
+  {
+    "op": "add",
+    "path": "/attributes",
+    "value": {
+      "sandwich:whenOnSandwich": {
+        "shape": { "base": "expandedfoods:item/food/veggies/chopped/{type}" },
+        //  "shapeLast": { "base": "sandwich:item/sandwich_ingredients_vanilla/slicedbread-top" },
+        "size": 0.0225, // 1/16
+        "rotate": true,
+        "rotation": {
+          "avg": 1,
+          "var": 0.8
+        }
+      }
+    },
+    "side": "server",
+    "file": "expandedfoods:itemtypes/food/choppedvegetable.json"
+  }
+]

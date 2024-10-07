@@ -64,14 +64,18 @@ public class ItemSandwich : ItemExpandedFood, IContainedMeshSource
     private static bool TryAddLiquid(ItemSlot slotSandwich, ItemSlot slotLiquid, IPlayer byPlayer, IWorldAccessor world)
     {
         BlockLiquidContainerBase liquidContainer = slotLiquid.Itemstack.Collectible as BlockLiquidContainerBase;
-        if (slotLiquid.Itemstack.Collectible is not ILiquidSource liquidSource)
+        ILiquidSource liquidSource = slotLiquid.Itemstack.Collectible as ILiquidSource;
+
+        if (liquidSource == null && slotLiquid.Itemstack.Collectible.MatterState != EnumMatterState.Liquid)
         {
             return false;
         }
+
         if (!liquidSource.AllowHeldLiquidTransfer)
         {
             return false;
         }
+
         ItemStack contentStackToMove = liquidSource.GetContent(slotLiquid.Itemstack);
         WhenOnSandwichProperties whenOnSandwichProps = WhenOnSandwichProperties.GetProps(contentStackToMove?.Collectible);
         if (whenOnSandwichProps == null)
@@ -156,12 +160,32 @@ public class ItemSandwich : ItemExpandedFood, IContainedMeshSource
             {
                 case EnumItemClass.Block:
                     capi.Tesselator.TesselateBlock(stack.Block, out mesh);
-                    prevSize += 0.0225f;
+                    if (stack?.Collectible?.Code?.Domain == "expandedfoods" && stack?.Collectible.MatterState is not EnumMatterState.Liquid)
+                    {
+                        // Scale down the mesh
+                        mesh.Scale(new Vec3f(0.5f, 0, 0.5f), 0.5f, 0.5f, 0.5f);
+                        prevSize += 0.0225f;
+                    }
+                    else
+                    {
+                        prevSize += 0.0225f;
+                    }
                     return mesh;
+
                 case EnumItemClass.Item:
                     capi.Tesselator.TesselateItem(stack.Item, out mesh);
-                    prevSize += 0.0225f;
+                    if (stack?.Collectible?.Code?.Domain == "expandedfoods" && stack?.Collectible.MatterState is not EnumMatterState.Liquid)
+                    {
+                        // Scale down the mesh
+                        mesh.Scale(new Vec3f(0.5f, 0, 0.5f), 0.5f, 0.5f, 0.5f);
+                        prevSize += 0.0225f;
+                    }
+                    else
+                    {
+                        prevSize += 0.0225f;
+                    }
                     return mesh;
+
                 default:
                     prevSize += 0.0225f;
                     return mesh;
@@ -215,10 +239,24 @@ public class ItemSandwich : ItemExpandedFood, IContainedMeshSource
             mesh = mesh.Rotate(Vec3f.Zero, 0, rotation, 0);
             mesh = mesh.Translate(0.5f, 0.5f, 0.5f);
         }
-        mesh = mesh.Translate(0, prevSize, 0);
-        prevSize += props.Size;
+
+        // Adjust scaling based on the domain for visual mesh size
+        if (stack?.Collectible?.Code?.Domain == "expandedfoods" && stack?.Collectible.MatterState is not EnumMatterState.Liquid)
+        {
+            mesh.Scale(new Vec3f(0.5f, 0, 0.5f), 0.5f, 0.5f, 0.5f);
+            mesh = mesh.Translate(0, prevSize, 0);
+            prevSize += props.Size;
+        }
+        else
+        {
+            mesh = mesh.Translate(0, prevSize, 0);
+            prevSize += props.Size;
+        }
         return mesh;
     }
+
+
+
 
     public new string GetMeshCacheKey(ItemStack stack)
     {
