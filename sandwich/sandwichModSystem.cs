@@ -23,6 +23,7 @@ public class SandwichModSystem : ModSystem
     public override void Start(ICoreAPI api)
     {
         api.RegisterItemClass("sandwich.ItemSandwich", typeof(ItemSandwich));
+        api.RegisterItemClass("sandwich.ExpandedFood", typeof(ItemExpandedFood));
         api.RegisterBlockClass("sandwich.BlockCuttingBoard", typeof(BlockCuttingBoard));
         api.RegisterBlockEntityClass("sandwich.CuttingBoard", typeof(BlockEntityCuttingBoard));
     }
@@ -45,7 +46,7 @@ public class SandwichModSystem : ModSystem
             }
             catch (Exception e)
             {
-                api.Logger.Error($"[Sandwich] Failed loading sandwich ingredients from file {asset.Location}:");
+                api.Logger.Error($"[Sammiches] Failed loading sandwich ingredients from file {asset.Location}:");
                 api.Logger.Error(e);
             }
         }
@@ -58,7 +59,7 @@ public class SandwichModSystem : ModSystem
             }
             catch (Exception e)
             {
-                api.Logger.Error($"[Sandwich] Failed loading cutting board patches from file {asset.Location}:");
+                api.Logger.Error($"[Sammiches] Failed loading cutting board patches from file {asset.Location}:");
                 api.Logger.Error(e);
             }
         }
@@ -71,7 +72,7 @@ public class SandwichModSystem : ModSystem
             }
             catch (Exception e)
             {
-                api.Logger.Error($"[Sandwich] Failed loading 'storable on cutting board' patches from file {asset.Location}:");
+                api.Logger.Error($"[Sammiches] Failed loading 'storable on cutting board' patches from file {asset.Location}:");
                 api.Logger.Error(e);
             }
         }

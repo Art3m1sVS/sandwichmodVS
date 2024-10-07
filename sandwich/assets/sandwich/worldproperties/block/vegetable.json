@@ -1,0 +1,14 @@
+{
+	"code": "vegetable",
+	"variants": [
+		{
+			"code": "pumpkin"
+		},
+		{
+			"code": "cassava"
+		},
+		{
+			"code": "bellpepper"
+		}
+	]
+}

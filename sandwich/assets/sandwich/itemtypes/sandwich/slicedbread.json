@@ -14,7 +14,7 @@
   ],
   "shapeByType": {
     "*": {
-      "base": "sandwich:item/food/sandwich_ingredients_vanilla/slicedbread"
+      "base": "sandwich:item/sandwich_ingredients_vanilla/slicedbread"
     }
   },
   "texturesByType": {

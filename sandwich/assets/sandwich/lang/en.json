@@ -13,6 +13,10 @@
   "item-slicedbread-amaranth-perfect": "Amaranth bread slice",
   "item-slicedbread-cassava-perfect": "Cassava bread slice",
 
+  "item-slicedbread-birch-perfect": "Birch bread slice",
+  "item-slicedbread-pine-perfect": "Pine bread slice",
+  "item-slicedbread-maple-perfect": "Maple bread slice",
+
 
   "item-slicedbread-generic-toasted": "Toasted bread slice",
   "item-slicedbread-spelt-toasted": "Toasted spelt bread slice",
@@ -23,6 +27,10 @@
   "item-slicedbread-amaranth-toasted": "Toasted amaranth bread slice",
   "item-slicedbread-cassava-toasted": "Toasted cassava bread slice",
 
+  "item-slicedbread-birch-toasted": "Toasted birch bread slice",
+  "item-slicedbread-pine-toasted": "Toasted pine bread slice",
+  "item-slicedbread-maple-toasted": "Toasted maple bread slice",
+
   "item-slicedbread-generic-charred": "Charred bread slice",
   "item-slicedbread-spelt-charred": "Charred spelt bread slice",
   "item-slicedbread-rye-charred": "Charred rye bread slice",
@@ -32,6 +40,10 @@
   "item-slicedbread-amaranth-charred": "Charred amaranth bread slice",
   "item-slicedbread-cassava-charred": "Charred cassava bread slice",
 
+  "item-slicedbread-birch-charred": "Charred birch bread slice",
+  "item-slicedbread-pine-charred": "Charred pine bread slice",
+  "item-slicedbread-maple-charred": "Charred maple bread slice",
+
   "item-slicedmeat": "Meat Slice",
   "item-slicedcheese": "Cheese Slice",
   "item-slicedsausage": "Salami",
@@ -39,7 +51,7 @@
   "itemdesc-sandwich": "You are marching into the unknown, armed with... nothing. Have a sandwich.",
   "itemdesc-slicedbread-*-perfect": "Sliced from a loaf of bread",
   "itemdesc-slicedbread-*-toasted": "Toasted slice of bread",
-  "itemdesc-slicedbread-*-charred": "Slightly overcooked slice of bread...",
+  "itemdesc-slicedbread-*-charred": "Slightly overbaked slice of bread...",
   "itemdesc-slicedmeat": "Sliced from cooked red or bush meat",
   "itemdesc-slicedcheese": "Sliced from 1/4 wheel of cheddar cheese",
   "itemdesc-slicedsausage": "Sliced from delicious sausage",

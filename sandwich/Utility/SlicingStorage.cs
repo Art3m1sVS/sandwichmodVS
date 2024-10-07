@@ -16,10 +16,12 @@ namespace sandwich
             { "bread-amaranth-perfect", new SlicingData("sandwich:slicedbread-amaranth-perfect", 4) },
             { "bread-cassava-perfect", new SlicingData("sandwich:slicedbread-cassava-perfect", 4) },
 
-
             { "bushmeat-cooked", new SlicingData("sandwich:slicedmeat", 2) },
             { "redmeat-cooked", new SlicingData("sandwich:slicedmeat", 2) },
+            { "cheese-blue-4slice", new SlicingData("game:cheese-blue-1slice", 4) },
+            { "cheese-cheddar-4slice", new SlicingData("game:cheese-cheddar-1slice", 4) },
             { "cheese-cheddar-1slice", new SlicingData("sandwich:slicedcheese", 4) },
+            { "pumpkin-fruit-4", new SlicingData("game:vegetable-pumpkin", 4) },
 
             // Sausagedog
             { "sausage-bushmeat-cooked", new SlicingData("sandwich:sausagedog-bushmeat-cooked", 4) },
@@ -77,6 +79,21 @@ namespace sandwich
             { "bread-birch-perfect", new SlicingData("sandwich:slicedbread-birch-perfect", 4) },
             { "bread-pine-perfect", new SlicingData("sandwich:slicedbread-pine-perfect", 4) },
             { "bread-maple-perfect", new SlicingData("sandwich:slicedbread-maple-perfect", 4) },
+
+            // Expanded Foods
+            { "vegetable-cabbage", new SlicingData("expandedfoods:choppedvegetable-cabbage", 1) },
+            { "vegetable-carrot", new SlicingData("expandedfoods:choppedvegetable-carrot", 1) },
+            { "vegetable-turnip", new SlicingData("expandedfoods:choppedvegetable-turnip", 1) },
+            { "vegetable-parsnip", new SlicingData("expandedfoods:choppedvegetable-parsnip", 1) },
+            { "vegetable-onion", new SlicingData("expandedfoods:choppedvegetable-onion", 2) },
+            { "vegetable-pumpkin", new SlicingData("expandedfoods:choppedvegetable-pumpkin", 2) },
+
+            { "pickledvegetable-cabbage", new SlicingData("expandedfoods:choppedvegetable-pickledcabbage", 1) },
+            { "pickledvegetable-carrot", new SlicingData("expandedfoods:choppedvegetable-pickledcarrot", 1) },
+            { "pickledvegetable-turnip", new SlicingData("expandedfoods:choppedvegetable-pickledturnip", 1) },
+            { "pickledvegetable-parsnip", new SlicingData("expandedfoods:choppedvegetable-pickledparsnip", 1) },
+            { "pickledvegetable-onion", new SlicingData("expandedfoods:choppedvegetable-pickledonion", 2) },
+            { "pickledvegetable-pumpkin", new SlicingData("expandedfoods:choppedvegetable-pickledpumpkin", 2) },
         };
     }
 

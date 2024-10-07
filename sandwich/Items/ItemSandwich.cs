@@ -64,48 +64,36 @@ public class ItemSandwich : ItemExpandedFood, IContainedMeshSource
     private static bool TryAddLiquid(ItemSlot slotSandwich, ItemSlot slotLiquid, IPlayer byPlayer, IWorldAccessor world)
     {
         BlockLiquidContainerBase liquidContainer = slotLiquid.Itemstack.Collectible as BlockLiquidContainerBase;
-
-        if (slotLiquid.Itemstack.Collectible is not ILiquidSource liquidSource || !liquidSource.AllowHeldLiquidTransfer)
+        if (slotLiquid.Itemstack.Collectible is not ILiquidSource liquidSource)
         {
             return false;
         }
-
+        if (!liquidSource.AllowHeldLiquidTransfer)
+        {
+            return false;
+        }
         ItemStack contentStackToMove = liquidSource.GetContent(slotLiquid.Itemstack);
         WhenOnSandwichProperties whenOnSandwichProps = WhenOnSandwichProperties.GetProps(contentStackToMove?.Collectible);
-        WhenOnSandwichProperties whenOnSandwichPropsMadeWith = WhenOnSandwichProperties.GetPropsMadeWith(contentStackToMove?.Collectible);
-        WhenOnSandwichProperties whenOnSandwichPropsES = WhenOnSandwichProperties.GetPropsES(contentStackToMove?.Collectible);
         if (whenOnSandwichProps == null)
         {
             return false;
         }
-        if (whenOnSandwichPropsMadeWith == null)
-        {
-            return false;
-        }
-        if (whenOnSandwichPropsES == null)
-        {
-            return false;
-        }
-
         SandwichProperties props = SandwichProperties.FromStack(slotSandwich.Itemstack, world);
         if (!props.CanAdd(contentStackToMove, world))
         {
             return false;
         }
-
         WaterTightContainableProps contentProps = liquidSource.GetContentProps(slotLiquid.Itemstack);
         int moved = (int)(whenOnSandwichProps.LitresPerLayer * contentProps.ItemsPerLitre);
         if (liquidSource.GetCurrentLitres(slotLiquid.Itemstack) < whenOnSandwichProps.LitresPerLayer || moved <= 0)
         {
             return false;
         }
-
         liquidContainer.CallMethod<int>("splitStackAndPerformAction", byPlayer.Entity, slotLiquid, delegate (ItemStack stack)
         {
             liquidContainer.TryTakeContent(stack, moved);
             return moved;
         });
-
         ItemStack stackIngredient = contentStackToMove.Clone();
         stackIngredient.StackSize = moved;
         if (props == null || !props.TryAdd(stackIngredient, world))
@@ -113,7 +101,6 @@ public class ItemSandwich : ItemExpandedFood, IContainedMeshSource
             return false;
         }
         props.ToStack(slotSandwich.Itemstack);
-
         liquidContainer.DoLiquidMovedEffects(byPlayer, contentStackToMove, moved, EnumLiquidDirection.Pour);
         return true;
     }
@@ -252,6 +239,7 @@ public class ItemSandwich : ItemExpandedFood, IContainedMeshSource
         }
         return Lang.Get(langSandwich);
     }
+
 
     public override void GetHeldItemInfo(ItemSlot inSlot, StringBuilder dsc, IWorldAccessor world, bool withDebugInfo)
     {

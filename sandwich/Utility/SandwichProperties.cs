@@ -157,9 +157,6 @@ public class SandwichProperties
         return sandwichNutritionProps;
     }
 
-    /// <summary>
-    /// Mixed version of BlockMeal.GetContentNutritionProperties and BlockLiquidContainerBase.GetNutritionProperties
-    /// </summary>
     public static FoodNutritionProperties[] GetContentNutritionProperties(IWorldAccessor world, ItemSlot inSlot, ItemStack[] contentStacks, EntityAgent forEntity, bool mulWithStacksize = false, float nutritionMul = 1f, float healthMul = 1f)
     {
         List<FoodNutritionProperties> list = new List<FoodNutritionProperties>();

@@ -228,6 +228,42 @@ public class BlockEntityCuttingBoard : BlockEntityDisplay
                     }
                     return true;
                 }
+                else if (itemPath != null && itemPath.StartsWith("vegetable") && itemPath.Contains("-"))
+                {
+                    // Define an array of items that should not be sliced
+                    string[] itemsToNotSlice = { "vegetable-cabbage", "vegetable-bambooshoot", "vegetable-pumpkin"};
+
+                    // Check if the item is in the array of items not to be sliced
+                    if (Array.Exists(itemsToNotSlice, item => item == itemPath))
+                    {
+                        Api.World.Logger.Event($"{itemPath} is in the list of items not to slice.");
+                        return false; // Don't slice the item
+                    }
+
+                    if (Api.Side == EnumAppSide.Server)
+                    {
+                        // Extract the specific vegetable type (e.g., "turnip") from the itemPath
+                        string vegetableType = itemPath.Substring(itemPath.IndexOf("-") + 1);
+
+                        // Create the sliced output item based on the vegetable type
+                        string slicedVegetablePath = $"sandwich:slicedvegetable-{vegetableType}";
+                        ItemStack slicedItems = new ItemStack(Api.World.GetItem(new AssetLocation(slicedVegetablePath)), 1);
+                        ItemSandwich sandwichItem = new ItemSandwich();
+
+                        // Call OnCreatedBySlicing to transfer nutrients
+                        sandwichItem.OnCreatedBySlicing(inventory[0], slicedItems, itemStack, 1);
+
+                        Api.World.SpawnItemEntity(slicedItems, Pos.ToVec3d().Add(0.5, 0.5, 0.5));
+                        inventory[0].TakeOutWhole();
+                        MarkDirty(true);
+                        updateMeshes();
+
+                        Api.World.Logger.Event($"Sliced {itemPath} into {4} pieces.");
+                    }
+                    return true;
+                }
+
+
 
                 return false; // No matching slicing data found
             }

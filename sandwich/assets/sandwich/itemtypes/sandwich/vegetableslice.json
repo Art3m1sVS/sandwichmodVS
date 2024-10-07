@@ -1,14 +1,21 @@
 {
-  "code": "slicedsausage",
+  "code": "slicedvegetable",
   "class": "sandwich.ExpandedFood",
   "maxstacksize": 64,
+  "variantgroups": [
+    {
+      "loadFromProperties": "sandwich:block/vegetable"
+    }
+  ],
   "shapeByType": {
     "*": {
-      "base": "sandwich:item/food/sausage-sliced"
+      "base": "sandwich:item/sandwich_ingredients_vanilla/generic_6"
     }
   },
-  "textures": {
-    "all": { "base": "game:item/food/meat/cured-smoked" }
+  "texturesByType": {
+    "*": {
+      "all": { "base": "game:block/food/pie/fill-{vegetable}" }
+    }
   },
   "creativeinventory": {
     "general": [ "*" ],
@@ -33,27 +40,27 @@
     },
     "sandwich:canPutOnCuttingBoard": true,
     "sandwich:whenOnSandwich": {
-      "shape": { "base": "sandwich:item/food/sausage-sliced" },
+      "base": "sandwich:/item/sandwich_ingredients_vanilla/generic_6",
       //  "shapeLast": { "base": "sandwich:item/sandwich_ingredients_vanilla/slicedbread-top" },
-      "size": 0.0185, // 1/16
+      "size": 0.0325, // 1/16
       "rotate": true,
       "rotation": {
-        "avg": 1,
-        "var": 0.1
+        "avg": 2,
+        "var": 0.8
       }
     }
   },
   "nutritionPropsByType": {
     "*": {
-      "saturation": 25,
-      "foodcategory": "Protein"
+      "saturation": 30,
+      "foodcategory": "Vegetable"
     }
   },
   "transitionableProps": [
     {
       "type": "Perish",
-      "freshHours": { "avg": 13440 },
-      "transitionHours": { "avg": 8640 },
+      "freshHours": { "avg": 72 },
+      "transitionHours": { "avg": 12 },
       "transitionedStack": {
         "type": "item",
         "code": "game:rot"
