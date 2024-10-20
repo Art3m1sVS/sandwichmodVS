@@ -1,0 +1,38 @@
+[
+  {
+    "ingredients": [
+      {
+        "inputs": [
+          {
+            "type": "item",
+            "code": "game:milkportion",
+            "quantity": 10
+          }
+        ]
+      },
+      {
+        "inputs": [
+          {
+            "type": "item",
+            "code": "game:honeyportion",
+            "quantity": 10
+          }
+        ]
+      },
+      {
+        "inputs": [
+          {
+            "type": "item",
+            "code": "aculinaryartillery:eggyolkfullportion-*",
+            "quantity": 10
+          }
+        ]
+      }
+    ],
+    "output": {
+      "type": "item",
+      "code": "sandwich:frenchtoastmixtureportion",
+      "stackSize": 30
+    }
+  }
+]

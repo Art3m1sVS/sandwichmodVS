@@ -1,0 +1,44 @@
+{
+	"editor": {
+		"allAngles": false,
+		"entityTextureMode": false
+	},
+	"textureWidth": 16,
+	"textureHeight": 16,
+	"textureSizes": {
+	},
+	"textures": {
+		"fruit": "real/path/dont/look"
+	},
+	"elements": [
+		{
+			"name": "overlay",
+			"from": [ 6.18, -1.27, 7.99 ],
+			"to": [ 9.7, 1.25, 8.51 ],
+			"rotationOrigin": [ 8.0, 0.0, 8.0 ],
+			"rotationX": -90.0,
+			"faces": {
+				"north": { "texture": "#fruit", "uv": [ 9.5, 9.0, 14.0, 13.5 ], "rotation": 90 },
+				"east": { "texture": "#fruit", "uv": [ 7.5, 11.5, 13.5, 12.5 ], "rotation": 90 },
+				"south": { "texture": "#fruit", "uv": [ 10.5, 1.0, 15.5, 6.0 ] },
+				"west": { "texture": "#fruit", "uv": [ 8.0, 7.0, 5.0, 8.0 ], "rotation": 90 },
+				"up": { "texture": "#fruit", "uv": [ 1.5, 2.0, 7.5, 3.0 ]},
+				"down": { "texture": "#fruit", "uv": [ 7.5, 9.0, 6.5, 15.0 ], "rotation": 90 }
+			},
+			"children": [
+				{
+					"name": "overlay2",
+					"from": [ 0.49, 2.52, 0.0 ],
+					"to": [ 3.01, 3.04, 0.52 ],
+					"rotationOrigin": [ 1.75, 2.0, 0.0 ],
+					"faces": {
+						"north": { "texture": "#fruit", "uv": [ 1.5, 10.0, 9.0, 11.0 ] },
+						"east": { "texture": "#fruit", "uv": [ 6.5, 4.5, 7.5, 5.5 ], "rotation": 90 },
+						"south": { "texture": "#fruit", "uv": [ 9.0, 3.5, 13.5, 4.5 ] },
+						"west": { "texture": "#fruit", "uv": [ 5.0, 3.0, 6.0, 4.0 ], "rotation": 90 },
+						"up": { "texture": "#fruit", "uv": [ 0.5, 3.0, 6.0, 4.0 ] }
+					}
+				}
+			]
+		}
+	]}

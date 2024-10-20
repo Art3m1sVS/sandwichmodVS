@@ -207,7 +207,8 @@ public class BlockEntityCuttingBoard : BlockEntityDisplay
                         Api.World.Logger.Event($"Sliced {itemPath} into {sliceData.OutputQuantity} pieces.");
                     }
                     return true;
-                } else if (itemPath != null && itemPath.StartsWith("bread") && itemPath.EndsWith("-perfect"))
+                }
+                else if (itemPath != null && itemPath.StartsWith("bread") && itemPath.EndsWith("-perfect"))
                 {
                     if (Api.Side == EnumAppSide.Server)
                     {
@@ -228,18 +229,61 @@ public class BlockEntityCuttingBoard : BlockEntityDisplay
                     }
                     return true;
                 }
-                else if (itemPath != null && itemPath.StartsWith("vegetable") && itemPath.Contains("-"))
+                else if (itemPath != null && itemPath.StartsWith("berrybread") && !itemPath.EndsWith("-dough") || !itemPath.EndsWith("-partbaked"))
                 {
-                    // Define an array of items that should not be sliced
-                    string[] itemsToNotSlice = { "vegetable-cabbage", "vegetable-bambooshoot", "vegetable-pumpkin"};
+                    string breadState = "perfect"; // Default to perfect if no specific state found
 
-                    // Check if the item is in the array of items not to be sliced
-                    if (Array.Exists(itemsToNotSlice, item => item == itemPath))
+                    if (itemPath.EndsWith("-cooked"))
                     {
-                        Api.World.Logger.Event($"{itemPath} is in the list of items not to slice.");
-                        return false; // Don't slice the item
+                        breadState = "perfect";
+                    }
+                    else if (itemPath.EndsWith("-charred"))
+                    {
+                        breadState = "charred";
                     }
 
+                    if (Api.Side == EnumAppSide.Server)
+                    {
+                        string breadType = "generic";
+                        if (itemStack?.Attributes?["madeWith"] is StringArrayAttribute madeWithArray)
+                        {
+                            string[] madeWithElements = madeWithArray.GetValue() as string[];
+
+                            if (madeWithElements != null)
+                            {
+                                foreach (string madeWithElement in madeWithElements)
+                                {
+                                    if (madeWithElement.StartsWith("game:flour-"))
+                                    {
+                                        breadType = madeWithElement.Substring("game:flour-".Length);
+                                    }
+                                }
+
+                                if (!string.IsNullOrEmpty(breadType))
+                                {
+                                    string slicedBreadPath = $"sandwich:slicedfruitbread-{breadType}-{breadState}";
+
+                                    ItemStack slicedItems = new ItemStack(Api.World.GetItem(new AssetLocation(slicedBreadPath)), 4);
+                                    ItemSandwich sandwichItem = new ItemSandwich();
+
+                                    sandwichItem.OnCreatedBySlicing(inventory[0], slicedItems, itemStack, 4);
+
+                                    // Spawn the sliced items
+                                    Api.World.SpawnItemEntity(slicedItems, Pos.ToVec3d().Add(0.5, 0.5, 0.5));
+
+                                    inventory[0].TakeOutWhole(); // Remove the whole item
+                                    MarkDirty(true);
+                                    updateMeshes();
+
+                                    return true;
+                                }
+                            }
+                        }
+                    }
+                    return false;
+                }
+                else if (itemPath != null && itemPath.StartsWith("vegetable") && itemPath.Contains("-"))
+                {
                     if (Api.Side == EnumAppSide.Server)
                     {
                         // Extract the specific vegetable type (e.g., "turnip") from the itemPath
@@ -260,9 +304,6 @@ public class BlockEntityCuttingBoard : BlockEntityDisplay
                     }
                     return true;
                 }
-
-
-
                 return false; // No matching slicing data found
             }
             return false; // Inventory slot is empty

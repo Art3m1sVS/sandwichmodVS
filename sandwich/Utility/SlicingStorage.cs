@@ -17,7 +17,9 @@ namespace sandwich
             { "bread-cassava-perfect", new SlicingData("sandwich:slicedbread-cassava-perfect", 4) },
 
             { "bushmeat-cooked", new SlicingData("sandwich:slicedmeat", 2) },
+            { "bushmeat-cured", new SlicingData("sandwich:slicedmeat", 2) },
             { "redmeat-cooked", new SlicingData("sandwich:slicedmeat", 2) },
+            { "redmeat-cured", new SlicingData("sandwich:slicedmeat", 2) },
             { "cheese-blue-4slice", new SlicingData("game:cheese-blue-1slice", 4) },
             { "cheese-cheddar-4slice", new SlicingData("game:cheese-cheddar-1slice", 4) },
             { "cheese-cheddar-1slice", new SlicingData("sandwich:slicedcheese", 4) },
@@ -98,6 +100,44 @@ namespace sandwich
         };
     }
 
+    public static class BakingStorage
+    {
+        // List of bakeable items, using JSON wildcards for flexibility
+        public static List<string> BakeableItems = new List<string>
+        {
+            "slicedbread-*",
+            "slicedfruitbread-*",
+        };
+        public static bool IsBakeable(string item)
+        {
+            foreach (var bakeable in BakeableItems)
+            {
+                if (DoesItemMatch(item, bakeable))
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        // Helper method to check if the item matches the wildcard pattern
+        private static bool DoesItemMatch(string item, string wildcard)
+        {
+            // Simple wildcard matching logic
+            // Supports '*' as a wildcard character
+            if (wildcard.Contains('*'))
+            {
+                var parts = wildcard.Split('*');
+                if (parts.Length == 0) return false;
+
+                bool startsWith = item.StartsWith(parts[0]);
+                bool endsWith = parts.Length == 1 || item.EndsWith(parts[1]);
+
+                return startsWith && endsWith;
+            }
+            return item == wildcard; // Direct match if no wildcard
+        }
+    }
     public class SlicingData
     {
         public AssetLocation OutputAsset { get; set; }

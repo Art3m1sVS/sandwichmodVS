@@ -20,7 +20,7 @@ using Vintagestory.API.Common.Entities;
 
 namespace sandwich;
 
-public class ItemSandwich : ItemExpandedFood, IContainedMeshSource
+public class ItemSandwich : ItemExpandedRawFood, IBakeableCallback, IContainedMeshSource
 {
     public static bool TryAdd(ItemSlot slotSandwich, ItemSlot slotHand, IPlayer byPlayer, IWorldAccessor world)
     {
@@ -60,6 +60,72 @@ public class ItemSandwich : ItemExpandedFood, IContainedMeshSource
         slotHand.TakeOut(1);
         return true;
     }
+
+    public new void OnBaked(ItemStack oldStack, ItemStack newStack)
+    {
+        string[] ings = (oldStack?.Attributes["madeWith"] as StringArrayAttribute)?.value;
+        float[] sats = (oldStack?.Attributes["expandedSats"] as FloatArrayAttribute)?.value;
+
+        if (ings != null) newStack.Attributes["madeWith"] = new StringArrayAttribute(ings);
+        if (sats != null) newStack.Attributes["expandedSats"] = new FloatArrayAttribute(sats);
+
+        SandwichProperties properties = SandwichProperties.FromStack(oldStack, api.World);
+
+        if (properties != null)
+        {
+            ITreeAttribute treeSandwichLayers = oldStack.Attributes.GetOrAddTreeAttribute("sandwichLayers");
+            ITreeAttribute newTreeSandwichLayers = new TreeAttribute();
+
+            foreach (var entry in treeSandwichLayers)
+            {
+                string key = entry.Key;
+                ItemStack layerStack = treeSandwichLayers.GetItemstack(key);
+
+                if (layerStack != null)
+                {
+                    string[] layerIng = (layerStack?.Attributes["madeWith"] as StringArrayAttribute)?.value;
+                    float[] layerSats = (layerStack?.Attributes["expandedSats"] as FloatArrayAttribute)?.value;
+
+                    BakingProperties bakeProps = BakingProperties.ReadFrom(layerStack);
+                    api.World.Logger.Event("Bakeprops: " + bakeProps.ToString());
+                    string resultCode = bakeProps?.ResultCode;
+
+                    if (resultCode != null)
+                    {
+                        api.World.Logger.Event("Result code: " + resultCode);
+                        Item item = api.World.GetItem(new AssetLocation(resultCode));
+
+                        if (BakingStorage.IsBakeable(item.Code.Path))
+                        {
+                            ItemStack clonedLayerStack = new ItemStack(item);
+                            if (layerIng != null) clonedLayerStack.Attributes["madeWith"] = new StringArrayAttribute(layerIng);
+                            if (layerSats != null) clonedLayerStack.Attributes["expandedSats"] = new FloatArrayAttribute(layerSats);
+
+                            newTreeSandwichLayers.SetItemstack(key, clonedLayerStack);
+
+                            string itemName = clonedLayerStack.GetName();
+                            string itemAttributes = clonedLayerStack.Attributes.ToString();
+
+                            api.World.Logger.Event("Cloned item name: " + itemName);
+                            api.World.Logger.Event("Cloned item attributes: " + itemAttributes);
+                        }
+                        else
+                        {
+                            newTreeSandwichLayers.SetItemstack(key, layerStack);
+                            api.World.Logger.Event("Item is not bakeable, keeping original: " + item.Code.Path);
+                        }
+                    }
+                    else
+                    {
+                        newTreeSandwichLayers.SetItemstack(key, layerStack);
+                        api.World.Logger.Event("No result code, keeping original layer stack.");
+                    }
+                }
+            }
+            newStack.Attributes["sandwichLayers"] = newTreeSandwichLayers;
+        }
+    }
+
 
     private static bool TryAddLiquid(ItemSlot slotSandwich, ItemSlot slotLiquid, IPlayer byPlayer, IWorldAccessor world)
     {
@@ -304,6 +370,7 @@ public class ItemSandwich : ItemExpandedFood, IContainedMeshSource
         EntityPlayer entityPlayer = (world.Side == EnumAppSide.Client) ? (world as IClientWorldAccessor).Player.Entity : null;
         SandwichNutritionProperties nutritionProps = props.GetNutritionProperties(inSlot, world, entityPlayer);
         FoodNutritionProperties[] addProps = Attributes?["additionalNutritionProperties"]?.AsObject<FoodNutritionProperties[]>();
+        FoodNutritionProperties[] addPropsEF = Attributes?["expandedSats"]?.AsObject<FoodNutritionProperties[]>();
 
         float spoilState = AppendPerishableInfoText(inSlot, dsc, world);
         Dictionary<string, (float TotalSat, float TotalHealth)> categorySummary = new Dictionary<string, (float, float)>();
@@ -547,6 +614,7 @@ public class ItemSandwich : ItemExpandedFood, IContainedMeshSource
         {
             //api.World.Logger.Event("ITEM IS NOT EXPANDEDFOOD");
             GetNutrientsFromIngredient(ref sat, slot.Itemstack.Collectible, 1);
+            sat = sat.Select(nutrient => nutrient / slices).ToArray();
             string aL = slot.Itemstack.Collectible.Code.Domain + ":" + slot.Itemstack.Collectible.Code.Path;
             ingredients.Add(aL);
         }
@@ -554,7 +622,6 @@ public class ItemSandwich : ItemExpandedFood, IContainedMeshSource
         output.Attributes["madeWith"] = new StringArrayAttribute(ingredients.ToArray());
         output.Attributes["expandedSats"] = new FloatArrayAttribute(sat.ToArray());
     }
-
 
     public override ItemStack OnTransitionNow(ItemSlot slot, TransitionableProperties transitionProps)
     {
@@ -630,6 +697,7 @@ public class ItemSandwich : ItemExpandedFood, IContainedMeshSource
         {
             return;
         }
+
 
         List<string> readable = new List<string>();
         for (int i = 0; i < ings.Length; i++)

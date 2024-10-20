@@ -1,9 +1,12 @@
 ﻿using ACulinaryArtillery;
+using HarmonyLib;
 using Newtonsoft.Json.Linq;
 using sandwich;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
+using Vintagestory;
 using Vintagestory.API.Common;
 using Vintagestory.API.Config;
 using Vintagestory.API.Server;
@@ -23,6 +26,7 @@ public class SandwichModSystem : ModSystem
     public override void Start(ICoreAPI api)
     {
         api.RegisterItemClass("sandwich.ItemSandwich", typeof(ItemSandwich));
+        api.RegisterItemClass("sandwich.ItemExpandedFood", typeof(ItemExpandedFood));
         api.RegisterItemClass("sandwich.ExpandedFood", typeof(ItemExpandedFood));
         api.RegisterBlockClass("sandwich.BlockCuttingBoard", typeof(BlockCuttingBoard));
         api.RegisterBlockEntityClass("sandwich.CuttingBoard", typeof(BlockEntityCuttingBoard));

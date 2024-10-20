@@ -1,0 +1,30 @@
+[
+  {
+    "ingredients": [
+      {
+        "inputs": [
+          {
+            "type": "item",
+            "code": "sandwich:slicedbread-*-perfect",
+            "quantity": 1,
+            "name": "grain"
+          }
+        ]
+      },
+      {
+        "inputs": [
+          {
+            "type": "item",
+            "code": "sandwich:frenchtoastmixtureportion",
+            "quantity": 10
+          }
+        ]
+      }
+    ],
+    "output": {
+      "type": "item",
+      "code": "sandwich:frenchtoast-{grain}-dough",
+      "stackSize": 1
+    }
+  }
+]

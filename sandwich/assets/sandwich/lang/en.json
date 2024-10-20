@@ -4,6 +4,7 @@
   "block-cuttingboard-*": "Cutting board",
   "item-sandwich": "Sandwich",
 
+
   "item-slicedbread-generic-perfect": "Bread slice",
   "item-slicedbread-spelt-perfect": "Spelt bread slice",
   "item-slicedbread-rye-perfect": "Rye bread slice",
@@ -12,6 +13,10 @@
   "item-slicedbread-sunflower-perfect": "Sunflower bread slice",
   "item-slicedbread-amaranth-perfect": "Amaranth bread slice",
   "item-slicedbread-cassava-perfect": "Cassava bread slice",
+
+  "item-slicedfruitbread-*-perfect": "Fruit bread slice",
+  "item-slicedfruitbread-*-toasted": "Toasted fruit bread slice",
+  "item-slicedfruitbread-*-charred": "Charred fruit bread slice",
 
   "item-slicedbread-birch-perfect": "Birch bread slice",
   "item-slicedbread-pine-perfect": "Pine bread slice",
@@ -44,6 +49,15 @@
   "item-slicedbread-pine-charred": "Charred pine bread slice",
   "item-slicedbread-maple-charred": "Charred maple bread slice",
 
+  "item-frenchtoastmixtureportion": "French Toast Mixture",
+  "itemdesc-frenchtoastmixtureportion": "Knead with sliced bread to make into batter",
+  "sandwich:incontainer-item-frenchtoastmixtureportion": "French Toast Mixture",
+
+  "item-frenchtoast-*-perfect": "French Toast",
+  "item-frenchtoast-*-dough": "French Toast Batter",
+  "item-frenchtoast-*-underbaked": "Underbaked French Toast",
+  "item-frenchtoast-*-charred": "Charred French Toast",
+
   "item-slicedmeat": "Meat Slice",
   "item-slicedcheese": "Cheese Slice",
   "item-slicedsausage": "Salami",
@@ -51,10 +65,15 @@
   "item-slicedvegetable": "Vegetable Slice",
 
   "itemdesc-sandwich": "You are marching into the unknown, armed with... nothing. Have a sandwich.",
+  "itemdesc-slicedfruitbread-*-perfect": "Delicious fruity bread slice!",
   "itemdesc-slicedbread-*-perfect": "Sliced from a loaf of bread",
   "itemdesc-slicedbread-*-toasted": "Toasted slice of bread",
-  "itemdesc-slicedbread-*-charred": "Slightly overbaked slice of bread...",
-  "itemdesc-slicedmeat": "Sliced from cooked red or bush meat",
+  "itemdesc-slicedbread-*-charred": "Slightly overbaked slice of bread",
+  "itemdesc-frenchtoast-*-dough": "Bakes into French Toast",
+  "itemdesc-frenchtoast-*-underbaked": "Could use a bit more time in the oven",
+  "itemdesc-frenchtoast-*-perfect": "Delicious French Toast",
+  "itemdesc-frenchtoast-*-charred": "Slightly overbaked French Toast",
+  "itemdesc-slicedmeat": "Sliced from delicious meats",
   "itemdesc-slicedcheese": "Sliced from 1/4 wheel of cheddar cheese",
   "itemdesc-slicedsausage": "Sliced from delicious sausage",
   "itemdesc-slicedcabbage": "Sliced from cabbage.  Can be chopped",
@@ -96,5 +115,5 @@
   "sandwich:Made with ": "Made with ",
 
   "sammichesguide1-title": "Sammiches Guide",
-  "sammichesguide1-text": "<strong>What is Sammiches?</strong><br><i>Sammiches adds sandwiches and other bread products into the game.</i><br>Sandwiches can contain up to 6 ingredients, including the slice of bread used to begin the sandwich creation.<br><br><strong>Cutting Board</strong><br>The cutting board is an essential tool required to use this mod.  It is crafted with 1 board of any wood type in the crafting grid.<br><br><strong>Slicing Bread</strong><br>Sliced bread is the basis for all sandwiches, of course.  Slicing bread on a cutting board with a knife or sword yields 4 slices of bread.<br><br><strong>Sliced Foods</strong><br>Some food items can only be placed on sandwiches when sliced.<br><br>To slice an ingredient, place it on the cutting board and use a knife or sword on it."
+  "sammichesguide1-text": "<strong>What is Sammiches?</strong><br><i>Sammiches adds sandwiches and other bread products into the game.</i><br>Sandwiches can contain up to 6 ingredients, including the slice of bread used to begin the sandwich creation.<br><br><strong>Cutting Board</strong><br>The cutting board is an essential tool required to use this mod.  It is crafted with 1 board of any wood type in the crafting grid.<br><br><strong>Slicing Bread</strong><br>Sliced bread is the basis for all sandwiches, of course.  Slicing bread on a cutting board with a knife or sword yields 4 slices of bread.<br><br><strong>Sliced Foods</strong><br>Some food items can only be placed on sandwiches when sliced.<br><br>To slice an ingredient, place it on the cutting board and use a knife or sword on it.<br><br><strong>French Toast</strong><br>You will need:<br><i>1 Slice of bread<br>0.1L Milk<br>0.1L Honey<br>0.1L Liquid egg<br>Mixing Bowl</i><br><br><strong>1. </strong>Knead milk, honey, and liquid egg together into French Toast Mixture.<br><strong>2. </strong>Knead 0.1L of French Toast Mixture with 1 slice of bread to get French Toast Batter.<br><strong>3. </strong>Heat Clay Oven to 170 C and place French Toast Batter inside.<br><strong>4. </strong>Let the French Toast Batter bake and remove when ready.<br>"
 }
