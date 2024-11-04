@@ -58,7 +58,8 @@
   "item-frenchtoast-*-underbaked": "Underbaked French Toast",
   "item-frenchtoast-*-charred": "Charred French Toast",
 
-  "item-slicedmeat": "Meat Slice",
+  "item-slicedmeat-generic": "Meat Slice",
+  "item-slicedmeat-charred": "Charred Meat Slice",
   "item-slicedcheese": "Cheese Slice",
   "item-slicedsausage": "Salami",
   "item-slicedcabbage": "Cabbage Slice",

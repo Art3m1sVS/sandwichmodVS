@@ -229,7 +229,7 @@ public class BlockEntityCuttingBoard : BlockEntityDisplay
                     }
                     return true;
                 }
-                else if (itemPath != null && itemPath.StartsWith("berrybread") && !itemPath.EndsWith("-dough") || !itemPath.EndsWith("-partbaked"))
+                else if (itemPath != null && itemPath.StartsWith("berrybread") && !itemPath.EndsWith("-dough") && !itemPath.EndsWith("-partbaked"))
                 {
                     string breadState = "perfect"; // Default to perfect if no specific state found
 

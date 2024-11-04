@@ -2,13 +2,24 @@
   "code": "slicedmeat",
   "class": "sandwich.ExpandedFood",
   "maxstacksize": 64,
+  "variantgroups": [
+    {
+      "code": "type",
+      "states": [ "generic", "charred" ]
+    }
+  ],
   "shapeByType": {
     "*": {
       "base": "sandwich:item/food/redmeatslice"
     }
   },
-  "textures": {
-    "all": { "base": "game:item/food/meat/cooked" }
+  "texturesByType": {
+    "*-generic": {
+      "all": { "base": "game:item/food/meat/cooked" }
+    },
+    "*-charred": {
+      "all": { "base": "sandwich:item/food/ingredients/meat_charred" }
+    }
   },
   "creativeinventory": {
     "general": [ "*" ],
