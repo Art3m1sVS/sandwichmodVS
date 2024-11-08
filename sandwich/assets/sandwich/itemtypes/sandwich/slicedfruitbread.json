@@ -681,15 +681,15 @@
   },
   "nutritionPropsByType": {
     "*-perfect": {
-      "saturation": 20,
+      "saturation": 90,
       "foodcategory": "Grain"
     },
     "*-toasted": {
-      "saturation": 30,
+      "saturation": 110,
       "foodcategory": "Grain"
     },
     "*-charred": {
-      "saturation": 0,
+      "saturation": 25,
       "foodcategory": "Grain"
     }
   },

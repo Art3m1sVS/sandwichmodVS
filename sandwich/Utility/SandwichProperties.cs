@@ -145,7 +145,6 @@ public class SandwichProperties
                 dsc.AppendLine($"- {Lang.Get("{0} litres of {1}", entry.Value, entry.Key)}");
             }
         }
-
         return dsc;
     }
 

@@ -1,7 +1,7 @@
 {
   "@poultry-(cooked|cured)": {
     "shape": { "base": "sandwich:item/sandwich_ingredients_vanilla/meat/poultry" },
-    "size": 0.09375, // 1.5/16
+    "size": 0.0375, // 1.5/16
     "rotate": true,
     "rotation": {
       "avg": 1,

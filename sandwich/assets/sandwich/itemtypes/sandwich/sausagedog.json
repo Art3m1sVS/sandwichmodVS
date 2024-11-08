@@ -70,7 +70,7 @@
   },
   "nutritionPropsByType": {
     "*": {
-      "saturation": 25,
+      "saturation": 120,
       "foodcategory": "Protein"
     }
   },

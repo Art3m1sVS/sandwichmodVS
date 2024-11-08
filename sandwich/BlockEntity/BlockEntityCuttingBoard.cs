@@ -189,6 +189,8 @@ public class BlockEntityCuttingBoard : BlockEntityDisplay
                     SlicingData sliceData = SlicingStorage.SlicingItems[itemPath];
                     Api.World.Logger.Event($"The item path is: {itemPath}");
 
+                    //Api.World.Logger.Event($"Before slicing - Item: {itemPath}, Attributes: {itemStack.Attributes.ToJsonToken()}");
+
                     if (Api.Side == EnumAppSide.Server)
                     {
                         // Create the sliced output item based on SlicingStorage data
@@ -197,6 +199,7 @@ public class BlockEntityCuttingBoard : BlockEntityDisplay
 
                         // Call OnCreatedBySlicing to transfer nutrients
                         sandwichItem.OnCreatedBySlicing(inventory[0], slicedItems, itemStack, sliceData.OutputQuantity);
+                        //Api.World.Logger.Event($"After slicing - Item: {slicedItems.Collectible.Code.Path}, Attributes: {slicedItems.Attributes.ToJsonToken()}");
 
 
                         Api.World.SpawnItemEntity(slicedItems, Pos.ToVec3d().Add(0.5, 0.5, 0.5));

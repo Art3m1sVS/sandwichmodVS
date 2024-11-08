@@ -52,15 +52,15 @@
   },
   "nutritionPropsByType": {
     "*": {
-      "saturation": 30,
+      "saturation": 50,
       "foodcategory": "Vegetable"
     }
   },
   "transitionableProps": [
     {
       "type": "Perish",
-      "freshHours": { "avg": 72 },
-      "transitionHours": { "avg": 12 },
+      "freshHours": { "avg": 96 },
+      "transitionHours": { "avg": 24 },
       "transitionedStack": {
         "type": "item",
         "code": "game:rot"

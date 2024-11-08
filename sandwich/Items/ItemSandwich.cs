@@ -17,6 +17,7 @@ using Vintagestory.API.Datastructures;
 using System.Xml.Linq;
 using System.Collections;
 using Vintagestory.API.Common.Entities;
+using Cairo;
 
 namespace sandwich;
 
@@ -379,12 +380,20 @@ public class ItemSandwich : ItemExpandedRawFood, IBakeableCallback, IContainedMe
 
         if (nutritionProps != null)
         {
+            // Combine all properties into a single loop for processing
+            List<FoodNutritionProperties> allProps = new List<FoodNutritionProperties>(nutritionProps.NutritionPropertiesMany);
 
-            foreach (FoodNutritionProperties property in nutritionProps.NutritionPropertiesMany)
+            if (addPropsEF != null && addPropsEF.Length > 0)
+            {
+               // api.World.Logger.Event("addprops not null");
+                allProps.AddRange(addPropsEF);
+            }
+            //api.World.Logger.Event("addprops are null");
+
+            foreach (FoodNutritionProperties property in allProps)
             {
                 float totalSat = property.Satiety * satLossMul;
                 float totalHealth = property.Health * healthLossMul;
-
                 totalSat = (float)Math.Round(totalSat);
 
                 string category = property.FoodCategory.ToString();
@@ -402,24 +411,7 @@ public class ItemSandwich : ItemExpandedRawFood, IBakeableCallback, IContainedMe
                 }
             }
 
-            if (addProps?.Length > 0)
-            {
-                dsc.AppendLine(Lang.Get("sandwich:Extra Nutrients"));
-                foreach (FoodNutritionProperties adProps in addProps)
-                {
-
-                    if (Math.Abs(adProps.Health * healthLossMul) > 0.001f)
-                    {
-                        dsc.AppendLine(Lang.Get("sandwich:- {0} {2} sat, {1} hp", Math.Round(adProps.Satiety * satLossMul), adProps.Health * healthLossMul, adProps.FoodCategory.ToString()));
-                    }
-                    else
-                    {
-                        dsc.AppendLine(Lang.Get("sandwich:- {0} {1} sat", Math.Round(adProps.Satiety * satLossMul), adProps.FoodCategory.ToString()));
-                    }
-
-                    //dsc.AppendLine(Lang.Get("Food Category: {0}", Lang.Get("foodcategory-" + props.FoodCategory.ToString().ToLowerInvariant())));
-                }
-            }
+            // Append the "When Eaten" section with total satiety and health values
             dsc.AppendLine(Lang.Get(langWhenEaten));
             foreach (KeyValuePair<string, (float TotalSat, float TotalHealth)> entry in categorySummary)
             {
@@ -444,6 +436,49 @@ public class ItemSandwich : ItemExpandedRawFood, IBakeableCallback, IContainedMe
             }
         }
 
+        // Get sandwich layers and show expandedSats for each layer in "When Eaten"
+        if (inSlot.Itemstack.Attributes?.HasAttribute("sandwichLayers") == true)
+        {
+            var layersAttribute = inSlot.Itemstack.Attributes["sandwichLayers"] as TreeAttribute;
+            if (layersAttribute != null)
+            {
+                foreach (var layer in layersAttribute)
+                {
+                    ItemStack layerStack = layer.Value as ItemStack;
+                    if (layerStack != null)
+                    {
+                        // Get the expandedSats attribute for this layer
+                        var expandedSats = layerStack.Attributes?["expandedSats"] as FloatArrayAttribute;
+                        if (expandedSats != null)
+                        {
+                            foreach (float satValue in expandedSats.value)
+                            {
+                                //dsc.AppendLine("- " + Lang.Get("Layer with {0} expanded sat", satValue));
+                            }
+                        }
+                        else
+                        {
+                            //dsc.AppendLine("- " + Lang.Get("Layer with no expandedSats"));
+                        }
+                    }
+                }
+            }
+        }
+
+        // Check for and print out the "madeWith" attribute
+        //if (inSlot.Itemstack.Attributes.HasAttribute("madeWith"))
+        //{
+        //    var madeWithList = inSlot.Itemstack.Attributes["madeWith"] as StringArrayAttribute;
+        //    if (madeWithList != null && madeWithList.value.Length > 0)
+        //    {
+        //        dsc.AppendLine("Made with:");
+        //        foreach (string item in madeWithList.value)
+        //        {
+        //            dsc.AppendLine($"- {item}");
+        //        }
+        //    }
+        //}
+
         CollectibleBehavior[] collectibleBehaviors = CollectibleBehaviors;
         for (int i = 0; i < collectibleBehaviors.Length; i++)
         {
@@ -454,6 +489,7 @@ public class ItemSandwich : ItemExpandedRawFood, IBakeableCallback, IContainedMe
         {
             dsc.Append("\n");
         }
+        dsc.AppendLine(Lang.Get("You are marching into the unknown, armed with... nothing. Have a sandwich."));
 
         float temperature = GetTemperature(world, inSlot.Itemstack);
         if (temperature > 20f)
@@ -467,6 +503,8 @@ public class ItemSandwich : ItemExpandedRawFood, IBakeableCallback, IContainedMe
             dsc.AppendLine(Lang.Get("Mod: {0}", mod?.Info.Name ?? Code.Domain));
         }
     }
+
+
 
     protected override void tryEatBegin(ItemSlot slot, EntityAgent byEntity, ref EnumHandHandling handling, string eatSound = "eat", int eatSoundRepeats = 1)
     {
@@ -549,9 +587,11 @@ public class ItemSandwich : ItemExpandedRawFood, IBakeableCallback, IContainedMe
             any = true;
             byEntity.ReceiveSaturation(property.Satiety * satLossMul, property.FoodCategory);
 
+            // Health and intoxication adjustments
             float health = property.Health * healthLossMul;
             float intoxication = byEntity.WatchedAttributes.GetFloat("intoxication");
             byEntity.WatchedAttributes.SetFloat("intoxication", Math.Min(1.1f, intoxication + property.Intoxication));
+
             if (health != 0f)
             {
                 byEntity.ReceiveDamage(new DamageSource
@@ -559,6 +599,58 @@ public class ItemSandwich : ItemExpandedRawFood, IBakeableCallback, IContainedMe
                     Source = EnumDamageSource.Internal,
                     Type = (health > 0f) ? EnumDamageType.Heal : EnumDamageType.Poison
                 }, Math.Abs(health));
+            }
+        }
+
+        // Accessing the expandedSats from layers in the sandwich (if they exist)
+        if (slot?.Itemstack != null)
+        {
+            var itemAttributes = slot.Itemstack.Attributes;
+
+            // Check if expandedSats exists for the itemstack
+            if (itemAttributes != null && itemAttributes["expandedSats"] != null)
+            {
+                var expandedSats = itemAttributes["expandedSats"] as FloatArrayAttribute;
+
+                if (expandedSats != null)
+                {
+                    // Accessing the expandedSats array
+                    foreach (float satValue in expandedSats.value)
+                    {
+                        // Log or process each expandedSat value (saturation level)
+                       // byEntity.World.Logger.Event($"Expanded Sat value: {satValue}");
+
+                        // Find the food category by looking for matching nutrition properties
+                        FoodNutritionProperties matchingProperty = null;
+                        foreach (var property in nutritionProperties.NutritionPropertiesMany)
+                        {
+                            if (property.Satiety == satValue) // or any other condition that helps match
+                            {
+                                matchingProperty = property;
+                                break;
+                            }
+                        }
+
+                        if (matchingProperty != null)
+                        {
+                            // Apply this saturation value to the entity using the actual food category from the matching property
+                            byEntity.ReceiveSaturation(satValue * satLossMul, matchingProperty.FoodCategory);
+                        }
+                        else
+                        {
+                            // Default to vegetable if no match is found (if needed)
+                            byEntity.ReceiveSaturation(satValue * satLossMul, EnumFoodCategory.NoNutrition);
+                        }
+                    }
+                }
+                else
+                {
+                    //byEntity.World.Logger.Notification("expandedSats attribute is not in the expected format.");
+                }
+            }
+            else
+            {
+                //byEntity.World.Logger.Notification("No 'expandedSats' attribute found in Itemstack.");
             }
         }
 
@@ -574,6 +666,8 @@ public class ItemSandwich : ItemExpandedRawFood, IBakeableCallback, IContainedMe
             player.InventoryManager.BroadcastHotbarSlot();
         }
     }
+
+
 
     public override bool Satisfies(ItemStack thisStack, ItemStack otherStack)
     {

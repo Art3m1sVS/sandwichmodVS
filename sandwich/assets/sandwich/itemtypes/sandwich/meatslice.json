@@ -55,15 +55,19 @@
     }
   },
   "nutritionPropsByType": {
-    "*": {
+    "generic": {
       "saturation": 80,
+      "foodcategory": "Protein"
+    },
+    "charred": {
+      "saturation": 40,
       "foodcategory": "Protein"
     }
   },
   "transitionableProps": [
     {
       "type": "Perish",
-      "freshHours": { "avg": 48 },
+      "freshHours": { "avg": 72 },
       "transitionHours": { "avg": 12 },
       "transitionedStack": {
         "type": "item",
