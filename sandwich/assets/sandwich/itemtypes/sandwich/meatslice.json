@@ -55,11 +55,11 @@
     }
   },
   "nutritionPropsByType": {
-    "generic": {
+    "*-generic": {
       "saturation": 80,
       "foodcategory": "Protein"
     },
-    "charred": {
+    "*-charred": {
       "saturation": 40,
       "foodcategory": "Protein"
     }
