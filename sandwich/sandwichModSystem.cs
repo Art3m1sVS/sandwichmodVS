@@ -26,6 +26,7 @@ public class SandwichModSystem : ModSystem
     public override void Start(ICoreAPI api)
     {
         api.RegisterItemClass("sandwich.ItemSandwich", typeof(ItemSandwich));
+        api.RegisterItemClass("sandwich.ItemCuttingKnife", typeof(ItemCuttingKnife));
         api.RegisterItemClass("sandwich.ItemExpandedFood", typeof(ItemExpandedFood));
         api.RegisterItemClass("sandwich.ExpandedFood", typeof(ItemExpandedFood));
         api.RegisterBlockClass("sandwich.BlockCuttingBoard", typeof(BlockCuttingBoard));

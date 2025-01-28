@@ -109,6 +109,9 @@ namespace sandwich
         {
             "slicedbread-*",
             "slicedfruitbread-*",
+            "burgerbun-*",
+            "burgerbuntop-*",
+            "burgerbunbottom-*"
         };
         public static bool IsBakeable(string item)
         {

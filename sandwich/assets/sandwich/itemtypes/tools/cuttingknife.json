@@ -1,0 +1,300 @@
+{
+  "code": "sandwichknife",
+  "class": "sandwich.ItemCuttingKnife",
+  "damagedby": [
+    "attacking"
+  ],
+  "tool": "knife",
+  "attributes": {
+    "heldItemPitchFollow": 1,
+    "knifeHitBlockAnimation": "knifecut",
+    "knifeHitEntityAnimation": "knifestab",
+    "handbook": {
+      "groupBy": [
+        "knife-*"
+      ]
+    },
+    "toolrackTransformByType": {
+      "*": {
+        "translation": {
+          "x": -0.3,
+          "y": 0.6,
+          "z": -0.1
+        },
+        "rotation": {
+          "x": 97,
+          "y": 180,
+          "z": 3
+        },
+        "origin": {
+          "x": 0.5,
+          "y": 0,
+          "z": 0.5
+        },
+        "scale": 1.8
+      }
+    },
+    "groundStorageTransformByType": {
+      "*": {
+        "translation": {
+          "x": 0,
+          "y": 0.04,
+          "z": -0.054
+        },
+        "rotation": {
+          "x": 26,
+          "y": 88,
+          "z": -87
+        },
+        "scale": 1
+      }
+    }
+  },
+  "behaviors": [
+    {
+      "name": "GroundStorable",
+      "properties": {
+        "layout": "WallHalves",
+        "wallOffY": 1,
+        "sprintKey": true,
+        "selectionBox": {
+          "x1": 0,
+          "y1": 0,
+          "z1": 0,
+          "x2": 1,
+          "y2": 0.1,
+          "z2": 1
+        },
+        "collisionBox": {
+          "x1": 0,
+          "y1": 0,
+          "z1": 0,
+          "x2": 0,
+          "y2": 0,
+          "z2": 0
+        }
+      }
+    },
+    {
+      "name": "AnimationAuthoritative"
+    }
+  ],
+  "variantgroups": [
+    {
+      "code": "type",
+      "states": [
+        "generic"
+      ]
+    },
+    {
+      "code": "material",
+      "states": [
+        "chert",
+        "granite",
+        "andesite",
+        "basalt",
+        "obsidian",
+        "peridotite",
+        "flint",
+        "copper",
+        "tinbronze",
+        "bismuthbronze",
+        "blackbronze",
+        "gold",
+        "silver",
+        "iron",
+        "meteoriciron",
+        "steel",
+        "bonechert",
+        "bonegranite",
+        "boneandesite",
+        "bonebasalt",
+        "boneobsidian",
+        "boneperidotite",
+        "boneflint",
+        "ruined"
+      ]
+    }
+  ],
+  "allowedVariants": [
+    "sandwichknife-generic-*"
+  ],
+  "shapeByType": {
+    "*": {
+      "base": "sandwich:item/tools/cuttingknife"
+    }
+  },
+  "heldTpHitAnimation": "knifestab",
+  "texturesByType": {
+    "sandwichknife-generic-chert": {
+      "material": { "base": "game:block/stone/rock/{material}1" },
+      "handle": { "base": "game:block/creature/bone-yellow" }
+    },
+    "sandwichknife-generic-granite": {
+      "material": { "base": "game:block/stone/rock/{material}1" },
+      "handle": { "base": "game:block/creature/bone-yellow" }
+    },
+    "sandwichknife-generic-andesite": {
+      "material": { "base": "game:block/stone/rock/{material}1" },
+      "handle": { "base": "game:block/creature/bone-yellow" }
+    },
+    "sandwichknife-generic-basalt": {
+      "material": { "base": "game:block/stone/rock/{material}1" },
+      "handle": { "base": "game:block/creature/bone-yellow" }
+    },
+    "sandwichknife-generic-obsidian": {
+      "material": { "base": "game:block/stone/rock/{material}1" },
+      "handle": { "base": "game:block/creature/bone-yellow" }
+    },
+    "sandwichknife-generic-peridotite": {
+      "material": { "base": "game:block/stone/rock/{material}1" },
+      "handle": { "base": "game:block/creature/bone-yellow" }
+    },
+    "sandwichknife-generic-flint": {
+      "material": { "base": "game:block/stone/{material}" },
+      "handle": { "base": "game:block/creature/bone-yellow" }
+    },
+    "sandwichknife-generic-bonechert": {
+      "material": { "base": "game:block/stone/rock/chert1" },
+      "handle": { "base": "game:block/creature/bone-yellow" }
+    },
+    "sandwichknife-generic-bonegranite": {
+      "material": { "base": "game:block/stone/rock/granite1" },
+      "handle": { "base": "game:block/creature/bone-yellow" }
+    },
+    "sandwichknife-generic-boneandesite": {
+      "material": { "base": "game:block/stone/rock/andesite1" },
+      "handle": { "base": "game:block/creature/bone-yellow" }
+    },
+    "sandwichknife-generic-bonebasalt": {
+      "material": { "base": "game:block/stone/rock/basalt1" },
+      "handle": { "base": "game:block/creature/bone-yellow" }
+    },
+    "sandwichknife-generic-boneobsidian": {
+      "material": { "base": "game:block/stone/rock/obsidian1" },
+      "handle": { "base": "game:block/creature/bone-yellow" }
+    },
+    "sandwichknife-generic-boneperidotite": {
+      "material": { "base": "game:block/stone/rock/peridotite1" },
+      "handle": { "base": "game:block/creature/bone-yellow" }
+    },
+    "sandwichknife-generic-boneflint": {
+      "material": { "base": "game:block/stone/flint" },
+      "handle": { "base": "game:block/creature/bone-yellow" }
+    },
+    "sandwichknife-generic-*": {
+      "material": {
+        "base": "game:block/metal/ingot/{material}"
+      },
+      "handle": { "base": "game:block/creature/bone-yellow" }
+    }
+  },
+  "durabilitybytype": {
+    "sandwichknife-generic-chert": 90,
+    "sandwichknife-generic-granite": 90,
+    "sandwichknife-generic-andesite": 90,
+    "sandwichknife-generic-basalt": 90,
+    "sandwichknife-generic-peridotite": 90,
+    "sandwichknife-generic-flint": 130,
+    "sandwichknife-generic-obsidian": 160,
+    "sandwichknife-generic-gold": 150,
+    "sandwichknife-generic-silver": 175,
+    "sandwichknife-generic-copper": 300,
+    "sandwichknife-generic-tinbronze": 450,
+    "sandwichknife-generic-bismuthbronze": 500,
+    "sandwichknife-generic-blackbronze": 550,
+    "sandwichknife-generic-iron": 900,
+    "sandwichknife-generic-meteoriciron": 1200,
+    "sandwichknife-generic-steel": 2250,
+    "sandwichknife-generic-bonechert": 110,
+    "sandwichknife-generic-bonegranite": 110,
+    "sandwichknife-generic-boneandesite": 110,
+    "sandwichknife-generic-bonebasalt": 110,
+    "sandwichknife-generic-boneperidotite": 110,
+    "sandwichknife-generic-boneflint": 150,
+    "sandwichknife-generic-boneobsidian": 180
+  },
+  "creativeinventory": {
+    "general": [
+      "*"
+    ],
+    "items": [
+      "*"
+    ],
+    "tools": [
+      "*"
+    ],
+    "sandwich": [
+      "*"
+    ]
+  },
+  "fpHandTransformByType": {
+    "*": {
+      "translation": {
+        "x": 0.2,
+        "y": 0.1,
+        "z": 0.5
+      },
+      "rotation": {
+        "x": 140,
+        "y": 93,
+        "z": -75
+      },
+      "scale": 2.5
+    }
+  },
+  "guiTransformByType": {
+    "*": {
+      "rotate": false,
+      "translation": {
+        "x": 0,
+        "y": 0,
+        "z": 0
+      },
+      "rotation": {
+        "x": -158,
+        "y": 0,
+        "z": 48
+      },
+      "origin": {
+        "x": 0.48,
+        "y": 0.1,
+        "z": 0.5
+      },
+      "scale": 2.41
+    }
+  },
+  "groundTransform": {
+    "translation": {
+      "x": 0,
+      "y": 0,
+      "z": 0
+    },
+    "rotation": {
+      "x": -90,
+      "y": 0,
+      "z": 0
+    },
+    "origin": {
+      "x": 0.5,
+      "y": 0.5,
+      "z": 0.45
+    },
+    "scale": 3.6
+  },
+  "tpHandTransformByType": {
+    "*": {
+      "translation": {
+        "x": -0.84,
+        "y": -0.11,
+        "z": -0.48
+      },
+      "rotation": {
+        "x": 0,
+        "y": 0,
+        "z": -15
+      },
+      "scale": 1
+    }
+  }
+}

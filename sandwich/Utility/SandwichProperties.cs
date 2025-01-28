@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Text;
 using ACulinaryArtillery;
+using Newtonsoft.Json.Linq;
 using sandwich;
 using Vintagestory.API.Common;
 using Vintagestory.API.Common.Entities;
@@ -171,6 +172,13 @@ public class SandwichProperties
             if (contentStacks[i] != null)
             {
                 CollectibleObject collectible = contentStacks[i].Collectible;
+
+                if (collectible.Attributes?["transitionableProps"].AsObject<TransitionableProperties>() != null)
+                {
+                    world.Logger.Event("has thing");
+                }
+                // world.Logger.Event(collectible.Attributes?["transitionableProps"].AsObject<TransitionableProperties>().ToString());
+
                 FoodNutritionProperties foodNutritionProperties = ((collectible.CombustibleProps == null || collectible.CombustibleProps.SmeltedStack == null) ? collectible.GetNutritionProperties(world, contentStacks[i], forEntity) : collectible.CombustibleProps.SmeltedStack.ResolvedItemstack.Collectible.GetNutritionProperties(world, collectible.CombustibleProps.SmeltedStack.ResolvedItemstack, forEntity));
 
                 WaterTightContainableProps props = (contentStacks[i] == null) ? null : BlockLiquidContainerBase.GetContainableProps(contentStacks[i]);
@@ -187,6 +195,9 @@ public class SandwichProperties
                 {
                     foodNutritionProperties = collectible.Attributes?["nutritionPropsWhenInMeal"].AsObject<FoodNutritionProperties>();
                 }
+
+
+
 
                 if (foodNutritionProperties != null)
                 {

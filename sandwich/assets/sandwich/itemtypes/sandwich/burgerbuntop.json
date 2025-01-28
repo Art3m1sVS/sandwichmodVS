@@ -1,0 +1,221 @@
+{
+  "code": "burgerbuntop",
+  "class": "sandwich.ItemExpandedFood",
+  "maxstacksize": 64,
+  "variantgroups": [
+    {
+      "code": "type",
+      "states": [ "spelt", "rye", "flax", "rice", "cassava", "amaranth", "sunflower", "generic" ]
+    },
+    {
+      "code": "state",
+      "states": [ "perfect", "toasted", "charred" ]
+    }
+  ],
+  "shapeByType": {
+    "*": {
+      "base": "sandwich:item/food/burger/buns/burgerbun_topmorecurves"
+    }
+  },
+  "texturesByType": {
+    "*-generic-perfect": {
+      "all": { "base": "game:item/food/grain/cassavabread" }
+    },
+    "*-perfect": {
+      "all": { "base": "game:item/food/grain/{type}bread" }
+    },
+    "*-generic-toasted": {
+      "all": { "base": "sandwich:item/food/sandwich/grilledcheese/cassavabread_baked" }
+    },
+    "*-toasted": {
+      "all": { "base": "sandwich:item/food/sandwich/grilledcheese/{type}bread_baked" }
+    },
+    "*-generic-charred": {
+      "all": { "base": "sandwich:item/food/ingredients/cassavabread_charred" }
+    },
+    "*-charred": {
+      "all": { "base": "sandwich:item/food/ingredients/{type}bread_charred" }
+    }
+  },
+  "creativeinventory": {
+    "general": [ "*" ],
+    "items": [ "*" ],
+    "sandwich": [ "*" ]
+  },
+  "behaviors": [
+    {
+      "name": "GroundStorable",
+      "properties": {
+        "layout": "Quadrants",
+        "placeRemoveSound": "game:sounds/player/build",
+        "collisionBox": {
+          "x1": 0,
+          "y1": 0,
+          "z1": 0,
+          "x2": 1,
+          "y2": 0,
+          "z2": 1
+        }
+      }
+    }
+  ],
+  "attributes": {
+    "displaycaseable": true,
+    "shelvable": true,
+    "bakingPropertiesByType": {
+      "*-perfect": {
+        "temp": 160,
+        "levelFrom": 0.0,
+        "levelTo": 0.3,
+        "startScaleY": 1.0,
+        "endScaleY": 1.02,
+        "resultCode": "sandwich:burgerbuntop-{type}-toasted"
+      },
+      "*-toasted": {
+        "temp": 160,
+        "levelFrom": 0.3,
+        "levelTo": 0.6,
+        "startScaleY": 1.02,
+        "endScaleY": 1.02,
+        "resultCode": "sandwich:burgerbuntop-{type}-charred",
+        "initialCode": "sandwich:burgerbuntop-{type}-perfect"
+      },
+      "*-charred": {
+        "temp": 160,
+        "levelFrom": 0.6,
+        "levelTo": 1.0,
+        "startScaleY": 1.02,
+        "endScaleY": 1.0,
+        "initialCode": "sandwich:burgerbuntop-{type}-toasted"
+      }
+    },
+    "groundStorageTransform": {
+      "rotation": {
+        "x": 0,
+        "y": 24,
+        "z": 0
+      },
+      "origin": {
+        "x": 0.5,
+        "y": 0,
+        "z": 0.25
+      },
+      "scale": 1.5
+    },
+    "sandwich:canPutOnCuttingBoard": true,
+    "sandwich:whenOnSandwich": {
+      "shape": { "base": "sandwich:item/food/burger/buns/burgerbun_topmorecurves" },
+      //"shapeLast": { "base": "sandwich:item/sandwich_ingredients_vanilla/slicedbread-top" },
+      "size": 0.0325, // 1/16
+      "rotate": true,
+      "rotation": {
+        "avg": 1,
+        "var": 0.25
+      }
+    }
+  },
+  "satMultByType": {
+    "*-perfect": 1,
+    "*-toasted": 1.25,
+    "*-charred": 0.5
+  },
+  "nutritionPropsByType": {
+    "*-perfect": {
+      "saturation": 42,
+      "foodcategory": "Grain"
+    },
+    "*-toasted": {
+      "saturation": 55,
+      "foodcategory": "Grain"
+    },
+    "*-charred": {
+      "saturation": 5,
+      "foodcategory": "Grain"
+    }
+  },
+  "transitionableProps": [
+    {
+      "type": "Perish",
+      "freshHours": { "avg": 360 },
+      "transitionHours": { "avg": 24 },
+      "transitionedStack": {
+        "type": "item",
+        "code": "game:rot"
+      },
+      "transitionRatio": 1
+    }
+  ],
+  "materialDensity": 250,
+  "guiTransform": {
+    "translation": {
+      "x": 0,
+      "y": 0,
+      "z": 0
+    },
+    "rotation": {
+      "x": -30,
+      "y": 26,
+      "z": 180
+    },
+    "origin": {
+      "x": 0.47,
+      "y": 0.078,
+      "z": 0.5
+    },
+    "scale": 4.85
+  },
+  "groundTransform": {
+    "translation": {
+      "x": 0,
+      "y": 0,
+      "z": 0
+    },
+    "rotation": {
+      "x": 0,
+      "y": 0,
+      "z": 1
+    },
+    "origin": {
+      "x": 0.5,
+      "y": 0,
+      "z": 0.5
+    },
+    "scale": 4.5
+  },
+  "tpHandTransform": {
+    "translation": {
+      "x": -0.53,
+      "y": -0.1,
+      "z": -0.45
+    },
+    "rotation": {
+      "x": 87,
+      "y": -180,
+      "z": 90
+    },
+    "origin": {
+      "x": 0.46,
+      "y": 0.1,
+      "z": 0.5
+    },
+    "scale": 1.2
+  },
+  "fpHandTransform": {
+    "translation": {
+      "x": 0,
+      "y": 0.24,
+      "z": 0.3
+    },
+    "rotation": {
+      "x": 104,
+      "y": 0,
+      "z": 71
+    },
+    "origin": {
+      "x": 0.5,
+      "y": 0.1,
+      "z": 0.5
+    },
+    "scale": 2.7
+  }
+}

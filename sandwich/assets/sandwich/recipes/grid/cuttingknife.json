@@ -1,0 +1,44 @@
+{
+  "ingredientPattern": "T\tS\tB",
+  "ingredients": {
+    "T": {
+      "type": "item",
+      "code": "game:knifeblade-*",
+      "name": "material"
+    },
+    "S": {
+      "type": "item",
+      "code": "game:stick"
+    },
+    "B": {
+      "type": "item",
+      "code": "sandwich:slicedbread-*"
+    }
+  },
+  "width": 1,
+  "height": 3,
+  "output": {
+    "type": "item",
+    "code": "sandwich:sandwichknife-generic-{material}",
+    "quantity": 1
+  }
+}
+
+
+//{
+//	"ingredientPattern": "L",
+//	"ingredients": {
+//		"L": {
+//			"type": "block",
+//			"code": "game:log-*-ud",
+//			"name": "wood"
+//		}
+//	},
+//	"width": 1,
+//	"height": 1,
+//	"output": {
+//		"type": "block",
+//		"code": "planks-{wood}-hor",
+//		"quantity": 4
+//	}
+//}

@@ -6,7 +6,7 @@
         "Art3m1s"
     ],
     "description": "Sammiches adds sandwiches and several other bread products into the game.",
-    "version": "1.2.5",
+    "version": "1.2.6",
   "dependencies": {
     "game": "",
     "expandedfoods": "",

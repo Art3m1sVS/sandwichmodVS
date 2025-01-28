@@ -107,8 +107,8 @@ public class ItemSandwich : ItemExpandedRawFood, IBakeableCallback, IContainedMe
                             string itemName = clonedLayerStack.GetName();
                             string itemAttributes = clonedLayerStack.Attributes.ToString();
 
-                            api.World.Logger.Event("Cloned item name: " + itemName);
-                            api.World.Logger.Event("Cloned item attributes: " + itemAttributes);
+                            //api.World.Logger.Event("Cloned item name: " + itemName);
+                           // api.World.Logger.Event("Cloned item attributes: " + itemAttributes);
                         }
                         else
                         {
