@@ -6,6 +6,8 @@ using Vintagestory.API.Common;
 using Vintagestory.API.MathTools;
 using ACulinaryArtillery;
 using EFRecipes;
+using Vintagestory.API.Datastructures;
+using Vintagestory.GameContent;
 
 namespace sandwich;
 
@@ -14,6 +16,7 @@ public class WhenOnSandwichProperties
     public CompositeShape Shape { get; set; }
 
     public CompositeShape ShapeLast { get; set; }
+
 
     public Dictionary<string, CompositeTexture> Textures { get; set; } = new();
 

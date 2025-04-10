@@ -1,7 +1,7 @@
 {
-  "code": "slicedfruitbread",
+  "code": "fruitburgerbun",
   "class": "sandwich.ExpandedFood",
-  "maxstacksize": 64,
+  "maxstacksize": 24,
   "variantgroups": [
     {
       "code": "type",
@@ -9,7 +9,7 @@
     },
     {
       "code": "state",
-      "states": [ "perfect", "toasted", "charred" ]
+      "states": [ "dough", "partbaked", "perfect", "toasted", "charred" ]
     }
   ],
   //"texturesByType": {
@@ -26,11 +26,11 @@
   //    "all": { "base": "sandwich:item/food/ingredients/{type}bread_charred" }
   //  }
   //},
-  "shape": { "base": "sandwich:shapes/item/sandwich_ingredients_vanilla/slicedbread.json" },
+  "shape": { "base": "sandwich:shapes/item/food/burger/buns/burgerbun_uncut.json" },
   "textures": {
+    "generic": { "base": "game:item/food/grain/ryebread" },
     "all": { "base": "game:item/food/grain/{type}bread" },
     "bread": { "base": "game:item/food/grain/{type}bread" },
-    "generic": { "base": "game:item/food/grain/ryebread" },
     "flaxbread": { "base": "game:item/food/grain/flaxbread" },
     "ricebread": { "base": "game:item/food/grain/ricebread" },
     "speltbread": { "base": "game:item/food/grain/speltbread" },
@@ -386,54 +386,210 @@
       }
     },
     "renderIngredientsByType": {
-      "*-perfect": {
+      "*-dough": {
         "game:flour-*": {
-          "shape": "sandwich:shapes/item/sandwich_ingredients_vanilla/slicedbread.json",
+          "shape": "sandwich:shapes/item/food/burger/buns/burgerbun_uncut.json",
           "name": "type",
-          "textureMap": { "all": "{type}bread" }
+          "textureMap": { "all": "{type}bread2" }
         },
         "game:fruit-*": {
-          "shape": "sandwich:shapes/item/sandwich_ingredients_vanilla/slicedfruitbread.json",
+          "shape": "sandwich:shapes/item/food/burger/buns/fruitburgerbun_uncut.json",
           "name": "fruit",
           "textureMap": { "fruit": "{fruit}" }
         },
         "expandedfoods:dryfruit-*": {
-          "shape": "sandwich:shapes/item/sandwich_ingredients_vanilla/slicedfruitbread.json",
+          "shape": "sandwich:shapes/item/food/burger/buns/fruitburgerbun_uncut.json",
           "name": "fruit",
           "textureMap": { "fruit": "{fruit}" }
         },
         "expandedfoods:dehydratedfruit-*": {
-          "shape": "sandwich:shapes/item/sandwich_ingredients_vanilla/slicedfruitbread.json",
+          "shape": "sandwich:shapes/item/food/burger/buns/fruitburgerbun_uncut.json",
           "name": "fruit",
           "textureMap": { "fruit": "{fruit}" }
         },
         "expandedfoods:candiedfruit-*": {
-          "shape": "sandwich:shapes/item/sandwich_ingredients_vanilla/slicedfruitbread.json",
+          "shape": "sandwich:shapes/item/food/burger/buns/fruitburgerbun_uncut.json",
           "name": "fruit",
           "textureMap": { "fruit": "{fruit}" }
         },
         "expandedfoods:choppedvegetable-pumpkin": {
-          "shape": "sandwich:shapes/item/sandwich_ingredients_vanilla/slicedfruitbread.json",
+          "shape": "sandwich:shapes/item/food/burger/buns/fruitburgerbun_uncut.json",
           "name": "fruit",
           "textureMap": { "fruit": "fruit" }
         },
         "wildcraftfruit:fruit-*": {
-          "shape": "sandwich:shapes/item/sandwich_ingredients_vanilla/slicedfruitbread.json",
+          "shape": "sandwich:shapes/item/food/burger/buns/fruitburgerbun_uncut.json",
           "name": "fruit",
           "textureMap": { "fruit": "{fruit}" }
         },
         "expandedfoods:wilddryfruit-*": {
-          "shape": "sandwich:shapes/item/sandwich_ingredients_vanilla/slicedfruitbread.json",
+          "shape": "sandwich:shapes/item/food/burger/buns/fruitburgerbun_uncut.json",
           "name": "fruit",
           "textureMap": { "fruit": "{fruit}" }
         },
         "expandedfoods:wilddehydratedfruit-*": {
-          "shape": "sandwich:shapes/item/sandwich_ingredients_vanilla/slicedfruitbread.json",
+          "shape": "sandwich:shapes/item/food/burger/buns/fruitburgerbun_uncut.json",
           "name": "fruit",
           "textureMap": { "fruit": "{fruit}" }
         },
         "expandedfoods:wildcandiedfruit-*": {
-          "shape": "sandwich:shapes/item/sandwich_ingredients_vanilla/slicedfruitbread.json",
+          "shape": "sandwich:shapes/item/food/burger/buns/fruitburgerbun_uncut.json",
+          "name": "fruit",
+          "textureMap": { "fruit": "{fruit}" }
+        },
+        "game:honeyportion": {
+          "shape": "expandedfoods:shapes/item/food/bread/overlays/syrup/bread.json",
+          "textureMap": { "syrup": "honey" }
+        },
+        "expandedfoods:peanutliquid-paste": {
+          "shape": "expandedfoods:shapes/item/food/bread/overlays/syrup/bread.json",
+          "textureMap": { "syrup": "peanutbutter" }
+        },
+        "expandedfoods:treesyrupportion-birch": {
+          "shape": "expandedfoods:shapes/item/food/bread/overlays/syrup/bread.json",
+          "textureMap": { "syrup": "weaktannin" }
+        },
+        "expandedfoods:treesyrupportion-maple": {
+          "shape": "expandedfoods:shapes/item/food/bread/overlays/syrup/bread.json",
+          "textureMap": { "syrup": "strongtannin" }
+        },
+        "expandedfoods:fruitsyrupportion-*": {
+          "shape": "expandedfoods:shapes/item/food/bread/overlays/syrup/bread.json",
+          "name": "fruit",
+          "textureMap": { "syrup": "fill-{fruit}" }
+        },
+        "expandedfoods:wildfruitsyrupportion-*": {
+          "shape": "expandedfoods:shapes/item/food/bread/overlays/syrup/bread.json",
+          "name": "fruit",
+          "textureMap": { "syrup": "fill-{fruit}" }
+        }
+      },
+      "*-partbaked": {
+        "game:flour-*": {
+          "shape": "sandwich:shapes/item/food/burger/buns/burgerbun_uncut.json",
+          "name": "type",
+          "textureMap": { "all": "{type}bread2" }
+        },
+        "game:fruit-*": {
+          "shape": "sandwich:shapes/item/food/burger/buns/fruitburgerbun_uncut.json",
+          "name": "fruit",
+          "textureMap": { "fruit": "{fruit}" }
+        },
+        "expandedfoods:dryfruit-*": {
+          "shape": "sandwich:shapes/item/food/burger/buns/fruitburgerbun_uncut.json",
+          "name": "fruit",
+          "textureMap": { "fruit": "{fruit}" }
+        },
+        "expandedfoods:dehydratedfruit-*": {
+          "shape": "sandwich:shapes/item/food/burger/buns/fruitburgerbun_uncut.json",
+          "name": "fruit",
+          "textureMap": { "fruit": "{fruit}" }
+        },
+        "expandedfoods:candiedfruit-*": {
+          "shape": "sandwich:shapes/item/food/burger/buns/fruitburgerbun_uncut.json",
+          "name": "fruit",
+          "textureMap": { "fruit": "{fruit}" }
+        },
+        "expandedfoods:choppedvegetable-pumpkin": {
+          "shape": "sandwich:shapes/item/food/burger/buns/fruitburgerbun_uncut.json",
+          "name": "fruit",
+          "textureMap": { "fruit": "fruit" }
+        },
+        "wildcraftfruit:fruit-*": {
+          "shape": "sandwich:shapes/item/food/burger/buns/fruitburgerbun_uncut.json",
+          "name": "fruit",
+          "textureMap": { "fruit": "{fruit}" }
+        },
+        "expandedfoods:wilddryfruit-*": {
+          "shape": "sandwich:shapes/item/food/burger/buns/fruitburgerbun_uncut.json",
+          "name": "fruit",
+          "textureMap": { "fruit": "{fruit}" }
+        },
+        "expandedfoods:wilddehydratedfruit-*": {
+          "shape": "sandwich:shapes/item/food/burger/buns/fruitburgerbun_uncut.json",
+          "name": "fruit",
+          "textureMap": { "fruit": "{fruit}" }
+        },
+        "expandedfoods:wildcandiedfruit-*": {
+          "shape": "sandwich:shapes/item/food/burger/buns/fruitburgerbun_uncut.json",
+          "name": "fruit",
+          "textureMap": { "fruit": "{fruit}" }
+        },
+        "game:honeyportion": {
+          "shape": "expandedfoods:shapes/item/food/bread/overlays/syrup/bread.json",
+          "textureMap": { "syrup": "honey" }
+        },
+        "expandedfoods:peanutliquid-paste": {
+          "shape": "expandedfoods:shapes/item/food/bread/overlays/syrup/bread.json",
+          "textureMap": { "syrup": "peanutbutter" }
+        },
+        "expandedfoods:treesyrupportion-birch": {
+          "shape": "expandedfoods:shapes/item/food/bread/overlays/syrup/bread.json",
+          "textureMap": { "syrup": "weaktannin" }
+        },
+        "expandedfoods:treesyrupportion-maple": {
+          "shape": "expandedfoods:shapes/item/food/bread/overlays/syrup/bread.json",
+          "textureMap": { "syrup": "strongtannin" }
+        },
+        "expandedfoods:fruitsyrupportion-*": {
+          "shape": "expandedfoods:shapes/item/food/bread/overlays/syrup/bread.json",
+          "name": "fruit",
+          "textureMap": { "syrup": "fill-{fruit}" }
+        },
+        "expandedfoods:wildfruitsyrupportion-*": {
+          "shape": "expandedfoods:shapes/item/food/bread/overlays/syrup/bread.json",
+          "name": "fruit",
+          "textureMap": { "syrup": "fill-{fruit}" }
+        }
+      },
+      "*-perfect": {
+        "game:flour-*": {
+          "shape": "sandwich:shapes/item/food/burger/buns/burgerbun_uncut.json",
+          "name": "type",
+          "textureMap": { "all": "{type}bread" }
+        },
+        "game:fruit-*": {
+          "shape": "sandwich:shapes/item/food/burger/buns/fruitburgerbun_uncut.json",
+          "name": "fruit",
+          "textureMap": { "fruit": "{fruit}" }
+        },
+        "expandedfoods:dryfruit-*": {
+          "shape": "sandwich:shapes/item/food/burger/buns/fruitburgerbun_uncut.json",
+          "name": "fruit",
+          "textureMap": { "fruit": "{fruit}" }
+        },
+        "expandedfoods:dehydratedfruit-*": {
+          "shape": "sandwich:shapes/item/food/burger/buns/fruitburgerbun_uncut.json",
+          "name": "fruit",
+          "textureMap": { "fruit": "{fruit}" }
+        },
+        "expandedfoods:candiedfruit-*": {
+          "shape": "sandwich:shapes/item/food/burger/buns/fruitburgerbun_uncut.json",
+          "name": "fruit",
+          "textureMap": { "fruit": "{fruit}" }
+        },
+        "expandedfoods:choppedvegetable-pumpkin": {
+          "shape": "sandwich:shapes/item/food/burger/buns/fruitburgerbun_uncut.json",
+          "name": "fruit",
+          "textureMap": { "fruit": "fruit" }
+        },
+        "wildcraftfruit:fruit-*": {
+          "shape": "sandwich:shapes/item/food/burger/buns/fruitburgerbun_uncut.json",
+          "name": "fruit",
+          "textureMap": { "fruit": "{fruit}" }
+        },
+        "expandedfoods:wilddryfruit-*": {
+          "shape": "sandwich:shapes/item/food/burger/buns/fruitburgerbun_uncut.json",
+          "name": "fruit",
+          "textureMap": { "fruit": "{fruit}" }
+        },
+        "expandedfoods:wilddehydratedfruit-*": {
+          "shape": "sandwich:shapes/item/food/burger/buns/fruitburgerbun_uncut.json",
+          "name": "fruit",
+          "textureMap": { "fruit": "{fruit}" }
+        },
+        "expandedfoods:wildcandiedfruit-*": {
+          "shape": "sandwich:shapes/item/food/burger/buns/fruitburgerbun_uncut.json",
           "name": "fruit",
           "textureMap": { "fruit": "{fruit}" }
         },
@@ -466,52 +622,52 @@
       },
       "*-toasted": {
         "game:flour-*": {
-          "shape": "sandwich:shapes/item/sandwich_ingredients_vanilla/slicedbread.json",
+          "shape": "sandwich:shapes/item/food/burger/buns/burgerbun_uncut.json",
           "name": "type",
           "textureMap": { "all": "{type}bread-baked" }
         },
         "game:fruit-*": {
-          "shape": "sandwich:shapes/item/sandwich_ingredients_vanilla/slicedfruitbread.json",
+          "shape": "sandwich:shapes/item/food/burger/buns/fruitburgerbun_uncut.json",
           "name": "fruit",
           "textureMap": { "fruit": "{fruit}" }
         },
         "expandedfoods:dryfruit-*": {
-          "shape": "sandwich:shapes/item/sandwich_ingredients_vanilla/slicedfruitbread.json",
+          "shape": "sandwich:shapes/item/food/burger/buns/fruitburgerbun_uncut.json",
           "name": "fruit",
           "textureMap": { "fruit": "{fruit}" }
         },
         "expandedfoods:dehydratedfruit-*": {
-          "shape": "sandwich:shapes/item/sandwich_ingredients_vanilla/slicedfruitbread.json",
+          "shape": "sandwich:shapes/item/food/burger/buns/fruitburgerbun_uncut.json",
           "name": "fruit",
           "textureMap": { "fruit": "{fruit}" }
         },
         "expandedfoods:candiedfruit-*": {
-          "shape": "sandwich:shapes/item/sandwich_ingredients_vanilla/slicedfruitbread.json",
+          "shape": "sandwich:shapes/item/food/burger/buns/fruitburgerbun_uncut.json",
           "name": "fruit",
           "textureMap": { "fruit": "{fruit}" }
         },
         "expandedfoods:choppedvegetable-pumpkin": {
-          "shape": "sandwich:shapes/item/sandwich_ingredients_vanilla/slicedfruitbread.json",
+          "shape": "sandwich:shapes/item/food/burger/buns/fruitburgerbun_uncut.json",
           "name": "fruit",
           "textureMap": { "fruit": "pumpkin" }
         },
         "wildcraftfruit:fruit-*": {
-          "shape": "sandwich:shapes/item/sandwich_ingredients_vanilla/slicedfruitbread.json",
+          "shape": "sandwich:shapes/item/food/burger/buns/fruitburgerbun_uncut.json",
           "name": "fruit",
           "textureMap": { "fruit": "{fruit}" }
         },
         "expandedfoods:wilddryfruit-*": {
-          "shape": "sandwich:shapes/item/sandwich_ingredients_vanilla/slicedfruitbread.json",
+          "shape": "sandwich:shapes/item/food/burger/buns/fruitburgerbun_uncut.json",
           "name": "fruit",
           "textureMap": { "fruit": "{fruit}" }
         },
         "expandedfoods:wilddehydratedfruit-*": {
-          "shape": "sandwich:shapes/item/sandwich_ingredients_vanilla/slicedfruitbread.json",
+          "shape": "sandwich:shapes/item/food/burger/buns/fruitburgerbun_uncut.json",
           "name": "fruit",
           "textureMap": { "fruit": "{fruit}" }
         },
         "expandedfoods:wildcandiedfruit-*": {
-          "shape": "sandwich:shapes/item/sandwich_ingredients_vanilla/slicedfruitbread.json",
+          "shape": "sandwich:shapes/item/food/burger/buns/fruitburgerbun_uncut.json",
           "name": "fruit",
           "textureMap": { "fruit": "{fruit}" }
         },
@@ -544,52 +700,52 @@
       },
       "*-charred": {
         "game:flour-*": {
-          "shape": "sandwich:shapes/item/sandwich_ingredients_vanilla/slicedbread.json",
+          "shape": "sandwich:shapes/item/food/burger/buns/burgerbun_uncut.json",
           "name": "type",
           "textureMap": { "all": "{type}bread-charred" }
         },
         "game:fruit-*": {
-          "shape": "sandwich:shapes/item/sandwich_ingredients_vanilla/slicedfruitbread.json",
+          "shape": "sandwich:shapes/item/food/burger/buns/fruitburgerbun_uncut.json",
           "name": "fruit",
           "textureMap": { "fruit": "{fruit}" }
         },
         "expandedfoods:dryfruit-*": {
-          "shape": "sandwich:shapes/item/sandwich_ingredients_vanilla/slicedfruitbread.json",
+          "shape": "sandwich:shapes/item/food/burger/buns/fruitburgerbun_uncut.json",
           "name": "fruit",
           "textureMap": { "fruit": "{fruit}" }
         },
         "expandedfoods:dehydratedfruit-*": {
-          "shape": "sandwich:shapes/item/sandwich_ingredients_vanilla/slicedfruitbread.json",
+          "shape": "sandwich:shapes/item/food/burger/buns/fruitburgerbun_uncut.json",
           "name": "fruit",
           "textureMap": { "fruit": "{fruit}" }
         },
         "expandedfoods:candiedfruit-*": {
-          "shape": "sandwich:shapes/item/sandwich_ingredients_vanilla/slicedfruitbread.json",
+          "shape": "sandwich:shapes/item/food/burger/buns/fruitburgerbun_uncut.json",
           "name": "fruit",
           "textureMap": { "fruit": "{fruit}" }
         },
         "expandedfoods:choppedvegetable-pumpkin": {
-          "shape": "sandwich:shapes/item/sandwich_ingredients_vanilla/slicedfruitbread.json",
+          "shape": "sandwich:shapes/item/food/burger/buns/fruitburgerbun_uncut.json",
           "name": "fruit",
           "textureMap": { "fruit": "pumpkin" }
         },
         "wildcraftfruit:fruit-*": {
-          "shape": "sandwich:shapes/item/sandwich_ingredients_vanilla/slicedfruitbread.json",
+          "shape": "sandwich:shapes/item/food/burger/buns/fruitburgerbun_uncut.json",
           "name": "fruit",
           "textureMap": { "fruit": "{fruit}" }
         },
         "expandedfoods:wilddryfruit-*": {
-          "shape": "sandwich:shapes/item/sandwich_ingredients_vanilla/slicedfruitbread.json",
+          "shape": "sandwich:shapes/item/food/burger/buns/fruitburgerbun_uncut.json",
           "name": "fruit",
           "textureMap": { "fruit": "{fruit}" }
         },
         "expandedfoods:wilddehydratedfruit-*": {
-          "shape": "sandwich:shapes/item/sandwich_ingredients_vanilla/slicedfruitbread.json",
+          "shape": "sandwich:shapes/item/food/burger/buns/fruitburgerbun_uncut.json",
           "name": "fruit",
           "textureMap": { "fruit": "{fruit}" }
         },
         "expandedfoods:wildcandiedfruit-*": {
-          "shape": "sandwich:shapes/item/sandwich_ingredients_vanilla/slicedfruitbread.json",
+          "shape": "sandwich:shapes/item/food/burger/buns/fruitburgerbun_uncut.json",
           "name": "fruit",
           "textureMap": { "fruit": "{fruit}" }
         },
@@ -624,30 +780,48 @@
     "displaycaseable": true,
     "shelvable": true,
     "bakingPropertiesByType": {
-      "*-perfect": {
+      "*-dough": {
         "temp": 160,
         "levelFrom": 0.0,
-        "levelTo": 0.3,
+        "levelTo": 0.2,
         "startScaleY": 1.0,
-        "endScaleY": 1.01,
-        "resultCode": "sandwich:slicedfruitbread-{type}-toasted"
+        "endScaleY": 1.1,
+        "resultCode": "sandwich:fruitburgerbun-{type}-partbaked"
+      },
+      "*-partbaked": {
+        "temp": 160,
+        "levelFrom": 0.2,
+        "levelTo": 0.4,
+        "startScaleY": 1.1,
+        "endScaleY": 1.12,
+        "resultCode": "sandwich:fruitburgerbun-{type}-perfect",
+        "initialCode": "sandwich:fruitburgerbun-{type}-dough"
+      },
+      "*-perfect": {
+        "temp": 160,
+        "levelFrom": 0.4,
+        "levelTo": 0.6,
+        "startScaleY": 1.12,
+        "endScaleY": 1.14,
+        "resultCode": "sandwich:fruitburgerbun-{type}-toasted",
+        "initialCode": "sandwich:fruitburgerbun-{type}-partbaked"
       },
       "*-toasted": {
         "temp": 160,
-        "levelFrom": 0.3,
-        "levelTo": 0.6,
-        "startScaleY": 1.01,
-        "endScaleY": 1.05,
-        "resultCode": "sandwich:slicedfruitbread-{type}-charred",
-        "initialCode": "sandwich:slicedfruitbread-{type}-perfect"
+        "levelFrom": 0.6,
+        "levelTo": 0.8,
+        "startScaleY": 1.14,
+        "endScaleY": 1.14,
+        "resultCode": "sandwich:fruitburgerbun-{type}-charred",
+        "initialCode": "sandwich:fruitburgerbun-{type}-perfect"
       },
       "*-charred": {
         "temp": 160,
-        "levelFrom": 0.6,
+        "levelFrom": 0.8,
         "levelTo": 1.0,
-        "startScaleY": 1.05,
-        "endScaleY": 1.06,
-        "initialCode": "sandwich:slicedfruitbread-{type}-toasted"
+        "startScaleY": 1.14,
+        "endScaleY": 1.1,
+        "initialCode": "sandwich:fruitburgerbun-{type}-toasted"
       }
     },
     "groundStorageTransform": {
@@ -665,7 +839,7 @@
     },
     "sandwich:canPutOnCuttingBoard": true,
     "sandwich:whenOnSandwich": {
-      "shape": { "base": "sandwich:item/sandwich_ingredients_vanilla/slicedbread" },
+      "shape": { "base": "sandwich:item/food/burger/buns/burgerbun_uncut" },
       //"shapeLast": { "base": "sandwich:item/sandwich_ingredients_vanilla/slicedbread-top" },
       "size": 0.0325, // 1/16
       "rotate": true,
@@ -682,23 +856,23 @@
   },
   "nutritionPropsByType": {
     "*-perfect": {
-      "saturation": 90,
+      "saturation": 80,
       "foodcategory": "Grain"
     },
     "*-toasted": {
-      "saturation": 110,
+      "saturation": 100,
       "foodcategory": "Grain"
     },
     "*-charred": {
-      "saturation": 25,
+      "saturation": 10,
       "foodcategory": "Grain"
     }
   },
   "transitionableProps": [
     {
       "type": "Perish",
-      "freshHours": { "avg": 360 },
-      "transitionHours": { "avg": 48 },
+      "freshHours": { "avg": 120 },
+      "transitionHours": { "avg": 36 },
       "transitionedStack": {
         "type": "item",
         "code": "game:rot"

@@ -121,15 +121,15 @@
   },
   "nutritionPropsByType": {
     "*-perfect": {
-      "saturation": 42,
+      "saturation": 80,
       "foodcategory": "Grain"
     },
     "*-toasted": {
-      "saturation": 55,
+      "saturation": 100,
       "foodcategory": "Grain"
     },
     "*-charred": {
-      "saturation": 5,
+      "saturation": 10,
       "foodcategory": "Grain"
     }
   },
@@ -137,7 +137,7 @@
     {
       "type": "Perish",
       "freshHours": { "avg": 360 },
-      "transitionHours": { "avg": 24 },
+      "transitionHours": { "avg": 48 },
       "transitionedStack": {
         "type": "item",
         "code": "game:rot"

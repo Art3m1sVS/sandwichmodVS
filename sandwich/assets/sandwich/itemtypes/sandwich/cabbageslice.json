@@ -47,7 +47,7 @@
   },
   "nutritionPropsByType": {
     "*": {
-      "saturation": 40,
+      "saturation": 80,
       "foodcategory": "Vegetable"
     }
   },

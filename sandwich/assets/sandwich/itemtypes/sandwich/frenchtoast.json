@@ -127,11 +127,11 @@
   },
   "nutritionPropsByType": {
     "*-underbaked": {
-      "saturation": 50,
+      "saturation": 100,
       "foodcategory": "Grain"
     },
     "*-perfect": {
-      "saturation": 250,
+      "saturation": 300,
       "foodcategory": "Grain"
     },
     "*-charred": {

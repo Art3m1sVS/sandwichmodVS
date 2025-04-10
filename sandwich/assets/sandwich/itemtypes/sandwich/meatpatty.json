@@ -4,7 +4,7 @@
   "maxstacksize": 32,
   "variantgroups": [
     {
-      "code": "type",
+      "code": "state",
       "states": [ "raw", "undercooked", "perfect", "charred" ]
     }
   ],
@@ -124,17 +124,17 @@
       "foodcategory": "Protein"
     },
     "*-undercooked": {
-      "saturation": 32,
+      "saturation": 80,
       "health": -0.5,
       "foodcategory": "Protein"
     },
     "*-perfect": {
-      "saturation": 105,
+      "saturation": 250,
       "health": 5,
       "foodcategory": "Protein"
     },
     "*-charred": {
-      "saturation": 15,
+      "saturation": 105,
       "foodcategory": "Protein"
     }
   },
@@ -142,7 +142,7 @@
     {
       "type": "Perish",
       "freshHours": { "avg": 360 },
-      "transitionHours": { "avg": 24 },
+      "transitionHours": { "avg": 48 },
       "transitionedStack": {
         "type": "item",
         "code": "game:rot"

@@ -225,7 +225,58 @@ public class BlockEntityCuttingBoard : BlockEntityDisplay
                         {
                             // To be implemented
                         }
-                     }
+                    } else if (itemPath != null && itemPath.StartsWith("berrybread-dough"))
+                    {
+                        if (activeslot.Itemstack.Attributes?.GetInt("toolMode") == 0) // Regular slice
+                        {
+                            return false; // Cannot slice bread dough
+                        }
+                        else if (activeslot.Itemstack.Attributes?.GetInt("toolMode") == 1) // Burger slice
+                        {
+                            if (Api.Side == EnumAppSide.Server)
+                            {
+                                string breadType = "generic";
+                                if (itemStack?.Attributes?["madeWith"] is StringArrayAttribute madeWithArray)
+                                {
+                                    string[] madeWithElements = madeWithArray.GetValue() as string[];
+
+                                    if (madeWithElements != null)
+                                    {
+                                        foreach (string madeWithElement in madeWithElements)
+                                        {
+                                            if (madeWithElement.StartsWith("game:flour-"))
+                                            {
+                                                breadType = madeWithElement.Substring("game:flour-".Length);
+                                            }
+                                        }
+
+                                        if (!string.IsNullOrEmpty(breadType))
+                                        {
+                                            string slicedBreadPath = $"sandwich:fruitburgerbun-{breadType}-dough";
+
+                                            ItemStack slicedItems = new ItemStack(Api.World.GetItem(new AssetLocation(slicedBreadPath)), 4);
+                                            ItemSandwich sandwichItem = new ItemSandwich();
+
+                                            sandwichItem.OnCreatedBySlicing(inventory[0], slicedItems, itemStack, 4);
+
+                                            // Spawn the sliced items
+                                            Api.World.SpawnItemEntity(slicedItems, Pos.ToVec3d().Add(0.5, 0.5, 0.5));
+
+                                            inventory[0].TakeOutWhole(); // Remove the whole item
+                                            MarkDirty(true);
+                                            updateMeshes();
+
+                                            return true;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                        else if (activeslot.Itemstack.Attributes?.GetInt("toolMode") == 2) // Hot dog slice
+                        {
+                            // To be implemented
+                        }
+                    }
                 }
 
                 if (itemPath != null && SlicingStorage.SlicingItems.ContainsKey(itemPath))
@@ -350,7 +401,8 @@ public class BlockEntityCuttingBoard : BlockEntityDisplay
                         updateMeshes();
                     }
                     return true;
-                } else if (itemPath != null && itemPath.StartsWith("burgerbun-") && (itemPath.EndsWith("-perfect") || itemPath.EndsWith("-toasted") || itemPath.EndsWith("-charred")))
+                } 
+                else if (itemPath != null && itemPath.StartsWith("burgerbun-") && (itemPath.EndsWith("-perfect") || itemPath.EndsWith("-toasted") || itemPath.EndsWith("-charred")))
                 {
                     if (Api.Side == EnumAppSide.Server)
                     {
@@ -366,6 +418,46 @@ public class BlockEntityCuttingBoard : BlockEntityDisplay
                         // Now you have both bread variety and bread state
                         ItemStack slicedItem1 = new ItemStack(Api.World.GetItem(new AssetLocation($"sandwich:burgerbuntop-{breadVariety}-{breadState}")), 1);
                         ItemStack slicedItem2 = new ItemStack(Api.World.GetItem(new AssetLocation($"sandwich:burgerbunbottom-{breadVariety}-{breadState}")), 1);
+                        ItemSandwich sandwichItem1 = new ItemSandwich();
+                        ItemSandwich sandwichItem2 = new ItemSandwich();
+
+                        // Call OnCreatedBySlicing to transfer nutrients
+                        sandwichItem1.OnCreatedBySlicing(inventory[0], slicedItem1, itemStack, 1);
+                        sandwichItem2.OnCreatedBySlicing(inventory[0], slicedItem2, itemStack, 1);
+
+
+                        Api.World.SpawnItemEntity(slicedItem1, Pos.ToVec3d().Add(0.5, 0.5, 0.5));
+                        Api.World.SpawnItemEntity(slicedItem2, Pos.ToVec3d().Add(0.5, 0.5, 0.5));
+                        inventory[0].TakeOutWhole();
+                        MarkDirty(true);
+                        updateMeshes();
+
+                        //Api.World.Logger.Event($"Sliced {itemPath} into {2} pieces.");
+                        //Api.World.Logger.Event(activeslot.Itemstack.Attributes?.GetInt("toolMode").ToString());
+                    }
+                    return true;
+                }
+                else if (itemPath != null && itemPath.StartsWith("fruitburgerbun-") && (itemPath.EndsWith("-perfect") || itemPath.EndsWith("-toasted") || itemPath.EndsWith("-charred")))
+                {
+                    if (Api.Side == EnumAppSide.Server)
+                    {
+                        Api.World.Logger.Event("snip snip");
+                        // Split the itemPath by '-'
+                        string[] pathParts = itemPath.Split('-');
+
+                        // Extract the bread type (e.g., "rye") which is the second part
+                        string breadVariety = pathParts[1]; // "rye" from "bread-rye-perfect"
+
+                        Api.World.Logger.Event(pathParts.ToString());
+                        Api.World.Logger.Event(breadVariety);
+                        // Extract the bread state (e.g., "perfect", "toasted", "charred") which is the last part
+                        string breadState = pathParts[pathParts.Length - 1]; // "perfect" from "bread-rye-perfect"
+                        Api.World.Logger.Event(breadState);
+
+                        // Now you have both bread variety and bread state
+                        Api.World.Logger.Event($"sandwich:fruitburgertopbun-{breadVariety}-{breadState}");
+                        ItemStack slicedItem1 = new ItemStack(Api.World.GetItem(new AssetLocation($"sandwich:fruitburgertopbun-{breadVariety}-{breadState}")), 1);
+                        ItemStack slicedItem2 = new ItemStack(Api.World.GetItem(new AssetLocation($"sandwich:fruitburgerbottombun-{breadVariety}-{breadState}")), 1);
                         ItemSandwich sandwichItem1 = new ItemSandwich();
                         ItemSandwich sandwichItem2 = new ItemSandwich();
 

@@ -117,6 +117,58 @@
   "item-slicedfruitbread-*-toasted": "Toasted fruit bread slice",
   "item-slicedfruitbread-*-charred": "Charred fruit bread slice",
 
+  "item-fruitburgerbun-*-dough": "Fruit burger bun dough",
+  "item-fruitburgerbun-*-partbaked": "Underbaked fruit burger bun",
+  "item-fruitburgerbun-*-toasted": "Toasted fruit burger bun",
+  "item-fruitburgerbun-*-perfect": "Fruit burger bun",
+  "item-fruitburgerbun-*-charred": "Charred fruit burger bun dough",
+
+  "itemdesc-preserveportion-*": "Delicious and sweet!  This should last a long time.",
+
+
+  "item-preserveportion-blueberry": "Blueberry Preserve",
+  "item-preserveportion-cranberry": "Cranberry Preserve",
+  "item-preserveportion-redcurrant": "Redcurrant Preserve",
+  "item-preserveportion-whitecurrant": "Whitecurrant Preserve",
+  "item-preserveportion-blackcurrant": "Blackcurrant Preserve",
+  "item-preserveportion-saguaro": "Saguaro Preserve",
+  "item-preserveportion-pineapple": "Pineapple Preserve",
+  "item-preserveportion-apple": "Apple Preserve",
+  "item-preserveportion-cherry": "Cherry Preserve",
+  "item-preserveportion-olive": "Olive Preserve",
+  "item-preserveportion-peach": "Peach Preserve",
+  "item-preserveportion-pear": "Pear Preserve",
+  "item-preserveportion-orange": "Orange Preserve",
+  "item-preserveportion-mango": "Mango Preserve",
+  "item-preserveportion-breadfruit": "Breadfruit Preserve",
+  "item-preserveportion-lychee": "Lychee Preserve",
+  "item-preserveportion-pomegranate": "Pomegranate Preserve",
+
+  "incontainer-item-preserveportion-blueberry": "Blueberry Preserve",
+  "incontainer-item-preserveportion-cranberry": "Cranberry Preserve",
+  "incontainer-item-preserveportion-redcurrant": "Red currant Preserve",
+  "incontainer-item-preserveportion-whitecurrant": "White currant Preserve",
+  "incontainer-item-preserveportion-blackcurrant": "Black currant Preserve",
+  "incontainer-item-preserveportion-saguaro": "Saguaro Preserve",
+  "incontainer-item-preserveportion-pineapple": "Pineapple Preserve",
+  "incontainer-item-preserveportion-apple": "Apple Preserve",
+  "incontainer-item-preserveportion-cherry": "Cherry Preserve",
+  "incontainer-item-preserveportion-peach": "Peach Preserve",
+  "incontainer-item-preserveportion-pear": "Pear Preserve",
+  "incontainer-item-preserveportion-orange": "Orange Preserve",
+  "incontainer-item-preserveportion-mango": "Mango Preserve",
+  "incontainer-item-preserveportion-breadfruit": "Breadfruit Preserve",
+  "incontainer-item-preserveportion-lychee": "Lychee Preserve",
+  "incontainer-item-preserveportion-pomegranate": "Pomegranate Preserve",
+
+  "item-fruitburgertopbun-*-toasted": "Toasted fruit burger bun (Top)",
+  "item-fruitburgertopbun-*-perfect": "Fruit burger bun (Top)",
+  "item-fruitburgertopbun-*-charred": "Charred fruit burger bun dough (Top)",
+
+  "item-fruitburgerbottombun-*-toasted": "Toasted fruit burger bun (Bottom)",
+  "item-fruitburgerbottombun-*-perfect": "Fruit burger bun (Bottom)",
+  "item-fruitburgerbottombun-*-charred": "Charred fruit burger bun dough (Bottom)",
+
   "item-slicedbread-birch-perfect": "Birch bread slice",
   "item-slicedbread-pine-perfect": "Pine bread slice",
   "item-slicedbread-maple-perfect": "Maple bread slice",
@@ -228,5 +280,5 @@
   "sandwich:Made with ": "Made with ",
 
   "sammichesguide1-title": "Sammiches Guide",
-  "sammichesguide1-text": "<strong>What is Sammiches?</strong><br><i>Sammiches adds sandwiches and other bread products into the game.</i><br>Sandwiches can contain up to 6 ingredients, including the slice of bread used to begin the sandwich creation.<br><br><strong>Cutting Board</strong><br>The cutting board is an essential tool required to use this mod.  It is crafted with 1 board of any wood type in the crafting grid.<br><br><strong>Slicing Bread</strong><br>Sliced bread is the basis for all sandwiches, of course.  Slicing bread on a cutting board with a knife or sword yields 4 slices of bread.<br><br><strong>Sliced Foods</strong><br>Some food items can only be placed on sandwiches when sliced.<br><br>To slice an ingredient, place it on the cutting board and use a knife or sword on it.<br><br><strong>French Toast</strong><br>You will need:<br><i>1 Slice of bread<br>0.1L Milk<br>0.1L Honey<br>0.1L Liquid egg<br>Mixing Bowl</i><br><br><strong>1. </strong>Knead milk, honey, and liquid egg together into French Toast Mixture.<br><strong>2. </strong>Knead 0.1L of French Toast Mixture with 1 slice of bread to get French Toast Batter.<br><strong>3. </strong>Heat Clay Oven to 170 C and place French Toast Batter inside.<br><strong>4. </strong>Let the French Toast Batter bake and remove when ready.<br>"
+  "sammichesguide1-text": "<strong>What is Sammiches?</strong><br><i>Sammiches adds sandwiches and other bread products into the game.</i><br>Sandwiches can contain up to 6 ingredients, including the slice of bread used to begin the sandwich creation.<br><br><strong>Cutting Board</strong><br>The cutting board is an essential tool required to use this mod.  It is crafted with 1 board of any wood type in the crafting grid.<br><br><strong>Slicing Bread</strong><br>Sliced bread is the basis for all sandwiches, of course.  Slicing bread on a cutting board with a knife or sword yields 4 slices of bread.<br><br><strong>Sliced Foods</strong><br>Some food items can only be placed on sandwiches when sliced.<br><br>To slice an ingredient, place it on the cutting board and use a knife or sword on it.<br><br><strong>French Toast</strong><br>You will need:<br><i>1 Slice of bread<br>0.1L Milk<br>0.1L Honey<br>0.1L Liquid egg<br>Mixing Bowl</i><br><br><strong>1. </strong>Knead milk, honey, and liquid egg together into French Toast Mixture.<br><strong>2. </strong>Knead 0.1L of French Toast Mixture with 1 slice of bread to get French Toast Batter.<br><strong>3. </strong>Heat Clay Oven to 170 C and place French Toast Batter inside.<br><strong>4. </strong>Let the French Toast Batter bake and remove when ready.<br><br><strong>Burger Dough</strong><br>To make burger dough, first make normal or fruit bread dough.  Take a bread knife and press F to change the slicing mode to burger bun mode.  Slice the dough into burger dough.  Bake the burger dough in an oven until thoroughly baked.  Slice the burger bread with a knife to get a top bun and bottom bun."
 }

@@ -141,7 +141,7 @@
   },
   "nutritionPropsByType": {
     "*-perfect": {
-      "saturation": 80,
+      "saturation": 90,
       "foodcategory": "Grain"
     },
     "*-toasted": {

@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.ComponentModel.Design.Serialization;
 using System.Linq;
 using System.Text;
 using ACulinaryArtillery;
@@ -152,6 +153,7 @@ public class SandwichProperties
     public SandwichNutritionProperties GetNutritionProperties(ItemSlot inSlot, IWorldAccessor world, Entity forEntity)
     {
         ItemStack[] stacks = new List<ItemStack>() { inSlot.Itemstack }.Concat(GetOrdered(world)).ToArray();
+        UnspoilContents(world, stacks);
         SandwichNutritionProperties sandwichNutritionProps = new SandwichNutritionProperties();
         FoodNutritionProperties[] nutritionPropsArray = GetContentNutritionProperties(world, inSlot, stacks, forEntity as EntityAgent);
         sandwichNutritionProps.NutritionPropertiesMany.AddRange(nutritionPropsArray);
@@ -175,7 +177,7 @@ public class SandwichProperties
 
                 if (collectible.Attributes?["transitionableProps"].AsObject<TransitionableProperties>() != null)
                 {
-                    world.Logger.Event("has thing");
+                    //world.Logger.Event("has thing");
                 }
                 // world.Logger.Event(collectible.Attributes?["transitionableProps"].AsObject<TransitionableProperties>().ToString());
 
@@ -221,6 +223,34 @@ public class SandwichProperties
         }
 
         return list.ToArray();
+    }
+
+    protected void UnspoilContents(IWorldAccessor world, ItemStack[] cstacks)
+    {
+        // Dont spoil the pie contents, the pie itself has a spoilage timer. Semi hacky fix reset their spoil timers each update
+
+        for (int i = 0; i < cstacks.Length; i++)
+        {
+            ItemStack cstack = cstacks[i];
+            if (cstack == null) continue;
+
+            if (!(cstack.Attributes["transitionstate"] is ITreeAttribute))
+            {
+                cstack.Attributes["transitionstate"] = new TreeAttribute();
+            }
+            ITreeAttribute attr = (ITreeAttribute)cstack.Attributes["transitionstate"];
+
+            if (attr.HasAttribute("createdTotalHours"))
+            {
+                attr.SetDouble("createdTotalHours", world.Calendar.TotalHours);
+                attr.SetDouble("lastUpdatedTotalHours", world.Calendar.TotalHours);
+                var transitionedHours = (attr["transitionedHours"] as FloatArrayAttribute)?.value;
+                for (int j = 0; transitionedHours != null && j < transitionedHours.Length; j++)
+                {
+                    transitionedHours[j] = 0;
+                }
+            }
+        }
     }
 
     public override string ToString()

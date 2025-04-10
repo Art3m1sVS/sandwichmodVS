@@ -56,19 +56,19 @@
   },
   "nutritionPropsByType": {
     "*-generic": {
-      "saturation": 80,
+      "saturation": 140,
       "foodcategory": "Protein"
     },
     "*-charred": {
-      "saturation": 40,
+      "saturation": 80,
       "foodcategory": "Protein"
     }
   },
   "transitionableProps": [
     {
       "type": "Perish",
-      "freshHours": { "avg": 72 },
-      "transitionHours": { "avg": 12 },
+      "freshHours": { "avg": 360 },
+      "transitionHours": { "avg": 25 },
       "transitionedStack": {
         "type": "item",
         "code": "game:rot"

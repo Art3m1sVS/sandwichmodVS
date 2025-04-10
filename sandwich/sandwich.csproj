@@ -115,6 +115,7 @@
 	<None Remove="assets\sandwich\recipes\grid\meatpatty.json" />
 	<None Remove="assets\sandwich\recipes\kneading\frenchtoastmixturerecipe.json" />
 	<None Remove="assets\sandwich\recipes\kneading\frenchtoastrecipe.json" />
+	<None Remove="assets\sandwich\recipes\kneading\fruitpreserve.json" />
 	<None Remove="assets\sandwich\shapes\item\sandwich_ingredients_vanilla\slicedfruitbread.json" />
 	<None Remove="assets\sandwich\textures\item\liquids\frenchtoastmixture.png" />
 	<Content Include="modinfo.json">

@@ -18,6 +18,7 @@ using System.Xml.Linq;
 using System.Collections;
 using Vintagestory.API.Common.Entities;
 using Cairo;
+using System.ComponentModel.Design.Serialization;
 
 namespace sandwich;
 
@@ -88,7 +89,6 @@ public class ItemSandwich : ItemExpandedRawFood, IBakeableCallback, IContainedMe
                     float[] layerSats = (layerStack?.Attributes["expandedSats"] as FloatArrayAttribute)?.value;
 
                     BakingProperties bakeProps = BakingProperties.ReadFrom(layerStack);
-                    api.World.Logger.Event("Bakeprops: " + bakeProps.ToString());
                     string resultCode = bakeProps?.ResultCode;
 
                     if (resultCode != null)
@@ -160,11 +160,22 @@ public class ItemSandwich : ItemExpandedRawFood, IBakeableCallback, IContainedMe
         {
             return false;
         }
-        liquidContainer.CallMethod<int>("splitStackAndPerformAction", byPlayer.Entity, slotLiquid, delegate (ItemStack stack)
+        if (liquidContainer.GetMethod("splitStackAndPerformAction") != null) // 1.19.8
         {
-            liquidContainer.TryTakeContent(stack, moved);
-            return moved;
-        });
+            liquidContainer.CallMethod<int>("splitStackAndPerformAction", byPlayer.Entity, slotLiquid, delegate (ItemStack stack)
+            {
+                liquidContainer.TryTakeContent(stack, moved);
+                return moved;
+            });
+        } else if (liquidContainer.GetMethod("SplitStackAndPerformAction") != null) // 1.20
+        {
+            liquidContainer.CallMethod<int>("SplitStackAndPerformAction", byPlayer.Entity, slotLiquid, delegate (ItemStack stack)
+            {
+                liquidContainer.TryTakeContent(stack, moved);
+                return moved;
+            });
+        }
+
         ItemStack stackIngredient = contentStackToMove.Clone();
         stackIngredient.StackSize = moved;
         if (props == null || !props.TryAdd(stackIngredient, world))
@@ -301,7 +312,11 @@ public class ItemSandwich : ItemExpandedRawFood, IBakeableCallback, IContainedMe
 
         if (props.Rotate)
         {
-            rotation = props.CopyLastRotation ? rotation : props.Rotation.nextFloat();
+            int seed = stack.Id + (stack.StackSize * 17);  // could include more entropy
+            Random rnd = new Random(seed);
+            float rotY = (float)(rnd.NextDouble() * 1.1); // FIX ROTATION
+
+            rotation = props.CopyLastRotation ? rotation : rotY;
             mesh = mesh.Translate(-0.5f, -0.5f, -0.5f);
             mesh = mesh.Rotate(Vec3f.Zero, 0, rotation, 0);
             mesh = mesh.Translate(0.5f, 0.5f, 0.5f);
@@ -371,7 +386,7 @@ public class ItemSandwich : ItemExpandedRawFood, IBakeableCallback, IContainedMe
         EntityPlayer entityPlayer = (world.Side == EnumAppSide.Client) ? (world as IClientWorldAccessor).Player.Entity : null;
         SandwichNutritionProperties nutritionProps = props.GetNutritionProperties(inSlot, world, entityPlayer);
         FoodNutritionProperties[] addProps = Attributes?["additionalNutritionProperties"]?.AsObject<FoodNutritionProperties[]>();
-        FoodNutritionProperties[] addPropsEF = Attributes?["expandedSats"]?.AsObject<FoodNutritionProperties[]>();
+        FoodNutritionProperties[] addPropsEF = GetPropsFromArray((inSlot.Itemstack.Attributes["expandedSats"] as FloatArrayAttribute)?.value);
 
         float spoilState = AppendPerishableInfoText(inSlot, dsc, world);
         Dictionary<string, (float TotalSat, float TotalHealth)> categorySummary = new Dictionary<string, (float, float)>();
@@ -734,6 +749,44 @@ public class ItemSandwich : ItemExpandedRawFood, IBakeableCallback, IContainedMe
         ItemStack stack = transitionProps.TransitionedStack.ResolvedItemstack.Clone();
         stack.StackSize = GameMath.RoundRandom(api.World.Rand, slot.StackSize * props.GetOrdered(api.World).Sum(x => x.StackSize) * transitionProps.TransitionRatio);
         return stack;
+    }
+
+    public override TransitionState UpdateAndGetTransitionState(IWorldAccessor world, ItemSlot inslot, EnumTransitionType type)
+    {
+        ItemStack[] contents = SandwichProperties.FromStack(inslot.Itemstack, world)?.GetOrdered(world)?.ToArray();
+        if (contents != null)
+        {
+            UnspoilContents(world, contents);
+        }
+        return base.UpdateAndGetTransitionState(world, inslot, type);
+    }
+
+    protected void UnspoilContents(IWorldAccessor world, ItemStack[] cstacks)
+    {
+        // Dont spoil the pie contents, the pie itself has a spoilage timer. Semi hacky fix reset their spoil timers each update
+
+        for (int i = 0; i < cstacks.Length; i++)
+        {
+            ItemStack cstack = cstacks[i];
+            if (cstack == null) continue;
+
+            if (!(cstack.Attributes["transitionstate"] is ITreeAttribute))
+            {
+                cstack.Attributes["transitionstate"] = new TreeAttribute();
+            }
+            ITreeAttribute attr = (ITreeAttribute)cstack.Attributes["transitionstate"];
+
+            if (attr.HasAttribute("createdTotalHours"))
+            {
+                attr.SetDouble("createdTotalHours", world.Calendar.TotalHours);
+                attr.SetDouble("lastUpdatedTotalHours", world.Calendar.TotalHours);
+                var transitionedHours = (attr["transitionedHours"] as FloatArrayAttribute)?.value;
+                for (int j = 0; transitionedHours != null && j < transitionedHours.Length; j++)
+                {
+                    transitionedHours[j] = 0;
+                }
+            }
+        }
     }
 
     public new void GetNutrientsFromIngredient(ref float[] satHolder, CollectibleObject ing, int mult)
