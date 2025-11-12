@@ -117,7 +117,7 @@
       "transitionHours": { "avg": 336 },
       "transitionedStack": {
         "type": "item",
-        "code": "rot"
+        "code": "game:rot"
       },
       "transitionRatio": 0.005
     }

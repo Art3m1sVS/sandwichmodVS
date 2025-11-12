@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net7.0</TargetFramework>
+    <TargetFramework>net8.0</TargetFramework>
     <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
     <OutputPath>bin\$(Configuration)\Mods\mod</OutputPath>
   </PropertyGroup>
@@ -109,6 +109,7 @@
 	<None Remove="assets\sandwich\itemtypes\sandwich\sausageslice.json" />
 	<None Remove="assets\sandwich\itemtypes\tools\cuttingknife.json" />
 	<None Remove="assets\sandwich\patches\compatibility\ancienttools\slicedbread.json" />
+	<None Remove="assets\sandwich\patches\compatibility\expandedfoods\muffinsyrup.json" />
 	<None Remove="assets\sandwich\patches\compatibility\expandedfoods\vegetables.json" />
 	<None Remove="assets\sandwich\patches\liquids.json" />
 	<None Remove="assets\sandwich\recipes\grid\cuttingknife.json" />
