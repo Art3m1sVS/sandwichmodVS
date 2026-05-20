@@ -28,6 +28,8 @@ public class BlockEntityCuttingBoard : BlockEntityDisplay
     public override string InventoryClassName => cuttingBoardInvClassName;
     public override string AttributeTransformCode => attributeOnCuttingBoardTransform;
 
+    private string lastDisplayKey;
+
     public BlockEntityCuttingBoard()
     {
         inventory = new InventoryGeneric(SlotCount, $"{cuttingBoardInvClassName}-0", Api, (_, inv) => new ItemSlotCuttingBoard(inv));
@@ -53,18 +55,30 @@ public class BlockEntityCuttingBoard : BlockEntityDisplay
         {
             activeslot.MarkDirty();
             invSlot.MarkDirty();
-            updateMeshes();
-            MarkDirty(redrawOnClient: true);
+
+            MarkForDisplayUpdate();
+
             return true;
         }
 
         // Check if a sandwich can be made by combining the items in the active slot and the cutting board
         if (ItemSandwich.TryAdd(invSlot, activeslot, byPlayer, byPlayer.Entity.World))
         {
-            activeslot.MarkDirty();
+            ItemStack changedStack = invSlot.Itemstack?.Clone();
+
+            // Force BlockEntityDisplay to see a real slot-content change, not just an attribute mutation.
+            invSlot.Itemstack = null;
             invSlot.MarkDirty();
-            updateMeshes();
-            MarkDirty(redrawOnClient: true);
+            MarkForDisplayUpdate();
+
+            invSlot.Itemstack = changedStack;
+            invSlot.MarkDirty();
+
+            activeslot.MarkDirty();
+            byPlayer.InventoryManager.BroadcastHotbarSlot();
+
+            MarkForDisplayUpdate();
+
             return true;
         }
 
@@ -76,24 +90,128 @@ public class BlockEntityCuttingBoard : BlockEntityDisplay
         {
             activeslot.MarkDirty();
             invSlot.MarkDirty();
-            updateMeshes();
-            MarkDirty(redrawOnClient: true);
+
+            MarkForDisplayUpdate();
+
             return true;
         }
 
         // Check if the player is trying to place an item on the cutting board
-        AssetLocation sound = activeslot?.Itemstack?.Block?.Sounds?.Place;
+        var sound1 = activeslot?.Itemstack?.Block?.Sounds?.Place;
         if (storable && TryPut(activeslot, 0))
         {
-            Api.World.PlaySoundAt(sound ?? soundBuild, byPlayer.Entity, byPlayer, randomizePitch: true, 16f);
+            Api.World.PlaySoundAt(sound1?.Location ?? soundBuild, byPlayer.Entity, byPlayer, randomizePitch: true, 16f);
+
             activeslot.MarkDirty();
             invSlot.MarkDirty();
-            updateMeshes();
-            MarkDirty(redrawOnClient: true);
+
+            MarkForDisplayUpdate();
+
             return true;
         }
 
         return false;
+    }
+
+    private void LogInWorldContainerFields()
+    {
+        var containerField = typeof(BlockEntityDisplay).GetField(
+            "container",
+            System.Reflection.BindingFlags.Instance |
+            System.Reflection.BindingFlags.NonPublic |
+            System.Reflection.BindingFlags.Public
+        );
+
+        object containerObj = containerField?.GetValue(this);
+
+        if (containerObj == null)
+        {
+            Api.World.Logger.Event("InWorldContainer is null");
+            return;
+        }
+
+        Type type = containerObj.GetType();
+
+        while (type != null)
+        {
+            foreach (var field in type.GetFields(
+                System.Reflection.BindingFlags.Instance |
+                System.Reflection.BindingFlags.NonPublic |
+                System.Reflection.BindingFlags.Public |
+                System.Reflection.BindingFlags.DeclaredOnly
+            ))
+            {
+                Api.World.Logger.Event(
+                    $"InWorldContainer field: {type.Name}.{field.Name}, type={field.FieldType.FullName}"
+                );
+            }
+
+            type = type.BaseType;
+        }
+    }
+
+    private void ResetInWorldContainerPreviousInventory()
+    {
+        var containerField = typeof(BlockEntityDisplay).GetField(
+            "container",
+            System.Reflection.BindingFlags.Instance |
+            System.Reflection.BindingFlags.NonPublic |
+            System.Reflection.BindingFlags.Public
+        );
+
+        object containerObj = containerField?.GetValue(this);
+
+        if (containerObj == null)
+        {
+            return;
+        }
+
+        Type type = containerObj.GetType();
+
+        while (type != null)
+        {
+            var prevInventoryField = type.GetField(
+                "prevInventory",
+                System.Reflection.BindingFlags.Instance |
+                System.Reflection.BindingFlags.NonPublic |
+                System.Reflection.BindingFlags.Public |
+                System.Reflection.BindingFlags.DeclaredOnly
+            );
+
+            if (prevInventoryField != null)
+            {
+                prevInventoryField.SetValue(containerObj, null);
+                Api.World.Logger.Event("Reset InWorldContainer.prevInventory");
+                return;
+            }
+
+            type = type.BaseType;
+        }
+
+        Api.World.Logger.Warning("Could not find InWorldContainer.prevInventory");
+    }
+
+    public override void FromTreeAttributes(ITreeAttribute tree, IWorldAccessor worldForResolving)
+    {
+        base.FromTreeAttributes(tree, worldForResolving);
+
+        if (Api?.Side != EnumAppSide.Client)
+        {
+            return;
+        }
+
+        string newKey = GetDisplayKey();
+
+        lastDisplayKey = newKey;
+
+        ResetInWorldContainerPreviousInventory();
+        updateMeshes();
+
+        Api.Event.EnqueueMainThreadTask(() =>
+        {
+            ResetInWorldContainerPreviousInventory();
+            updateMeshes();
+        }, "sandwich-cuttingboard-remesh");
     }
 
     //private bool HandleShiftInteraction(IPlayer byPlayer, ItemSlot invSlot, ItemSlot activeslot)
@@ -213,8 +331,7 @@ public class BlockEntityCuttingBoard : BlockEntityDisplay
 
                                 Api.World.SpawnItemEntity(slicedItem, Pos.ToVec3d().Add(0.5, 0.5, 0.5));
                                 inventory[0].TakeOutWhole();
-                                MarkDirty(true);
-                                updateMeshes();
+                                MarkForDisplayUpdate();
 
                                 //Api.World.Logger.Event($"Sliced {itemPath} into {2} pieces.");
                                 //Api.World.Logger.Event(activeslot.Itemstack.Attributes?.GetInt("toolMode").ToString());
@@ -263,8 +380,7 @@ public class BlockEntityCuttingBoard : BlockEntityDisplay
                                             Api.World.SpawnItemEntity(slicedItems, Pos.ToVec3d().Add(0.5, 0.5, 0.5));
 
                                             inventory[0].TakeOutWhole(); // Remove the whole item
-                                            MarkDirty(true);
-                                            updateMeshes();
+                                            MarkForDisplayUpdate();
 
                                             return true;
                                         }
@@ -299,8 +415,7 @@ public class BlockEntityCuttingBoard : BlockEntityDisplay
 
                         Api.World.SpawnItemEntity(slicedItems, Pos.ToVec3d().Add(0.5, 0.5, 0.5));
                         inventory[0].TakeOutWhole();
-                        MarkDirty(true);
-                        updateMeshes();
+                        MarkForDisplayUpdate();
 
                         Api.World.Logger.Event($"Sliced {itemPath} into {sliceData.OutputQuantity} pieces.");
                     }
@@ -320,8 +435,7 @@ public class BlockEntityCuttingBoard : BlockEntityDisplay
 
                         Api.World.SpawnItemEntity(slicedItems, Pos.ToVec3d().Add(0.5, 0.5, 0.5));
                         inventory[0].TakeOutWhole();
-                        MarkDirty(true);
-                        updateMeshes();
+                        MarkForDisplayUpdate();
 
                         Api.World.Logger.Event($"Sliced {itemPath} into {4} pieces.");
                     }
@@ -370,8 +484,7 @@ public class BlockEntityCuttingBoard : BlockEntityDisplay
                                     Api.World.SpawnItemEntity(slicedItems, Pos.ToVec3d().Add(0.5, 0.5, 0.5));
 
                                     inventory[0].TakeOutWhole(); // Remove the whole item
-                                    MarkDirty(true);
-                                    updateMeshes();
+                                    MarkForDisplayUpdate();
 
                                     return true;
                                 }
@@ -397,8 +510,7 @@ public class BlockEntityCuttingBoard : BlockEntityDisplay
 
                         Api.World.SpawnItemEntity(slicedItems, Pos.ToVec3d().Add(0.5, 0.5, 0.5));
                         inventory[0].TakeOutWhole();
-                        MarkDirty(true);
-                        updateMeshes();
+                        MarkForDisplayUpdate();
                     }
                     return true;
                 } 
@@ -429,8 +541,7 @@ public class BlockEntityCuttingBoard : BlockEntityDisplay
                         Api.World.SpawnItemEntity(slicedItem1, Pos.ToVec3d().Add(0.5, 0.5, 0.5));
                         Api.World.SpawnItemEntity(slicedItem2, Pos.ToVec3d().Add(0.5, 0.5, 0.5));
                         inventory[0].TakeOutWhole();
-                        MarkDirty(true);
-                        updateMeshes();
+                        MarkForDisplayUpdate();
 
                         //Api.World.Logger.Event($"Sliced {itemPath} into {2} pieces.");
                         //Api.World.Logger.Event(activeslot.Itemstack.Attributes?.GetInt("toolMode").ToString());
@@ -469,8 +580,8 @@ public class BlockEntityCuttingBoard : BlockEntityDisplay
                         Api.World.SpawnItemEntity(slicedItem1, Pos.ToVec3d().Add(0.5, 0.5, 0.5));
                         Api.World.SpawnItemEntity(slicedItem2, Pos.ToVec3d().Add(0.5, 0.5, 0.5));
                         inventory[0].TakeOutWhole();
-                        MarkDirty(true);
-                        updateMeshes();
+                        inventory[0].MarkDirty();
+                        MarkForDisplayUpdate();
 
                         //Api.World.Logger.Event($"Sliced {itemPath} into {2} pieces.");
                         //Api.World.Logger.Event(activeslot.Itemstack.Attributes?.GetInt("toolMode").ToString());
@@ -490,31 +601,59 @@ public class BlockEntityCuttingBoard : BlockEntityDisplay
 
     private bool TryPut(ItemSlot slot, int slotId)
     {
-        if (Inventory.Count > slotId && inventory[slotId].Empty)
+        if (Inventory.Count <= slotId || !inventory[slotId].Empty)
         {
-            int amount = slot.TryPutInto(Api.World, inventory[slotId]);
-            return amount > 0;
+            return false;
         }
-        return false;
+
+        int amount = slot.TryPutInto(Api.World, inventory[slotId]);
+
+        if (amount <= 0)
+        {
+            return false;
+        }
+
+        if (inventory[slotId].Itemstack != null)
+        {
+            inventory[slotId].Itemstack = inventory[slotId].Itemstack.Clone();
+        }
+
+        inventory[slotId].MarkDirty();
+        slot.MarkDirty();
+
+        return true;
     }
 
     private bool TryTake(IPlayer byPlayer, int slotId)
     {
-        if (Inventory.Count > slotId && !inventory[slotId].Empty)
+        if (Inventory.Count <= slotId || inventory[slotId].Empty)
         {
-            ItemStack stack = inventory[slotId].TakeOutWhole();
-            if (byPlayer.InventoryManager.TryGiveItemstack(stack))
-            {
-                AssetLocation sound = stack?.Block?.Sounds?.Place;
-                Api.World.PlaySoundAt(sound ?? soundBuild, byPlayer.Entity, byPlayer, randomizePitch: true, 16f);
-            }
-            if (stack.StackSize > 0)
-            {
-                Api.World.SpawnItemEntity(stack, Pos.ToVec3d().Add(0.5, 0.5, 0.5));
-            }
-            return true;
+            return false;
         }
-        return false;
+
+        ItemStack stack = inventory[slotId].TakeOutWhole();
+
+        inventory[slotId].MarkDirty();
+
+        if (stack == null)
+        {
+            return false;
+        }
+
+        if (byPlayer.InventoryManager.TryGiveItemstack(stack))
+        {
+            var sound = stack?.Block?.Sounds?.Place.Location;
+            Api.World.PlaySoundAt(sound ?? soundBuild, byPlayer.Entity, byPlayer, randomizePitch: true, 16f);
+
+            byPlayer.InventoryManager.BroadcastHotbarSlot();
+        }
+
+        if (stack.StackSize > 0)
+        {
+            Api.World.SpawnItemEntity(stack, Pos.ToVec3d().Add(0.5, 0.5, 0.5));
+        }
+
+        return true;
     }
 
     public override void GetBlockInfo(IPlayer forPlayer, StringBuilder sb)
@@ -563,5 +702,191 @@ public class BlockEntityCuttingBoard : BlockEntityDisplay
         return tfMatrices;
     }
 
+    private void MarkForDisplayUpdate()
+    {
+        inventory[0].MarkDirty();
 
+        MarkDirty(redrawOnClient: true);
+
+        if (Api?.Side != EnumAppSide.Client)
+        {
+            return;
+        }
+
+        string newKey = GetDisplayKey();
+
+        //Api.World.Logger.Event(
+        //    $"CuttingBoard client display key changed={newKey != lastDisplayKey}, key={newKey}"
+        //);
+
+        lastDisplayKey = newKey;
+
+        ResetInWorldContainerPreviousInventory();
+        updateMeshes();
+
+        Api.Event.EnqueueMainThreadTask(() =>
+        {
+            ResetInWorldContainerPreviousInventory();
+            updateMeshes();
+        }, "sandwich-cuttingboard-update-meshes");
+    }
+
+    //private void ClearDisplayMeshCache()
+    //{
+    //    var type = typeof(BlockEntityDisplay);
+
+    //    foreach (var field in type.GetFields(
+    //        System.Reflection.BindingFlags.Instance |
+    //        System.Reflection.BindingFlags.NonPublic |
+    //        System.Reflection.BindingFlags.Public |
+    //        System.Reflection.BindingFlags.FlattenHierarchy
+    //    ))
+    //    {
+    //        object value = field.GetValue(this);
+
+    //        if (value is MeshData[])
+    //        {
+    //            field.SetValue(this, null);
+    //            Api.World.Logger.Event($"Cleared BlockEntityDisplay MeshData[] field {field.Name}");
+    //        }
+
+    //        if (value is MeshRef[])
+    //        {
+    //            field.SetValue(this, null);
+    //            Api.World.Logger.Event($"Cleared BlockEntityDisplay MeshRef[] field {field.Name}");
+    //        }
+
+    //        if (value is MultiTextureMeshRef[])
+    //        {
+    //            field.SetValue(this, null);
+    //            Api.World.Logger.Event($"Cleared BlockEntityDisplay MultiTextureMeshRef[] field {field.Name}");
+    //        }
+
+    //        if (value is System.Collections.IDictionary dict)
+    //        {
+    //            dict.Clear();
+    //            Api.World.Logger.Event($"Cleared BlockEntityDisplay dictionary field {field.Name}");
+    //        }
+    //    }
+    //}
+
+    public override void Initialize(ICoreAPI api)
+    {
+        base.Initialize(api);
+
+        if (api.Side == EnumAppSide.Client)
+        {
+            LogInWorldContainerFields();
+        }
+    }
+
+    //private void ClearInWorldContainerMeshCache()
+    //{
+    //    var containerField = typeof(BlockEntityDisplay).GetField(
+    //        "container",
+    //        System.Reflection.BindingFlags.Instance |
+    //        System.Reflection.BindingFlags.NonPublic |
+    //        System.Reflection.BindingFlags.Public
+    //    );
+
+    //    object containerObj = containerField?.GetValue(this);
+
+    //    if (containerObj == null)
+    //    {
+    //        return;
+    //    }
+
+    //    Type type = containerObj.GetType();
+
+    //    while (type != null)
+    //    {
+    //        foreach (var field in type.GetFields(
+    //            System.Reflection.BindingFlags.Instance |
+    //            System.Reflection.BindingFlags.NonPublic |
+    //            System.Reflection.BindingFlags.Public |
+    //            System.Reflection.BindingFlags.DeclaredOnly
+    //        ))
+    //        {
+    //            object value = field.GetValue(containerObj);
+
+    //            if (value == null)
+    //            {
+    //                continue;
+    //            }
+
+    //            string name = field.Name.ToLowerInvariant();
+
+    //            bool looksRenderRelated =
+    //                name.Contains("mesh") ||
+    //                name.Contains("model") ||
+    //                name.Contains("render") ||
+    //                name.Contains("slot");
+
+    //            if (!looksRenderRelated)
+    //            {
+    //                continue;
+    //            }
+
+    //            if (value is MeshData[] ||
+    //                value is MeshRef[] ||
+    //                value is MultiTextureMeshRef[])
+    //            {
+    //                field.SetValue(containerObj, null);
+    //                Api.World.Logger.Event($"Cleared InWorldContainer array field {type.Name}.{field.Name}");
+    //                continue;
+    //            }
+
+    //            if (value is MeshData ||
+    //                value is MeshRef ||
+    //                value is MultiTextureMeshRef)
+    //            {
+    //                field.SetValue(containerObj, null);
+    //                Api.World.Logger.Event($"Cleared InWorldContainer mesh field {type.Name}.{field.Name}");
+    //                continue;
+    //            }
+
+    //            if (value is System.Collections.IDictionary dict)
+    //            {
+    //                dict.Clear();
+    //                Api.World.Logger.Event($"Cleared InWorldContainer dictionary field {type.Name}.{field.Name}");
+    //            }
+    //        }
+
+    //        type = type.BaseType;
+    //    }
+    //}
+
+    //private void LogDisplayFields()
+    //{
+    //    var type = typeof(BlockEntityDisplay);
+
+    //    foreach (var field in type.GetFields(
+    //        System.Reflection.BindingFlags.Instance |
+    //        System.Reflection.BindingFlags.NonPublic |
+    //        System.Reflection.BindingFlags.Public |
+    //        System.Reflection.BindingFlags.FlattenHierarchy
+    //    ))
+    //    {
+    //        Api.World.Logger.Event(
+    //            $"BlockEntityDisplay field: {field.Name}, type={field.FieldType.FullName}"
+    //        );
+    //    }
+    //}
+
+    private string GetDisplayKey()
+    {
+        ItemStack stack = inventory[0].Itemstack;
+
+        if (stack == null)
+        {
+            return "empty";
+        }
+
+        if (stack.Collectible is ItemSandwich sandwich)
+        {
+            return sandwich.GetSandwichMeshKey(stack, Api.World);
+        }
+
+        return stack.Collectible.Code.ToString() + "|" + stack.Attributes?.ToJsonToken();
+    }
 }

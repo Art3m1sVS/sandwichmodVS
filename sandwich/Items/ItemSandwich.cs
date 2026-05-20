@@ -59,7 +59,12 @@ public class ItemSandwich : ItemExpandedRawFood, IBakeableCallback, IContainedMe
             return false;
         }
         props.ToStack(slotSandwich.Itemstack);
+
+        slotSandwich.MarkDirty();
+
         slotHand.TakeOut(1);
+        slotHand.MarkDirty();
+
         return true;
     }
 
@@ -150,7 +155,8 @@ public class ItemSandwich : ItemExpandedRawFood, IBakeableCallback, IContainedMe
             return false;
         }
         SandwichProperties props = SandwichProperties.FromStack(slotSandwich.Itemstack, world);
-        if (!props.CanAdd(contentStackToMove, world))
+
+        if (props == null || !props.CanAdd(contentStackToMove, world))
         {
             return false;
         }
@@ -183,123 +189,219 @@ public class ItemSandwich : ItemExpandedRawFood, IBakeableCallback, IContainedMe
             return false;
         }
         props.ToStack(slotSandwich.Itemstack);
+        slotSandwich.MarkDirty();
+        slotLiquid.MarkDirty();
+
         liquidContainer.DoLiquidMovedEffects(byPlayer, contentStackToMove, moved, EnumLiquidDirection.Pour);
         return true;
     }
 
-    public override void OnBeforeRender(ICoreClientAPI capi, ItemStack stack, EnumItemRenderTarget target, ref ItemRenderInfo renderinfo)
+    public override void OnBeforeRender(
+        ICoreClientAPI capi,
+        ItemStack stack,
+        EnumItemRenderTarget target,
+        ref ItemRenderInfo renderinfo
+    )
     {
         base.OnBeforeRender(capi, stack, target, ref renderinfo);
 
-        string key = GetMeshCacheKey(stack);
-        Dictionary<string, MultiTextureMeshRef> InvMeshes = ObjectCacheUtil.GetOrCreate(capi, "sandwich:sandwich-invmeshes", () => new Dictionary<string, MultiTextureMeshRef>());
-        if (!InvMeshes.TryGetValue(key, out MultiTextureMeshRef meshref))
+        string key = GetSandwichMeshKey(stack, capi.World);
+
+        Dictionary<string, MultiTextureMeshRef> invMeshes =
+            ObjectCacheUtil.GetOrCreate(
+                capi,
+                "sandwich:sandwich-invmeshes",
+                () => new Dictionary<string, MultiTextureMeshRef>()
+            );
+
+        if (!invMeshes.TryGetValue(key, out MultiTextureMeshRef meshref))
         {
-            MeshData mesh = GenMesh(stack, capi.ItemTextureAtlas, null);
-            meshref = InvMeshes[key] = capi.Render.UploadMultiTextureMesh(mesh);
+            ItemSlot slot = new DummySlot(stack);
+            MeshData mesh = GenMesh(slot, capi.ItemTextureAtlas, null);
+
+            if (mesh == null)
+            {
+                return;
+            }
+
+            meshref = invMeshes[key] = capi.Render.UploadMultiTextureMesh(mesh);
         }
+
         renderinfo.ModelRef = meshref;
     }
 
-    public override MeshData GenMesh(ItemStack stack, ITextureAtlasAPI targetAtlas, BlockPos atBlockPos)
+    public override MeshData? GenMesh(ItemSlot slot, ITextureAtlasAPI targetAtlas, BlockPos? atBlockPos = null)
     {
+        if (api is not ICoreClientAPI capi) return null;
+
+        ItemStack stack = slot.Itemstack;
+
         MeshData mesh = new MeshData(4, 3);
 
         float prevSize = 0;
         float rotation = 0;
 
-        List<ItemStack> stacks = new() { stack };
-
         SandwichProperties properties = SandwichProperties.FromStack(stack, api.World);
-        IEnumerable<ItemStack> ordered = properties?.GetOrdered(api.World);
-        if (ordered != null)
-        {
-            stacks.AddRange(ordered);
-        }
+
+        ItemStack baseStack = stack.Clone();
+        baseStack.Attributes.RemoveAttribute(attributeSandwichLayers);
+
+        List<ItemStack> contents = properties?.GetOrdered(api.World)?.ToList() ?? new List<ItemStack>();
+
+        List<ItemStack> stacks = new List<ItemStack> { baseStack };
+        stacks.AddRange(contents);
+
+        capi.World.Logger.Event(
+            $"Sandwich GenMesh: target={targetAtlas?.GetType().Name}, " +
+            $"atBlockPos={atBlockPos}, " +
+            $"stack={stack?.Collectible?.Code}, " +
+            $"layers={stacks.Count}, " +
+            $"keyHash={GetSandwichMeshKey(stack, capi.World).GetHashCode()}"
+        );
 
         for (int i = 0; i < stacks.Count; i++)
         {
-            ItemStack ingredientStack = stacks[i];
             bool last = i == stacks.Count - 1 && stacks.Count != 1;
-            MeshData ingredientMesh = GenIngredientMesh(api as ICoreClientAPI, ref prevSize, ref rotation, ingredientStack, last);
+
+            WhenOnSandwichProperties layerProps = WhenOnSandwichProperties.GetProps(stacks[i]?.Collectible);
+
+            if (last && layerProps?.ShapeLast == null)
+            {
+                last = false;
+            }
+
+            capi.World.Logger.Event(
+                $"Sandwich mesh layer {i}: {stacks[i]?.Collectible?.Code}, last={last}"
+            );
+
+            MeshData ingredientMesh = GenIngredientMesh(
+                capi,
+                ref prevSize,
+                ref rotation,
+                stacks[i],
+                last
+            );
+
             mesh.AddMeshData(ingredientMesh);
         }
+
         return mesh;
     }
 
-    private static MeshData GenIngredientMesh(ICoreClientAPI capi, ref float prevSize, ref float rotation, ItemStack stack, bool last = false)
+    private static MeshData GenIngredientMesh(
+    ICoreClientAPI capi,
+    ref float offsetY,
+    ref float rotation,
+    ItemStack stack,
+    bool last = false)
     {
-        MeshData mesh = new MeshData(4, 3);
+        MeshData mesh;
 
         WhenOnSandwichProperties props = WhenOnSandwichProperties.GetProps(stack?.Collectible);
+
+        // -------------------------
+        // DEFAULT ITEM / BLOCK PATH
+        // -------------------------
         if (props == null)
         {
             switch (stack?.Class)
             {
                 case EnumItemClass.Block:
                     capi.Tesselator.TesselateBlock(stack.Block, out mesh);
-                    if (stack?.Collectible?.Code?.Domain == "expandedfoods" && stack?.Collectible.MatterState is not EnumMatterState.Liquid)
+
+                    if (stack?.Collectible?.Code?.Domain == "expandedfoods"
+                        && stack?.Collectible.MatterState is not EnumMatterState.Liquid)
                     {
-                        // Scale down the mesh
-                        mesh.Scale(new Vec3f(0.5f, 0, 0.5f), 0.5f, 0.5f, 0.5f);
-                        prevSize += 0.0225f;
+                        mesh.Scale(0.5f, 0.5f, 0.5f);
                     }
-                    else
-                    {
-                        prevSize += 0.0225f;
-                    }
+
+                    mesh = mesh.Translate(0, offsetY, 0);
+                    offsetY += 0.035f;
+
                     return mesh;
 
                 case EnumItemClass.Item:
                     capi.Tesselator.TesselateItem(stack.Item, out mesh);
-                    if (stack?.Collectible?.Code?.Domain == "expandedfoods" && stack?.Collectible.MatterState is not EnumMatterState.Liquid)
+
+                    if (stack?.Collectible?.Code?.Domain == "expandedfoods"
+                        && stack?.Collectible.MatterState is not EnumMatterState.Liquid)
                     {
-                        // Scale down the mesh
-                        mesh.Scale(new Vec3f(0.5f, 0, 0.5f), 0.5f, 0.5f, 0.5f);
-                        prevSize += 0.0225f;
+                        mesh.Scale(0.5f, 0.5f, 0.5f);
                     }
-                    else
-                    {
-                        prevSize += 0.0225f;
-                    }
+
+                    mesh = mesh.Translate(0, offsetY, 0);
+                    offsetY += 0.035f;
+
                     return mesh;
 
                 default:
-                    prevSize += 0.0225f;
+                    mesh = new MeshData(4, 3);
+                    mesh = mesh.Translate(0, offsetY, 0);
+                    offsetY += 0.035f;
                     return mesh;
             }
         }
 
+        // -------------------------
+        // CUSTOM SANDWICH SHAPES
+        // -------------------------
         CompositeShape rcshape = props.Shape.Clone();
+        bool usingShapeLast = false;
+
         if (last && props.ShapeLast != null)
         {
             rcshape = props.ShapeLast.Clone();
+            usingShapeLast = true;
         }
 
-        rcshape.Base.WithPathAppendixOnce(".json").WithPathPrefixOnce("shapes/");
+        rcshape.Base
+            .WithPathAppendixOnce(".json")
+            .WithPathPrefixOnce("shapes/");
+
         Shape shape = capi.Assets.TryGet(rcshape.Base)?.ToObject<Shape>();
+
+        if (shape == null && usingShapeLast)
+        {
+            capi.World.Logger.Warning(
+                $"Missing ShapeLast for sandwich layer {stack?.Collectible?.Code}: {rcshape.Base}. Falling back to normal shape."
+            );
+
+            rcshape = props.Shape.Clone();
+
+            rcshape.Base
+                .WithPathAppendixOnce(".json")
+                .WithPathPrefixOnce("shapes/");
+
+            shape = capi.Assets.TryGet(rcshape.Base)?.ToObject<Shape>();
+        }
+
         if (shape == null)
         {
-            prevSize += props.Size;
+            capi.World.Logger.Warning(
+                $"Missing sandwich shape for layer {stack?.Collectible?.Code}: {rcshape.Base}"
+            );
+
+            mesh = new MeshData(4, 3);
+            mesh = mesh.Translate(0, offsetY, 0);
+            offsetY += props.Size;
             return mesh;
         }
 
+        // -------------------------
+        // TEXTURE SETUP
+        // -------------------------
         ShapeTextureSource texSource = new ShapeTextureSource(capi, shape, shape.ToString());
 
-        Dictionary<string, CompositeTexture> textures;
-        if (props.Textures == null || !props.Textures.Any())
-        {
-            textures = stack.GetTextures();
-        }
-        else
-        {
-            textures = props.Textures;
-        }
+        Dictionary<string, CompositeTexture> textures =
+            (props.Textures == null || !props.Textures.Any())
+                ? stack.GetTextures()
+                : props.Textures;
 
-        foreach (KeyValuePair<string, CompositeTexture> val in textures)
+        foreach (var val in textures)
         {
             CompositeTexture ctex = val.Value.Clone();
-            foreach ((string key, string value) in stack.Collectible.Variant)
+
+            foreach (var (key, value) in stack.Collectible.Variant)
             {
                 ctex.FillPlaceholder($"{{{key}}}", value);
             }
@@ -310,44 +412,99 @@ public class ItemSandwich : ItemExpandedRawFood, IBakeableCallback, IContainedMe
 
         capi.Tesselator.TesselateShape("Sandwich item", shape, out mesh, texSource);
 
+        // -------------------------
+        // ROTATION
+        // -------------------------
         if (props.Rotate)
         {
-            int seed = stack.Id + (stack.StackSize * 17);  // could include more entropy
+            int seed = stack.Id + (stack.StackSize * 17);
             Random rnd = new Random(seed);
-            float rotY = (float)(rnd.NextDouble() * 1.1); // FIX ROTATION
 
+            float rotY = (float)(rnd.NextDouble() * 1.1);
             rotation = props.CopyLastRotation ? rotation : rotY;
+
             mesh = mesh.Translate(-0.5f, -0.5f, -0.5f);
             mesh = mesh.Rotate(Vec3f.Zero, 0, rotation, 0);
             mesh = mesh.Translate(0.5f, 0.5f, 0.5f);
         }
 
-        // Adjust scaling based on the domain for visual mesh size
-        if (stack?.Collectible?.Code?.Domain == "expandedfoods" && stack?.Collectible.MatterState is not EnumMatterState.Liquid)
-        {
-            mesh.Scale(new Vec3f(0.5f, 0, 0.5f), 0.5f, 0.5f, 0.5f);
-            mesh = mesh.Translate(0, prevSize, 0);
-            prevSize += props.Size;
-        }
-        else
-        {
-            mesh = mesh.Translate(0, prevSize, 0);
-            prevSize += props.Size;
-        }
+        // -------------------------
+        // STACKING
+        // -------------------------
+        mesh = mesh.Translate(0, offsetY, 0);
+        offsetY += props.Size;
+
         return mesh;
     }
 
 
 
 
-    public new string GetMeshCacheKey(ItemStack stack)
+    public new string GetMeshCacheKey(ItemSlot slot)
     {
-        SandwichProperties props = SandwichProperties.FromStack(stack, (api as ICoreClientAPI).World);
-        if (props == null || !props.Any)
+        ItemStack stack = slot?.Itemstack;
+
+        if (stack == null)
+        {
+            return Code.ToShortString();
+        }
+
+        return GetSandwichMeshKey(stack, api.World);
+    }
+
+
+    public string GetSandwichMeshKey(ItemStack stack, IWorldAccessor world)
+    {
+        if (stack == null)
         {
             return Code.ToString();
         }
-        return Code.ToString() + "-" + props.ToString();
+
+        SandwichProperties props = SandwichProperties.FromStack(stack, world);
+
+        if (props == null || !props.Any)
+        {
+            return stack.Collectible.Code.ToString();
+        }
+
+        StringBuilder key = new StringBuilder();
+
+        key.Append("base=");
+        key.Append(stack.Collectible.Code);
+
+        key.Append("|layers=");
+
+        List<ItemStack> ordered = props.GetOrdered(world)?.ToList() ?? new List<ItemStack>();
+
+        for (int i = 0; i < ordered.Count; i++)
+        {
+            ItemStack layer = ordered[i];
+            if (layer == null) continue;
+
+            key.Append(i);
+            key.Append(":");
+            key.Append(layer.Class);
+            key.Append(":");
+            key.Append(layer.Collectible?.Code);
+            key.Append(":");
+            key.Append(layer.StackSize);
+
+            if (layer.Attributes?["madeWith"] != null)
+            {
+                key.Append(":madeWith=");
+                key.Append(layer.Attributes["madeWith"].ToJsonToken());
+            }
+
+            if (layer.Attributes?["expandedSats"] != null)
+            {
+                key.Append(":expandedSats=");
+                key.Append(layer.Attributes["expandedSats"].ToJsonToken());
+            }
+
+            key.Append(";");
+        }
+
+        return key.ToString();
     }
 
     public override string GetHeldItemName(ItemStack stack)

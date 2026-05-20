@@ -79,13 +79,13 @@ public class WhenOnSandwichProperties
     {
         return new()
         {
-            Shape = Shape.Clone(),
-            ShapeLast = ShapeLast.Clone(),
-            Textures = Textures.ToDictionary(x => x.Key, y => y.Value.Clone()),
+            Shape = Shape?.Clone(),
+            ShapeLast = ShapeLast?.Clone(),
+            Textures = Textures?.ToDictionary(x => x.Key, y => y.Value.Clone()) ?? new(),
             Size = Size,
             Rotate = Rotate,
             CopyLastRotation = CopyLastRotation,
-            Rotation = Rotation.Clone(),
+            Rotation = Rotation?.Clone(),
             LitresPerLayer = LitresPerLayer
         };
     }

@@ -17,7 +17,7 @@ namespace sandwich;
 
 public class SandwichProperties
 {
-    protected OrderedDictionary<int, ItemStack> Layers { get; set; } = new();
+    protected Vintagestory.API.Datastructures.OrderedDictionary<int, ItemStack> Layers { get; set; } = new();
 
     public bool Any => Layers.Any();
 
@@ -95,7 +95,8 @@ public class SandwichProperties
         stackWithoutSandwichAttributes.Attributes.RemoveAttribute(attributeSandwichLayers);
         IEnumerable<ItemStack> stacks = new List<ItemStack>() { stackWithoutSandwichAttributes }.Concat(GetOrdered(world));
 
-        OrderedDictionary<string, float> stackSummary = new OrderedDictionary<string, float>();
+        Vintagestory.API.Datastructures.OrderedDictionary<string, float> stackSummary =
+    new Vintagestory.API.Datastructures.OrderedDictionary<string, float>();
 
         foreach (ItemStack stack in stacks)
         {
