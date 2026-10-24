@@ -2,13 +2,27 @@
   "code": "slicedcheese",
   "class": "sandwich.ExpandedFood",
   "maxstacksize": 64,
+  "variantgroups": [
+    {
+      "code": "type",
+      "states": [ "cheddar", "blue", "waxedcheddar" ]
+    }
+  ],
   "shapeByType": {
     "*": {
       "base": "sandwich:item/sandwich_ingredients_vanilla/dairy/cheese"
     }
   },
-  "textures": {
-    "all": { "base": "game:block/food/dairy/cheddarjack" }
+  "texturesByType": {
+    "slicedcheese-cheddar": {
+      "all": { "base": "game:block/food/dairy/cheddarjack" }
+    },
+    "slicedcheese-blue": {
+      "all": { "base": "game:block/food/dairy/waxedblue" }
+    },
+    "slicedcheese-waxedcheddar": {
+      "all": { "base": "game:block/food/dairy/cheddarjack" }
+    }
   },
   "creativeinventory": {
     "general": [ "*" ],
@@ -74,7 +88,7 @@
       "z": 180
     },
     "origin": {
-      "x": 0.47,
+      "x": 0.52,
       "y": 0.078,
       "z": 0.5
     },

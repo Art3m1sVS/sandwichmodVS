@@ -24,7 +24,10 @@ namespace sandwich
             { "redmeat-charred", new SlicingData("sandwich:slicedmeat-charred", 2) },
             { "cheese-blue-4slice", new SlicingData("game:cheese-blue-1slice", 4) },
             { "cheese-cheddar-4slice", new SlicingData("game:cheese-cheddar-1slice", 4) },
-            { "cheese-cheddar-1slice", new SlicingData("sandwich:slicedcheese", 4) },
+            { "cheese-waxedcheddar-4slice", new SlicingData("game:cheese-waxedcheddar-1slice", 4) },
+            { "cheese-cheddar-1slice", new SlicingData("sandwich:slicedcheese-cheddar", 4) },
+            { "cheese-blue-1slice", new SlicingData("sandwich:slicedcheese-blue", 4) },
+            { "cheese-waxedcheddar-1slice", new SlicingData("sandwich:slicedcheese-waxedcheddar", 4) },
             { "pumpkin-fruit-4", new SlicingData("game:vegetable-pumpkin", 4) },
             { "vegetable-cabbage", new SlicingData("sandwich:slicedcabbage", 4) },
 
@@ -99,6 +102,19 @@ namespace sandwich
             { "pickledvegetable-parsnip", new SlicingData("expandedfoods:choppedvegetable-pickledparsnip", 1) },
             { "pickledvegetable-onion", new SlicingData("expandedfoods:choppedvegetable-pickledonion", 2) },
             { "pickledvegetable-pumpkin", new SlicingData("expandedfoods:choppedvegetable-pickledpumpkin", 2) },
+
+            // DairyPlus
+            { "mozzaball", new SlicingData("sandwich:slicedcheese-mozzaball", 4) },
+            { "provalone-fresh", new SlicingData("sandwich:slicedcheese-provalone-fresh", 4) },
+            { "provalone-aged", new SlicingData("sandwich:slicedcheese-provalone-aged", 4) },
+            { "ricotta", new SlicingData("sandwich:slicedcheese-ricotta", 4) },
+            { "brunost", new SlicingData("sandwich:slicedcheese-brunost", 4) },
+            { "driedcurds", new SlicingData("sandwich:slicedcheese-driedcurds", 4) },
+            { "feta", new SlicingData("sandwich:slicedcheese-feta", 4) },
+            { "halloumi-uncooked", new SlicingData("sandwich:slicedcheese-halloumi-uncooked", 4) },
+            { "halloumi-partcooked", new SlicingData("sandwich:slicedcheese-halloumi-partcooked", 4) },
+            { "halloumi-cooked", new SlicingData("sandwich:slicedcheese-halloumi-cooked", 4) },
+            { "halloumi-burnt", new SlicingData("sandwich:slicedcheese-halloumi-burnt", 4) },
         };
     }
 

@@ -1,5 +1,19 @@
 {
   "cheese-blue-4slice": true,
   "cheese-cheddar-4slice": true,
-  "cheese-cheddar-1slice": true
+  "cheese-waxedcheddar-4slice": true,
+  "cheese-cheddar-1slice": true,
+  "cheese-waxedcheddar-1slice": true,
+  "cheese-blue-1slice": true,
+  "mozzaball": true,
+  "provalone-fresh": true,
+  "provalone-aged": true,
+  "ricotta": true,
+  "brunost": true,
+  "driedcurds": true,
+  "feta": true,
+  "halloumi-uncooked": true,
+  "halloumi-partcooked": true,
+  "halloumi-cooked": true,
+  "halloumi-burnt": true
 }

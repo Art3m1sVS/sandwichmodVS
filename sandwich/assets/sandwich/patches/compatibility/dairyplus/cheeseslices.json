@@ -1,27 +1,102 @@
 [
   {
-    "op": "add",
-    "path": "/attributes",
-    "value": true,
-    "side": "server",
-    "file": "@dairyplus:itemtypes/food/cheese/*.json"
+    "op": "addMerge",
+    "path": "/variantgroups/0/states",
+    "value": [
+      "brunost",
+      "driedcurds",
+      "feta",
+      "halloumi-uncooked",
+      "halloumi-partcooked",
+      "halloumi-cooked",
+      "halloumi-burnt",
+      "mozzaball",
+      "provalone-fresh",
+      "provalone-aged",
+      "ricotta"
+    ],
+    "file": "sandwich:itemtypes/sandwich/cheeseslice.json",
+    "dependsOn": [
+      {
+        "modid": "dairyplus"
+      }
+    ]
   },
   {
-    "op": "add",
-    "path": "/attributes",
+    "op": "addMerge",
+    "path": "/texturesByType",
     "value": {
-      "sandwich:whenOnSandwich": {
-        "shape": { "base": "sandwich:item/sandwich_ingredients_vanilla/dairy/cheese" },
-        //  "shapeLast": { "base": "sandwich:item/sandwich_ingredients_vanilla/slicedbread-top" },
-        "size": 0.0225, // 1/16
-        "rotate": true,
-        "rotation": {
-          "avg": 1,
-          "var": 0.8
+      "slicedcheese-brunost": {
+        "all": {
+          "base": "dairyplus:item/cheese/brunost"
+        }
+      },
+      "slicedcheese-driedcurds": {
+        "all": {
+          "base": "dairyplus:item/cheese/mozzaball"
+        }
+      },
+      "slicedcheese-feta": {
+        "all": {
+          "base": "dairyplus:item/cheese/feta"
+        }
+      },
+      "slicedcheese-halloumi-uncooked": {
+        "all": {
+          "base": "dairyplus:item/cheese/halloumifresh"
+        }
+      },
+      "slicedcheese-halloumi-partcooked": {
+        "all": {
+          "base": "dairyplus:item/cheese/halloumipartgrilled"
+        }
+      },
+      "slicedcheese-halloumi-cooked": {
+        "all": {
+          "base": "dairyplus:item/cheese/halloumigrilled"
+        }
+      },
+      "slicedcheese-halloumi-burnt": {
+        "all": {
+          "base": "dairyplus:item/cheese/halloumiburnt"
+        }
+      },
+      "slicedcheese-mozzaball": {
+        "all": {
+          "base": "dairyplus:item/cheese/mozzaball"
+        }
+      },
+      "slicedcheese-provalone-fresh": {
+        "all": {
+          "base": "dairyplus:item/cheese/curd-whole"
+        }
+      },
+      "slicedcheese-provalone-aged": {
+        "all": {
+          "base": "dairyplus:item/cheese/provaged"
+        }
+      },
+      "slicedcheese-provaloneslice-fresh": {
+        "all": {
+          "base": "dairyplus:item/cheese/curd-whole"
+        }
+      },
+      "slicedcheese-provaloneslice-aged": {
+        "all": {
+          "base": "dairyplus:item/cheese/provaged"
+        }
+      },
+      "slicedcheese-ricotta": {
+        "all": {
+          "base": "dairyplus:item/cheese/ricotta"
         }
       }
     },
-    "side": "server",
-    "file": "@dairyplus:itemtypes/food/cheese/*.json"
+    "file": "sandwich:itemtypes/sandwich/cheeseslice.json",
+    "dependsOn": [
+      {
+        "modid": "dairyplus"
+      }
+    ]
   }
 ]

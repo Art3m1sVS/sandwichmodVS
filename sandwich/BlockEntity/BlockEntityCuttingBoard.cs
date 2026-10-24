@@ -404,8 +404,25 @@ public class BlockEntityCuttingBoard : BlockEntityDisplay
 
                     if (Api.Side == EnumAppSide.Server)
                     {
-                        // Create the sliced output item based on SlicingStorage data
-                        ItemStack slicedItems = new ItemStack(Api.World.GetItem(sliceData.OutputAsset), sliceData.OutputQuantity);
+                        // Resolve the output item before creating an ItemStack
+                        Item outputItem = Api.World.GetItem(sliceData.OutputAsset);
+
+                        if (outputItem == null)
+                        {
+                            Api.World.Logger.Error(
+                                "[Sammiches] Missing slicing output! " +
+                                $"Input: {itemStack.Collectible.Code}, " +
+                                $"Expected output: {sliceData.OutputAsset}"
+                            );
+
+                            return false;
+                        }
+
+                        ItemStack slicedItems = new ItemStack(
+                            outputItem,
+                            sliceData.OutputQuantity
+                        );
+
                         ItemSandwich sandwichItem = new ItemSandwich();
 
                         // Call OnCreatedBySlicing to transfer nutrients
